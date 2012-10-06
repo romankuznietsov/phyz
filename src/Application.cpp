@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "GL/freeglut.h"
-#include "math.h"
+#include "random.h"
 
 
 const Time updatePeriod(10);
@@ -66,6 +66,12 @@ void Application::display()
 	glColor3f(1.0, 1.0, 1.0);
 
 	// draw
+	glBegin(GL_POINTS);
+	for(int i = 0; i < 3000; i++)
+	{
+		glVertex2f(random(-960, 960), random(-540, 540));
+	}
+	glEnd();
 
 	glutSwapBuffers();
 }
