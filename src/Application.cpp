@@ -32,7 +32,7 @@ void Application::run(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(1920, 1080);
-	glutCreateWindow("gravitality");
+	glutCreateWindow("app");
 
 	registerCallbacks();
 
