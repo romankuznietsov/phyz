@@ -1,4 +1,4 @@
-#include "random.h"
+#include "rangedRandom.h"
 #include "stdlib.h"
 #include "time.h"
 
@@ -12,13 +12,13 @@ void randomize()
 }
 
 
-int random(int min, int max)
+int rangedRandom(int min, int max)
 {
 	if (min == max)
 		return min;
 
 	if (min > max)
-		return random(max, min);
+		return rangedRandom(max, min);
 
 	randomize();
 

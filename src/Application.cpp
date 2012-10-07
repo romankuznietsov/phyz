@@ -1,6 +1,6 @@
 #include "Application.h"
 #include "GL/freeglut.h"
-#include "random.h"
+#include "rangedRandom.h"
 
 
 const Time updatePeriod(10);
@@ -69,7 +69,7 @@ void Application::display()
 	glBegin(GL_POINTS);
 	for(int i = 0; i < 3000; i++)
 	{
-		glVertex2f(random(-960, 960), random(-540, 540));
+		glVertex2f(rangedRandom(-960, 960), rangedRandom(-540, 540));
 	}
 	glEnd();
 
