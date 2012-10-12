@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "GL/freeglut.h"
+#include <GL/freeglut.h>
 #include "rangedRandom.h"
 
 

@@ -1,6 +1,6 @@
 #include "rangedRandom.h"
-#include "stdlib.h"
-#include "time.h"
+#include <stdlib.h>
+#include <time.h>
 
 
 void randomize()

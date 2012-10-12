@@ -2,8 +2,8 @@
 #define VECTOR_H
 
 
-#include "GL/freeglut.h"
-#include "math.h"
+#include <GL/freeglut.h>
+#include <math.h>
 
 
 class Vector
