@@ -1,7 +1,7 @@
 #include "Application.h"
 #include <GL/freeglut.h>
 #include "rangedRandom.h"
-#include <stdio.h> // for demo purposes
+#include <stdio.h> // for demo
 
 
 const int updatePeriod = 10;
