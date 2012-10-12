@@ -1,10 +1,13 @@
 #include "Application.h"
 #include <GL/freeglut.h>
 #include "rangedRandom.h"
+#include <stdio.h> // for demo purposes
 
 
 const int updatePeriod = 10;
 int Application::_lastUpdateTime = 0;
+int Application::_width = 800;
+int Application::_height = 600;
 
 
 void Application::exit()
@@ -31,7 +34,7 @@ void Application::run(int argc, char** argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(1920, 1080);
+	glutInitWindowSize(_width, _height);
 	glutCreateWindow("app");
 
 	registerCallbacks();
@@ -39,7 +42,7 @@ void Application::run(int argc, char** argv)
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-960.0, 960.0, -540.0, 540.0, -1.0, 1.0);
+	glOrtho(-_width / 2, _width / 2, -_height / 2, _height / 2, -1.0, 1.0);
 
 	glutTimerFunc(updatePeriod, update, 0);
 	glutMainLoop();
@@ -66,23 +69,37 @@ void Application::display()
 	glColor3f(1.0, 1.0, 1.0);
 
 	// draw
-	glBegin(GL_POINTS);
-	for(int i = 0; i < 3000; i++)
-	{
-		glVertex2f(rangedRandom(-960, 960), rangedRandom(-540, 540));
-	}
+
+	// demo
+	glColor3f(0.2f, 0.2f, 0.2f);
+	glBegin(GL_LINES);
+	glVertex2f(_width/2, _height/2);
+	glVertex2f(-_width/2, -_height/2);
+	glVertex2f(-_width/2, _height/2);
+	glVertex2f(_width/2, -_height/2);
 	glEnd();
+
+	glColor3f(1.0f, 1.0f, 1.0f);
+	char resolution[12];
+	sprintf(resolution, "%d x %d", _width, _height);
+	glPushMatrix();
+	glTranslatef(-_width/2, -_height/2, 0.0f);
+	glScalef(0.2f, 0.2f, 1.0f);
+	glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char*) resolution);
+	glPopMatrix();
 
 	glutSwapBuffers();
 }
 
 
-void Application::reshape(int w, int h)
+void Application::reshape(int width, int height)
 {
-	glViewport(0, 0, (GLsizei) w, (GLsizei) h);
+	_width = width;
+	_height = height;
+	glViewport(0, 0, (GLsizei) _width, (GLsizei) _height);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-960.0, 960.0, -540.0, 540.0, -1.0, 1.0);
+	glOrtho(-_width / 2, _width / 2, -_height / 2, _height / 2, -1.0, 1.0);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }

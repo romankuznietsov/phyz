@@ -6,6 +6,8 @@ class Application
 {
 	private:
 		static int _lastUpdateTime;
+		static int _width;
+		static int _height;
 
 		static void exit();
 		static void registerCallbacks();
