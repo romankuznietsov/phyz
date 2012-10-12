@@ -3,8 +3,8 @@
 #include "rangedRandom.h"
 
 
-const Time updatePeriod(10);
-Time Application::_lastUpdateTime = 0;
+const int updatePeriod = 10;
+int Application::_lastUpdateTime = 0;
 
 
 void Application::exit()
@@ -41,20 +41,20 @@ void Application::run(int argc, char** argv)
 	glLoadIdentity();
 	glOrtho(-960.0, 960.0, -540.0, 540.0, -1.0, 1.0);
 
-	glutTimerFunc(updatePeriod.toInt(), update, 0);
+	glutTimerFunc(updatePeriod, update, 0);
 	glutMainLoop();
 }
 
 
 void Application::update(int i)
 {
-	Time elapsedTime = glutGet(GLUT_ELAPSED_TIME);
-	Time dt = elapsedTime - _lastUpdateTime;
+	int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
+	int dt = elapsedTime - _lastUpdateTime;
 	_lastUpdateTime = elapsedTime;
 
 	// update
 
-	glutTimerFunc(updatePeriod.toInt(), update, 0);
+	glutTimerFunc(updatePeriod, update, 0);
 	glutPostRedisplay();
 }
 

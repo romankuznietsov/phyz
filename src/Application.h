@@ -2,13 +2,10 @@
 #define APPLICATION_H
 
 
-#include "Time.h"
-
-
 class Application
 {
 	private:
-		static Time _lastUpdateTime;
+		static int _lastUpdateTime;
 
 		static void exit();
 		static void registerCallbacks();
