@@ -4,6 +4,7 @@
 #include <stdio.h> // for demo
 
 
+Scene Application::_scene;
 const int updatePeriod = 10;
 int Application::_lastUpdateTime = 0;
 int Application::_width = 800;
@@ -56,6 +57,7 @@ void Application::update(int i)
 	_lastUpdateTime = elapsedTime;
 
 	// update
+	_scene.update((float) dt);
 
 	glutTimerFunc(updatePeriod, update, 0);
 	glutPostRedisplay();
@@ -69,24 +71,8 @@ void Application::display()
 	glColor3f(1.0, 1.0, 1.0);
 
 	// draw
+	_scene.draw();
 
-	// demo
-	glColor3f(0.2f, 0.2f, 0.2f);
-	glBegin(GL_LINES);
-	glVertex2f(_width/2, _height/2);
-	glVertex2f(-_width/2, -_height/2);
-	glVertex2f(-_width/2, _height/2);
-	glVertex2f(_width/2, -_height/2);
-	glEnd();
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	char resolution[12];
-	sprintf(resolution, "%d x %d", _width, _height);
-	glPushMatrix();
-	glTranslatef(-_width/2, -_height/2, 0.0f);
-	glScalef(0.2f, 0.2f, 1.0f);
-	glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char*) resolution);
-	glPopMatrix();
 
 	glutSwapBuffers();
 }

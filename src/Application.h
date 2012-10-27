@@ -2,9 +2,14 @@
 #define APPLICATION_H
 
 
+#include "Scene.h"
+
+
 class Application
 {
 	private:
+		static Scene _scene;
+
 		static int _lastUpdateTime;
 		static int _width;
 		static int _height;
