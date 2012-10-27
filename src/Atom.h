@@ -17,6 +17,12 @@ class Atom
 		Atom(Vector position = Vector(), Vector speed = Vector());
 		void update(float dt);
 		void draw();
+
+		Vector getPosition();
+		void setPosition(Vector position);
+		Vector getSpeed();
+		void setSpeed(Vector speed);
+		float radius();
 };
 
 
