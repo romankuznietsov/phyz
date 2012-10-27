@@ -125,6 +125,11 @@ class Vector
 		{
 			return *this / length();
 		}
+
+		inline float scalarMult(Vector other)
+		{
+			return this->x * other.x + this->y * other.y;
+		}
 };
 
 

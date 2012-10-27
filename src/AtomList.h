@@ -2,12 +2,12 @@
 #define ATOMLIST_H
 
 
-#include <list>
+#include <vector>
 #include <boost/shared_ptr.hpp>
 #include "Atom.h"
 
 
-class AtomList : public std::list<AtomPtr>
+class AtomList : public std::vector<AtomPtr>
 {
 	public:
 		AtomList();

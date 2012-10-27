@@ -3,7 +3,7 @@
 #include "foreach.h"
 
 
-const float sceneSize = 400.0f;
+const float sceneSize = 500.0f;
 
 
 Scene::Scene() :
