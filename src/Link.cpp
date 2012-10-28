@@ -15,7 +15,7 @@ void Link::update(float dt)
 	Vector linkingVector = _atom2->getPosition() - _atom1->getPosition();
 	Vector targetLinkingVector = linkingVector.normalize() * _targetDistance;
 	Vector push1 = linkingVector - targetLinkingVector;
-	push1 *= dt;
+	push1 *= dt * 100.0f;
 	Vector push2 = - push1;
 	_atom1->setSpeed(_atom1->getSpeed() + push1);
 	_atom2->setSpeed(_atom2->getSpeed() + push2);
