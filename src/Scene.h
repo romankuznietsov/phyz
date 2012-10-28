@@ -2,13 +2,13 @@
 #define SCENE_H
 
 
-#include "AtomList.h"
+#include "Atoms.h"
 
 
 class Scene
 {
 	private:
-		AtomListPtr _atoms;
+		AtomsPtr _atoms;
 		float _leftLimit;
 		float _rightLimit;
 		float _topLimit;

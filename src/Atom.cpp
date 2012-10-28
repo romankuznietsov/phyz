@@ -3,7 +3,7 @@
 #include "math.h"
 
 
-float Atom::_radius = 20.0f;
+float Atom::_radius = 10.0f;
 
 
 Atom::Atom(Vector position, Vector speed) :

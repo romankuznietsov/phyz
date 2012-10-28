@@ -7,16 +7,16 @@
 #include "Atom.h"
 
 
-class AtomList : public std::vector<AtomPtr>
+class Atoms : public std::vector<AtomPtr>
 {
 	public:
-		AtomList();
+		Atoms();
 		void update(float dt);
 		void draw();
 };
 
 
-typedef boost::shared_ptr<AtomList> AtomListPtr;
+typedef boost::shared_ptr<Atoms> AtomsPtr;
 
 
 #endif // ATOMLIST_H

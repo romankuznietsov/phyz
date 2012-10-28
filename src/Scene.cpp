@@ -12,7 +12,7 @@ Scene::Scene() :
 	_topLimit(sceneSize),
 	_bottomLimit(-sceneSize)
 {
-	_atoms.reset(new AtomList);
+	_atoms.reset(new Atoms);
 }
 
 

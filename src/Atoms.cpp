@@ -1,12 +1,12 @@
-#include "AtomList.h"
+#include "Atoms.h"
 #include "foreach.h"
 #include "rangedRandom.h"
 
 
-AtomList::AtomList()
+Atoms::Atoms()
 {
-	for (float x = -300.0f; x <= 300.0f; x += 50.0f)
-		for (float y = -300.0f; y <= 300.0f; y += 50.0f)
+	for (float x = -300.0f; x <= 300.0f; x += 30.0f)
+		for (float y = -300.0f; y <= 300.0f; y += 30.0f)
 		{
 			float speedX = rangedRandom(-100, 100) / 1000.0f;
 			float speedY = rangedRandom(-100, 100) / 1000.0f;
@@ -15,7 +15,7 @@ AtomList::AtomList()
 }
 
 
-void AtomList::update(float dt)
+void Atoms::update(float dt)
 {
 	foreach(AtomPtr atom, *this)
 	{
@@ -64,7 +64,7 @@ void AtomList::update(float dt)
 }
 
 
-void AtomList::draw()
+void Atoms::draw()
 {
 	foreach(AtomPtr atom, *this)
 	{
