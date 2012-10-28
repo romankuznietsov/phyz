@@ -1,17 +1,9 @@
 #include "Atoms.h"
 #include "foreach.h"
-#include "rangedRandom.h"
 
 
 Atoms::Atoms()
 {
-	for (float x = -300.0f; x <= 300.0f; x += 30.0f)
-		for (float y = -300.0f; y <= 300.0f; y += 30.0f)
-		{
-			float speedX = rangedRandom(-100, 100) / 1000.0f;
-			float speedY = rangedRandom(-100, 100) / 1000.0f;
-			this->push_back(AtomPtr(new Atom(Vector(x, y), Vector(speedX, speedY))));
-		}
 }
 
 
@@ -31,7 +23,7 @@ void Atoms::update(float dt)
 			Vector position1 = atom1->getPosition();
 			Vector position2 = atom2->getPosition();
 
-			if (position1.distance(position2) > atom1->radius() * 2.0f)
+			if (Vector::distance(position1, position2) > atom1->radius() * 2.0f)
 				continue;
 
 			Vector speed1 = atom1->getSpeed();
@@ -42,12 +34,12 @@ void Atoms::update(float dt)
 			float hit = 0;
 			if (speed1.length() != 0.0f)
 			{
-				float cos = (speed1.scalarMult(collision)) / (speed1.length() * collision.length());
+				float cos = (Vector::scalarMult(speed1, collision)) / (speed1.length() * collision.length());
 				hit += speed1.length() * cos;
 			}
 			if (speed2.length() != 0.0f)
 			{
-				float cos = (speed2.scalarMult(-collision)) / (speed2.length() * collision.length());
+				float cos = (Vector::scalarMult(speed2, -collision)) / (speed2.length() * collision.length());
 				hit += speed2.length() * cos;
 			}
 

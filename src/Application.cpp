@@ -53,11 +53,11 @@ void Application::run(int argc, char** argv)
 void Application::update(int i)
 {
 	int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
-	int dt = elapsedTime - _lastUpdateTime;
+	float dt = (elapsedTime - _lastUpdateTime) / 1000.0f;
 	_lastUpdateTime = elapsedTime;
 
 	// update
-	_scene.update((float) dt);
+	_scene.update(dt);
 
 	glutTimerFunc(updatePeriod, update, 0);
 	glutPostRedisplay();

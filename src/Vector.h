@@ -115,20 +115,20 @@ class Vector
 		}
 
 
-		inline float distance(Vector other)
-		{
-			return sqrt(pow(x - other.x, 2) + pow(y - other.y, 2));
-		}
-
-
 		inline Vector normalize()
 		{
 			return *this / length();
 		}
 
-		inline float scalarMult(Vector other)
+		static inline float scalarMult(Vector v1, Vector v2)
 		{
-			return this->x * other.x + this->y * other.y;
+			return v1.x * v2.x + v1.y * v2.y;
+		}
+
+
+		static inline float distance(Vector v1, Vector v2)
+		{
+			return sqrt(pow(v1.x - v2.x, 2) + pow(v1.y - v2.y, 2));
 		}
 };
 
