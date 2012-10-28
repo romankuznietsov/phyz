@@ -12,6 +12,7 @@ class Link
 		AtomPtr _atom1;
 		AtomPtr _atom2;
 		float _targetDistance;
+		bool _destroyed;
 	public:
 		Link(AtomPtr atom1, AtomPtr atom2);
 		void update(float dt);

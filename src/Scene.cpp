@@ -14,20 +14,20 @@ Scene::Scene() :
 	_topLimit(sceneSize),
 	_bottomLimit(-sceneSize)
 {
-	for (int i = 0; i < 20; i ++)
+	for (int i = 0; i < 80; i ++)
 	{
-		_atoms->push_back(AtomPtr(new Atom(Vector((i-10) * 20.0f, 30.0f * (-1 * (i % 2))), Vector())));
+		_atoms->push_back(AtomPtr(new Atom(Vector((i-40) * 10.0f, 15.0f * (-1 * (i % 2))), Vector())));
 	}
-	for (int i = 0; i < 20 - 1 ; i ++)
+	for (int i = 0; i < 80 - 1 ; i ++)
 	{
 		_links->push_back(LinkPtr(new Link((*_atoms)[i], (*_atoms)[i+1])));
-		if ( i < 20 - 2 )
+		if ( i < 80 - 2 )
 			_links->push_back(LinkPtr(new Link((*_atoms)[i], (*_atoms)[i+2])));
 	}
-	_atoms->push_back(AtomPtr(new Atom(Vector(-40.0f, -450.0f), Vector(0.0f, 100.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(-80.0f, -450.0f), Vector(0.0f, 100.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(-120.0f, -450.0f), Vector(0.0f, 100.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(-160.0f, -450.0f), Vector(0.0f, 100.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(-300.0f, -480.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(-100.0f, -480.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(100.0f, -480.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(300.0f, -480.0f), Vector(0.0f, 500.0f))));
 }
 
 

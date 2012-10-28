@@ -2,7 +2,7 @@
 #include "foreach.h"
 
 
-const float elasticity = 1000.0f;
+const float elasticity = 1500.0f;
 
 
 Atoms::Atoms()
