@@ -11,14 +11,11 @@ class Scene
 	private:
 		AtomsPtr _atoms;
 		LinksPtr _links;
-		float _leftLimit;
-		float _rightLimit;
-		float _topLimit;
-		float _bottomLimit;
 	public:
 		Scene();
 		void update(float dt);
 		void draw();
+		void addAtom(Vector position);
 };
 
 #endif // SCENE_H

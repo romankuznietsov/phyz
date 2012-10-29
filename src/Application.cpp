@@ -29,7 +29,6 @@ void Application::registerCallbacks()
 	glutSpecialUpFunc(specialUp);
 }
 
-
 void Application::run(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -104,6 +103,13 @@ void Application::keyboardUp(unsigned char key, int x, int y)
 
 void Application::mouse(int button, int state, int x, int y)
 {
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		if (glutGetModifiers() | GLUT_ACTIVE_CTRL)
+		{
+			_scene.addAtom(Vector(x - _width / 2, - y + _height / 2));
+		}
+	}
 }
 
 

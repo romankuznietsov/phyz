@@ -2,9 +2,6 @@
 #include "foreach.h"
 
 
-const float elasticity = 1500.0f;
-
-
 Atoms::Atoms()
 {
 }
@@ -23,25 +20,22 @@ void Atoms::update(float dt)
 		{
 			AtomPtr atom1((*this)[i]);
 			AtomPtr atom2((*this)[j]);
-			Vector position1 = atom1->getPosition();
-			Vector position2 = atom2->getPosition();
+
+			Vector position1 = atom1->position();
+			Vector position2 = atom2->position();
+
 			float distance = Vector::distance(position1, position2);
 			float collisionDistance = atom1->radius() + atom2->radius();
 
 			if (distance > collisionDistance)
 				continue;
 
-			Vector speed1 = atom1->getSpeed();
-			Vector speed2 = atom2->getSpeed();
-			float force = (collisionDistance - distance) * elasticity;
-			speed1 += (position1 - position2).normalize() * force * dt;
-			speed2 += (position2 - position1).normalize() * force * dt;
+			float force = (collisionDistance - distance) * atom1->elasticity() * atom2->elasticity();
 
-			atom1->setSpeed(speed1);
-			atom2->setSpeed(speed2);
+			atom1->applyForce((position1 - position2).normalize() * force * dt);
+			atom2->applyForce((position2 - position1).normalize() * force * dt);
 		}
 	}
-
 }
 
 
@@ -51,4 +45,15 @@ void Atoms::draw()
 	{
 		atom->draw();
 	}
+}
+
+
+void Atoms::add(Vector position, Vector speed)
+{
+	foreach(AtomPtr atom, *this)
+	{
+		if (Vector::distance(atom->position(), position) < atom->radius() * 2.0f)
+			return;
+	}
+	this->push_back(AtomPtr(new Atom(position, speed)));
 }
