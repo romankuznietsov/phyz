@@ -12,4 +12,10 @@ void debug(std::string text)
 }
 
 
+void debug(std::string text, float value)
+{
+	std::cout << text << " : " << value << std::endl;
+}
+
+
 #endif // DEBUG_H
