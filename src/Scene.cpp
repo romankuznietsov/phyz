@@ -24,10 +24,12 @@ Scene::Scene() :
 		if ( i < 80 - 2 )
 			_links->push_back(LinkPtr(new Link((*_atoms)[i], (*_atoms)[i+2])));
 	}
-	_atoms->push_back(AtomPtr(new Atom(Vector(-300.0f, -480.0f), Vector(0.0f, 500.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(-100.0f, -480.0f), Vector(0.0f, 500.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(100.0f, -480.0f), Vector(0.0f, 500.0f))));
-	_atoms->push_back(AtomPtr(new Atom(Vector(300.0f, -480.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(0.0f, -470.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(-10.0f, -490.0f), Vector(0.0f, 500.0f))));
+	_atoms->push_back(AtomPtr(new Atom(Vector(10.0f, -490.0f), Vector(0.0f, 500.0f))));
+	_links->push_back(LinkPtr(new Link((*_atoms)[80], (*_atoms)[81])));
+	_links->push_back(LinkPtr(new Link((*_atoms)[81], (*_atoms)[82])));
+	_links->push_back(LinkPtr(new Link((*_atoms)[82], (*_atoms)[80])));
 }
 
 
