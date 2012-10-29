@@ -27,13 +27,13 @@ void Atoms::update(float dt)
 			float distance = Vector::distance(position1, position2);
 			float collisionDistance = atom1->radius() + atom2->radius();
 
-			if (distance > collisionDistance)
-				continue;
+			if (distance < collisionDistance)
+			{
+				float force = (collisionDistance - distance) * atom1->elasticity() * atom2->elasticity();
 
-			float force = (collisionDistance - distance) * atom1->elasticity() * atom2->elasticity();
-
-			atom1->applyForce((position1 - position2).normalize() * force * dt);
-			atom2->applyForce((position2 - position1).normalize() * force * dt);
+				atom1->applyForce((position1 - position2).normalize() * force * dt);
+				atom2->applyForce((position2 - position1).normalize() * force * dt);
+			}
 		}
 	}
 }
