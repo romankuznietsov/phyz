@@ -1,19 +1,5 @@
 phyz
 phyz_test
-
-# Compiled Object files
-*.slo
-*.lo
 *.o
-
-# Compiled Dynamic libraries
-*.so
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-
-# Vim
 *.swp
 *.swo

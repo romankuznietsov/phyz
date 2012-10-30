@@ -3,6 +3,8 @@ APP_NAME = phyz
 CXX = g++
 CXXFLAGS = -pedantic -Wall -Wextra
 LDFLAGS = -lGL -lGLU -lglut
+TEST_CXXFLAGS = -Isrc -Iinclude
+TEST_LDFLAGS = -Llib -lgtest -lgtest_main -lpthread
 
 SRCS = $(wildcard src/*.cpp)
 OBJS = $(patsubst src/%.cpp, obj/%.o, $(SRCS))
@@ -15,15 +17,14 @@ all: $(APP_NAME)
 $(APP_NAME) : $(OBJS)
 	$(CXX) $(OBJS) $(LDFLAGS) -o $(APP_NAME)
 
-test : OBJS_WITHOUT_MAIN = $(patsubst obj/main.o, , $(OBJS))
-test : $(OBJS_WITHOUT_MAIN) $(TEST_OBJS)
-	$(CXX) $(OBJS_WITHOUT_MAIN) $(TEST_OBJS) $(LDFLAGS) -o $(APP_NAME)_test
+test : $(OBJS) $(TEST_OBJS)
+	$(CXX) $(patsubst obj/main.o, , $(OBJS)) $(TEST_OBJS) $(LDFLAGS) $(TEST_LDFLAGS) -o $(APP_NAME)_test
 
 obj/%.o : src/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
 obj/%_test.o : test/%_test.cpp
-	$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(CXXFLAGS) $(TEST_CXXFLAGS) $< -o $@
 
 
 .PHONY: clean
