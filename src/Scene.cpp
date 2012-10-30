@@ -4,6 +4,7 @@
 
 
 Scene::Scene() :
+	_paused(false),
 	_atoms(new Atoms),
 	_links(new Links)
 {
@@ -28,19 +29,35 @@ Scene::Scene() :
 
 void Scene::update(float dt)
 {
+	if (_paused)
+		return;
 	_atoms->update(dt);
 	_links->update(dt);
 }
 
 
-void Scene::draw()
+void Scene::draw(float width, float height)
 {
 	_atoms->draw();
 	_links->draw();
+	if (_paused)
+	{
+		glPushMatrix();
+		glTranslatef(- width / 2.0f, -height / 2.0f, 0.0f);
+		glScalef(0.2f, 0.2f, 1.0f);
+		glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Paused");
+		glPopMatrix();
+	}
 }
 
 
 void Scene::addAtom(Vector position)
 {
 	_atoms->add(position, Vector());
+}
+
+
+void Scene::togglePause()
+{
+	_paused = !_paused;
 }

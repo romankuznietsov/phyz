@@ -70,8 +70,7 @@ void Application::display()
 	glColor3f(1.0, 1.0, 1.0);
 
 	// draw
-	_scene.draw();
-
+	_scene.draw(_width, _height);
 
 	glutSwapBuffers();
 }
@@ -92,7 +91,17 @@ void Application::reshape(int width, int height)
 
 void Application::keyboard(unsigned char key, int x, int y)
 {
-	if (key == 27) exit();
+	switch(key)
+	{
+		case 27:
+			exit();
+			break;
+		case 'p':
+			_scene.togglePause();
+			break;
+		default:
+			break;
+	}
 }
 
 
