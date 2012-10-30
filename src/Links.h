@@ -12,7 +12,7 @@ class Links : public std::vector<LinkPtr>
 	public:
 		void update(float dt);
 		void draw();
-		void add(AtomPtr atom1, AtomPtr atom2);
+		LinkPtr add(AtomPtr atom1, AtomPtr atom2);
 };
 
 

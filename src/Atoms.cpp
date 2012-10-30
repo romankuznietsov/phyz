@@ -48,12 +48,9 @@ void Atoms::draw()
 }
 
 
-void Atoms::add(Vector position, Vector speed)
+AtomPtr Atoms::add(Vector position, Vector speed)
 {
-	foreach(AtomPtr atom, *this)
-	{
-		if (Vector::distance(atom->position(), position) < atom->radius() * 2.0f)
-			return;
-	}
-	this->push_back(AtomPtr(new Atom(position, speed)));
+	AtomPtr atom(new Atom(position, speed));
+	this->push_back(atom);
+	return atom;
 }

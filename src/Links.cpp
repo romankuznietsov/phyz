@@ -21,7 +21,9 @@ void Links::draw()
 }
 
 
-void Links::add(AtomPtr atom1, AtomPtr atom2)
+LinkPtr Links::add(AtomPtr atom1, AtomPtr atom2)
 {
-	this->push_back(LinkPtr(new Link(atom1, atom2)));
+	LinkPtr link(new Link(atom1, atom2));
+	this->push_back(link);
+	return link;
 }

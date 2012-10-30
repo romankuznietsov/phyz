@@ -20,12 +20,13 @@ Scene::Scene() :
 		if ( i < 80 - 2 )
 			_links->add((*_atoms)[i], (*_atoms)[i+2]);
 	}
-	_atoms->add(Vector(-820.0f, 10.0f), Vector(500.0f, 0.0f));
-	_atoms->add(Vector(-800.0f, -0.0f), Vector(500.0f, 0.0f));
-	_atoms->add(Vector(-820.0f, -10.0f), Vector(500.0f, 0.0f));
-	_links->add((*_atoms)[80], (*_atoms)[81]);
-	_links->add((*_atoms)[81], (*_atoms)[82]);
-	_links->add((*_atoms)[82], (*_atoms)[80]);
+
+	AtomPtr atom1 = _atoms->add(Vector(-820.0f, 10.0f), Vector(500.0f, 0.0f));
+	AtomPtr atom2 = _atoms->add(Vector(-800.0f, -0.0f), Vector(500.0f, 0.0f));
+	AtomPtr atom3 = _atoms->add(Vector(-820.0f, -10.0f), Vector(500.0f, 0.0f));
+	_links->add(atom1, atom2);
+	_links->add(atom2, atom3);
+	_links->add(atom3, atom1);
 }
 
 
