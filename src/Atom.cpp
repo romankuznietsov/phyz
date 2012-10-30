@@ -4,6 +4,8 @@
 
 
 float Atom::_radius = 5.0f;
+float Atom::_mass = 1.0f;
+float Atom::_elasticity = 40.0f;
 
 
 Atom::Atom(Vector position, Vector speed) :
@@ -37,31 +39,37 @@ void Atom::draw()
 }
 
 
-Vector Atom::getPosition()
+Vector Atom::position()
 {
 	return _position;
 }
 
 
-void Atom::setPosition(Vector position)
-{
-	_position = position;
-}
-
-
-Vector Atom::getSpeed()
+Vector Atom::speed()
 {
 	return _speed;
-}
-
-
-void Atom::setSpeed(Vector speed)
-{
-	_speed = speed;
 }
 
 
 float Atom::radius()
 {
 	return _radius;
+}
+
+
+float Atom::mass()
+{
+	return _mass;
+}
+
+
+float Atom::elasticity()
+{
+	return _elasticity;
+}
+
+
+void Atom::applyForce(Vector force)
+{
+	_speed += force / _mass;
 }

@@ -12,17 +12,20 @@ class Atom
 		Vector _position;
 		Vector _speed;
 		static float _radius;
+		static float _mass;
+		static float _elasticity;
 
 	public:
 		Atom(Vector position = Vector(), Vector speed = Vector());
 		void update(float dt);
 		void draw();
 
-		Vector getPosition();
-		void setPosition(Vector position);
-		Vector getSpeed();
-		void setSpeed(Vector speed);
+		Vector position();
+		Vector speed();
 		float radius();
+		float mass();
+		float elasticity();
+		void applyForce(Vector force);
 };
 
 

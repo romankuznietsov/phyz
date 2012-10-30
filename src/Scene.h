@@ -9,16 +9,15 @@
 class Scene
 {
 	private:
+		bool _paused;
 		AtomsPtr _atoms;
 		LinksPtr _links;
-		float _leftLimit;
-		float _rightLimit;
-		float _topLimit;
-		float _bottomLimit;
 	public:
 		Scene();
 		void update(float dt);
-		void draw();
+		void draw(float width, float height);
+		void addAtom(Vector position);
+		void togglePause();
 };
 
 #endif // SCENE_H
