@@ -7,15 +7,27 @@ LDFLAGS = -lGL -lGLU -lglut
 SRCS = $(wildcard src/*.cpp)
 OBJS = $(patsubst src/%.cpp, obj/%.o, $(SRCS))
 
-all : $(OBJS)
+TEST_SRCS = $(wildcard test/*.cpp)
+TEST_OBJS = $(patsubst test/%.cpp, obj/%.o, $(TEST_SRCS))
+
+all: $(APP_NAME)
+
+$(APP_NAME) : $(OBJS)
 	$(CXX) $(OBJS) $(LDFLAGS) -o $(APP_NAME)
 
-obj/%.o : src/%.cpp obj_dir
+test : OBJS_WITHOUT_MAIN = $(patsubst obj/main.o, , $(OBJS))
+test : $(OBJS_WITHOUT_MAIN) $(TEST_OBJS)
+	$(CXX) $(OBJS_WITHOUT_MAIN) $(TEST_OBJS) $(LDFLAGS) -o $(APP_NAME)_test
+
+obj/%.o : src/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-obj_dir:
-	mkdir obj -p
+obj/%_test.o : test/%_test.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
+
+.PHONY: clean
 clean :
 	-rm -f obj/*.o
 	-rm -f $(APP_NAME)
+	-rm -f $(APP_NAME)_test
