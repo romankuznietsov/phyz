@@ -1,10 +1,12 @@
 #include "Scene.h"
 #include <GL/freeglut.h>
 #include "foreach.h"
+#include "stdio.h"
 
 
 Scene::Scene() :
 	_paused(false),
+	_lastDt(0.0f),
 	_atoms(new Atoms),
 	_links(new Links)
 {
@@ -29,6 +31,7 @@ Scene::Scene() :
 
 void Scene::update(float dt)
 {
+	_lastDt = dt;
 	if (_paused)
 		return;
 	_atoms->update(dt);
@@ -48,6 +51,14 @@ void Scene::draw(float width, float height)
 		glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)"Paused");
 		glPopMatrix();
 	}
+
+	char c[32];
+	sprintf(c, "%f", _lastDt);
+	glPushMatrix();
+	glTranslatef(width / 2.0f - 120.0f, -height / 2.0f, 0.0f);
+	glScalef(0.2f, 0.2f, 1.0f);
+	glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
+	glPopMatrix();
 }
 
 

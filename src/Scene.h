@@ -10,6 +10,7 @@ class Scene
 {
 	private:
 		bool _paused;
+		float _lastDt;
 		AtomsPtr _atoms;
 		LinksPtr _links;
 	public:
