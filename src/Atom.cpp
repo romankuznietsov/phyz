@@ -26,13 +26,20 @@ void Atom::draw()
 	glPushMatrix();
 	_position.translate();
 
+	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex2f(0.0f, 0.0f);
-	for (float i = 0.0f; i < 2 * M_PI + 0.3; i += 0.3)
+	for (float i = 0.0f; i < 2.0f * M_PI + 0.3f; i += 0.3f)
 	{
 		glVertex2f(sin(i) * _radius,
 				   cos(i) * _radius);
 	}
+	glEnd();
+
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glBegin(GL_LINES);
+	glVertex2f(0.0f, 0.0f);
+	_speed.vertex();
 	glEnd();
 
 	glPopMatrix();
