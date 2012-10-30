@@ -1,18 +1,21 @@
-CC = g++
-WARN = -pedantic -Wall -Wextra
+APP_NAME = phyz
 
-LGLUT = -lGL -lGLU -lglut
+CXX = g++
+CXXFLAGS = -pedantic -Wall -Wextra
+LDFLAGS = -lGL -lGLU -lglut
 
 SRCS = $(wildcard src/*.cpp)
 OBJS = $(patsubst src/%.cpp, obj/%.o, $(SRCS))
 
-phyz : $(OBJS)
-	$(CC) $(OBJS) $(LGLUT) -o phyz
+all : $(OBJS)
+	$(CXX) $(OBJS) $(LDFLAGS) -o $(APP_NAME)
 
-obj/%.o : src/%.cpp
+obj/%.o : src/%.cpp obj_dir
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+obj_dir:
 	mkdir obj -p
-	$(CC) -c $(WARN) $< -o $@
 
 clean :
 	-rm -f obj/*.o
-	-rm -f phyz
+	-rm -f $(APP_NAME)
