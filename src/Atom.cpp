@@ -3,7 +3,7 @@
 #include "math.h"
 
 
-float Atom::_radius = 7.0f;
+float Atom::_radius = 5.0f;
 float Atom::_mass = 1.0f;
 float Atom::_elasticity = 40.0f;
 

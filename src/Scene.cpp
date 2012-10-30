@@ -5,20 +5,26 @@
 
 
 Scene::Scene() :
-	_paused(false),
+	_paused(true),
 	_lastDt(0.0f),
 	_atoms(new Atoms),
 	_links(new Links)
 {
-	for (int i = 0; i < 80; i ++)
+	AtomPtr prevAtom1;
+	AtomPtr prevAtom2;
+	for (int i = 0; i < 40; i ++)
 	{
-		_atoms->add(Vector(15.0f * (-1 * (i % 2)), (i-40) * 10.0f), Vector());
-	}
-	for (int i = 0; i < 80 - 1 ; i ++)
-	{
-		_links->push_back(LinkPtr(new Link((*_atoms)[i], (*_atoms)[i+1])));
-		if ( i < 80 - 2 )
-			_links->add((*_atoms)[i], (*_atoms)[i+2]);
+		AtomPtr atom1 = _atoms->add(Vector(10.0f , 20.0f * i - 405.0f), Vector());
+		AtomPtr atom2 = _atoms->add(Vector(-10.0f, 20.0f * i - 395.0f), Vector());
+		_links->add(atom1, atom2);
+		if (prevAtom1 && prevAtom2)
+		{
+			_links->add(atom1, prevAtom1);
+			_links->add(atom2, prevAtom2);
+			_links->add(atom1, prevAtom2);
+		}
+		prevAtom1 = atom1;
+		prevAtom2 = atom2;
 	}
 
 	AtomPtr atom1 = _atoms->add(Vector(-820.0f, 10.0f), Vector(500.0f, 0.0f));
