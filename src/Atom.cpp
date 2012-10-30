@@ -3,7 +3,7 @@
 #include "math.h"
 
 
-float Atom::_radius = 5.0f;
+float Atom::_radius = 7.0f;
 float Atom::_mass = 1.0f;
 float Atom::_elasticity = 40.0f;
 
@@ -36,11 +36,11 @@ void Atom::draw()
 	}
 	glEnd();
 
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glBegin(GL_LINES);
-	glVertex2f(0.0f, 0.0f);
-	_speed.vertex();
-	glEnd();
+	//glColor3f(0.0f, 1.0f, 0.0f);
+	//glBegin(GL_LINES);
+	//glVertex2f(0.0f, 0.0f);
+	//_speed.vertex();
+	//glEnd();
 
 	glPopMatrix();
 }
