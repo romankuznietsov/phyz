@@ -23,6 +23,12 @@ class Vector
 		{};
 
 
+		inline bool operator==(Vector other)
+		{
+			return x == other.x && y == other.y;
+		}
+
+
 		inline Vector operator+(Vector other)
 		{
 			return Vector(x + other.x, y + other.y);
