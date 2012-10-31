@@ -1,5 +1,9 @@
 #include "Atoms.h"
 #include "foreach.h"
+#include "debug.h"
+
+
+static float collisionDistance = Atom::radius() * 2.0f;
 
 
 Atoms::Atoms()
@@ -14,7 +18,7 @@ void Atoms::update(float dt)
 		atom->update(dt);
 	}
 
-	for (unsigned int i = 0; i < this->size() - 1; i++)
+	for (unsigned int i = 0; i + 1 < this->size(); i++)
 	{
 		for (unsigned int j = i + 1; j < this->size(); j++)
 		{
@@ -25,11 +29,10 @@ void Atoms::update(float dt)
 			Vector position2 = atom2->position();
 
 			float distance = Vector::distance(position1, position2);
-			float collisionDistance = atom1->radius() + atom2->radius();
 
 			if (distance < collisionDistance)
 			{
-				float force = (collisionDistance - distance) * atom1->elasticity() * atom2->elasticity();
+				float force = (collisionDistance - distance) * Atom::elasticity();
 
 				atom1->applyForce((position1 - position2).normalize() * force * dt);
 				atom2->applyForce((position2 - position1).normalize() * force * dt);
@@ -45,12 +48,4 @@ void Atoms::draw()
 	{
 		atom->draw();
 	}
-}
-
-
-AtomPtr Atoms::add(Vector position, Vector speed)
-{
-	AtomPtr atom(new Atom(position, speed));
-	this->push_back(atom);
-	return atom;
 }

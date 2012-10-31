@@ -22,10 +22,9 @@ class Atom
 
 		Vector position();
 		Vector speed();
-		float radius();
-		float mass();
-		float elasticity();
 		void applyForce(Vector force);
+		static float radius();
+		static float elasticity();
 };
 
 

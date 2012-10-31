@@ -16,7 +16,6 @@ class Atoms : public std::vector<AtomPtr>
 		Atoms();
 		void update(float dt);
 		void draw();
-		AtomPtr add(Vector position, Vector speed);
 };
 
 

@@ -5,7 +5,7 @@
 
 float Atom::_radius = 5.0f;
 float Atom::_mass = 1.0f;
-float Atom::_elasticity = 40.0f;
+float Atom::_elasticity = 1500.0f;
 
 
 Atom::Atom(Vector position, Vector speed) :
@@ -58,25 +58,19 @@ Vector Atom::speed()
 }
 
 
+void Atom::applyForce(Vector force)
+{
+	_speed += force / _mass;
+}
+
+
 float Atom::radius()
 {
 	return _radius;
 }
 
 
-float Atom::mass()
-{
-	return _mass;
-}
-
-
 float Atom::elasticity()
 {
 	return _elasticity;
-}
-
-
-void Atom::applyForce(Vector force)
-{
-	_speed += force / _mass;
 }

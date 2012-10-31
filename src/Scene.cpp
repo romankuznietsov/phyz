@@ -10,29 +10,6 @@ Scene::Scene() :
 	_atoms(new Atoms),
 	_links(new Links)
 {
-	AtomPtr prevAtom1;
-	AtomPtr prevAtom2;
-	for (int i = 0; i < 40; i ++)
-	{
-		AtomPtr atom1 = _atoms->add(Vector(10.0f , 20.0f * i - 405.0f), Vector());
-		AtomPtr atom2 = _atoms->add(Vector(-10.0f, 20.0f * i - 395.0f), Vector());
-		_links->add(atom1, atom2);
-		if (prevAtom1 && prevAtom2)
-		{
-			_links->add(atom1, prevAtom1);
-			_links->add(atom2, prevAtom2);
-			_links->add(atom1, prevAtom2);
-		}
-		prevAtom1 = atom1;
-		prevAtom2 = atom2;
-	}
-
-	AtomPtr atom1 = _atoms->add(Vector(-820.0f, 10.0f), Vector(500.0f, 0.0f));
-	AtomPtr atom2 = _atoms->add(Vector(-800.0f, -0.0f), Vector(500.0f, 0.0f));
-	AtomPtr atom3 = _atoms->add(Vector(-820.0f, -10.0f), Vector(500.0f, 0.0f));
-	_links->add(atom1, atom2);
-	_links->add(atom2, atom3);
-	_links->add(atom3, atom1);
 }
 
 
@@ -71,7 +48,18 @@ void Scene::draw(float width, float height)
 
 void Scene::addAtom(Vector position)
 {
-	_atoms->add(position, Vector());
+	AtomPtr newAtom(new Atom(position));
+	foreach(AtomPtr atom, (*_atoms))
+	{
+		if (Vector::distance(atom->position(), newAtom->position()) < Atom::radius() * 2.0f)
+			return;
+	}
+	_atoms->push_back(newAtom);
+}
+
+
+void Scene::addLink(Vector from, Vector to)
+{
 }
 
 
