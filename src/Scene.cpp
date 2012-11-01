@@ -11,7 +11,7 @@ Scene::Scene() :
 	_atoms(new Atoms),
 	_links(new Links)
 {
-	createGrid(Vector(-200.0f, -200.0f), Vector(200.0f, 200.0f), 20.0f, Vector());
+	createGrid(Vector(-300.0f, -300.0f), Vector(300.0f, 300.0f), 20.0f, Vector());
 	createGrid(Vector(-800.0f, 40.0f), Vector(-720.0f, -40.0f), 20.0f, Vector(500.0f, 0.0f));
 }
 
@@ -21,8 +21,8 @@ void Scene::update(float dt)
 	_lastDt = dt;
 	if (_paused)
 		return;
-	_atoms->update(dt);
-	_links->update(dt);
+	_atoms->update(0.01f);
+	_links->update(0.01f);
 }
 
 
