@@ -35,7 +35,7 @@ void Atoms::update(float dt)
 
 			if (distance < collisionDistance)
 			{
-				float force = (collisionDistance - distance) * Atom::elasticity();
+				float force = (collisionDistance - distance) * (collisionDistance - distance) * Atom::elasticity();
 
 				atom1->applyForce((position1 - position2).normalize() * force * dt);
 				atom2->applyForce((position2 - position1).normalize() * force * dt);
