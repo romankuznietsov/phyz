@@ -1,6 +1,5 @@
 #include "Atoms.h"
 #include "foreach.h"
-#include "debug.h"
 
 
 static float collisionDistance = Atom::radius() * 2.0f;
@@ -27,6 +26,10 @@ void Atoms::update(float dt)
 
 			Vector position1 = atom1->position();
 			Vector position2 = atom2->position();
+
+			// performance improvement
+			if (abs(position1.x - position2.x) >= collisionDistance || abs(position1.y - position2.y) >= collisionDistance)
+				continue;
 
 			float distance = Vector::distance(position1, position2);
 

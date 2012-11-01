@@ -2,7 +2,7 @@
 #include <GL/freeglut.h>
 
 
-const float linkForce = 1000.0f;
+const float linkForce = 100.0f;
 const float damping = 1.0f;
 const float maxStretch = 1.5f;
 
@@ -49,4 +49,11 @@ void Link::draw()
 	_atom1->position().vertex();
 	_atom2->position().vertex();
 	glEnd();
+}
+
+
+bool Link::isBetween(AtomPtr atom1, AtomPtr atom2)
+{
+	return ((_atom1 == atom1 && _atom2 == atom2) ||
+			(_atom1 == atom2 && _atom2 == atom1));
 }

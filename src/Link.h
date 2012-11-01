@@ -17,6 +17,7 @@ class Link
 		Link(AtomPtr atom1, AtomPtr atom2);
 		void update(float dt);
 		void draw();
+		bool isBetween(AtomPtr atom1, AtomPtr atom2);
 };
 
 

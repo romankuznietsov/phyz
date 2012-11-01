@@ -19,3 +19,15 @@ void Links::draw()
 		link->draw();
 	}
 }
+
+
+void Links::add(AtomPtr atom1, AtomPtr atom2)
+{
+	foreach(LinkPtr link, *this)
+	{
+		if (link->isBetween(atom1, atom2))
+			return;
+	}
+
+	this->push_back(LinkPtr(new Link(atom1, atom2)));
+}

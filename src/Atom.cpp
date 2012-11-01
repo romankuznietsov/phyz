@@ -29,7 +29,7 @@ void Atom::draw()
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex2f(0.0f, 0.0f);
-	for (float i = 0.0f; i < 2.0f * M_PI + 0.3f; i += 0.3f)
+	for (float i = 0.0f; i < 2.0f * M_PI + 0.7f; i += 0.7f)
 	{
 		glVertex2f(sin(i) * _radius,
 				   cos(i) * _radius);

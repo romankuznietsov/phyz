@@ -1,7 +1,8 @@
 #include "Scene.h"
 #include <GL/freeglut.h>
+#include <stdio.h>
+#include <algorithm>
 #include "foreach.h"
-#include "stdio.h"
 
 
 Scene::Scene() :
@@ -10,6 +11,8 @@ Scene::Scene() :
 	_atoms(new Atoms),
 	_links(new Links)
 {
+	createGrid(Vector(-200.0f, -200.0f), Vector(200.0f, 200.0f), 20.0f, Vector());
+	createGrid(Vector(-800.0f, 40.0f), Vector(-720.0f, -40.0f), 20.0f, Vector(500.0f, 0.0f));
 }
 
 
@@ -66,4 +69,50 @@ void Scene::addLink(Vector from, Vector to)
 void Scene::togglePause()
 {
 	_paused = !_paused;
+}
+
+
+void Scene::createGrid(Vector from, Vector to, float step, Vector speed)
+{
+	Vector start(std::min(from.x, to.x), std::min(from.y, to.y));
+	Vector end(std::max(from.x, to.x), std::max(from.y, to.y));
+	Vector offset(0.0f, step/4);
+	std::vector<AtomPtr> previousLine;
+	std::vector<AtomPtr> currentLine;
+	bool toggleLink = true;
+	for(Vector current = start; current.x <= end.x; current.x += step)
+	{
+		AtomPtr previousAtom;
+		for(current.y = start.y; current.y <= end.y; current.y += step)
+		{
+			AtomPtr atom(new Atom(current + offset, speed));
+			if (previousAtom)
+			{
+				_links->add(previousAtom, atom);
+			}
+			_atoms->push_back(atom);
+			previousAtom = atom;
+			currentLine.push_back(atom);
+		}
+
+		if (!previousLine.empty())
+		{
+			for (unsigned int i = 0; i < currentLine.size(); i ++)
+			{
+				_links->add(currentLine[i], previousLine[i]);
+				if (toggleLink)
+				{
+					if (i + 1 < currentLine.size())
+						_links->add(currentLine[i], previousLine[i+1]);
+				} else {
+					if (0 < i)
+						_links->add(currentLine[i], previousLine[i-1]);
+				}
+			}
+		}
+		previousLine = currentLine;
+		currentLine.clear();
+		offset = -offset;
+		toggleLink = !toggleLink;
+	}
 }

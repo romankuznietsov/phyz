@@ -13,6 +13,7 @@ class Scene
 		float _lastDt;
 		AtomsPtr _atoms;
 		LinksPtr _links;
+		void createGrid(Vector from, Vector to, float step, Vector speed);
 
 	public:
 		Scene();
