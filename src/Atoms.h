@@ -10,8 +10,6 @@
 class Atoms : public std::vector<AtomPtr>
 {
 	private:
-		std::list<AtomPtr> _added;
-
 	public:
 		Atoms();
 		void update(float dt);
