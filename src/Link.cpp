@@ -2,7 +2,7 @@
 #include <GL/freeglut.h>
 
 
-const float linkForce = 100.0f;
+const float linkForce = 10.0f;
 const float damping = 1.0f;
 const float maxStretch = 1.5f;
 
@@ -29,8 +29,9 @@ void Link::update(float dt)
 	}
 
 	Vector targetLinkingVector = linkingVector.normalize() * _targetDistance;
-	Vector force = linkingVector - targetLinkingVector;
-	force *= dt * linkForce;
+	Vector linkDiff = linkingVector - targetLinkingVector;
+	float linkDiffLength = linkDiff.length();
+	Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * linkForce;
 	_atom1->applyForce(force);
 	_atom2->applyForce(-force);
 

@@ -12,7 +12,7 @@ Scene::Scene() :
 	_links(new Links)
 {
 	createGrid(Vector(-300.0f, -300.0f), Vector(300.0f, 300.0f), 20.0f, Vector());
-	createGrid(Vector(-2000.0f, 20.0f), Vector(-720.0f, -20.0f), 20.0f, Vector(500.0f, 0.0f));
+	createGrid(Vector(-2000.0f, 20.0f), Vector(-720.0f, -20.0f), 20.0f, Vector(400.0f, 0.0f));
 }
 
 

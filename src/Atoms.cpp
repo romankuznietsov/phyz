@@ -28,13 +28,11 @@ void Atoms::update(float dt)
 			// performance improvement
 			if (abs(position1.x - position2.x) >= collisionDistance || abs(position1.y - position2.y) >= collisionDistance)
 				continue;
+			float overlap = collisionDistance - Vector::distance(position1, position2);
 
-			float distance = Vector::distance(position1, position2);
-
-			if (distance < collisionDistance)
+			if (overlap > 0.0f)
 			{
-				float force = (collisionDistance - distance) * (collisionDistance - distance) * Atom::elasticity();
-
+				float force = overlap * overlap * Atom::elasticity();
 				(*this)[i]->applyForce((position1 - position2).normalize() * force * dt);
 				(*this)[j]->applyForce((position2 - position1).normalize() * force * dt);
 			}

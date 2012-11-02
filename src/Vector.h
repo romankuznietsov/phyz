@@ -123,7 +123,13 @@ class Vector
 
 		inline Vector normalize()
 		{
-			return *this / length();
+			float l = length();
+			if ((l) == 0.0f)
+			{
+				return Vector();
+			} else {
+				return *this / l;
+			}
 		}
 
 		static inline float scalarMult(Vector v1, Vector v2)
