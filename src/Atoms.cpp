@@ -32,9 +32,9 @@ void Atoms::update(float dt)
 
 			if (overlap > 0.0f)
 			{
-				float force = overlap * overlap * Atom::elasticity();
-				(*this)[i]->applyForce((position1 - position2).normalize() * force * dt);
-				(*this)[j]->applyForce((position2 - position1).normalize() * force * dt);
+				Vector force((position1 - position2).normalize() * overlap * overlap * Atom::elasticity() * dt);
+				(*this)[i]->applyForce(force);
+				(*this)[j]->applyForce(-force);
 			}
 		}
 	}
