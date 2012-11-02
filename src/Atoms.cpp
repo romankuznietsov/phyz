@@ -1,7 +1,6 @@
 #include "Atoms.h"
 #include "foreach.h"
 #include "GL/freeglut.h"
-#include "debug.h"
 
 
 static float collisionDistance = Atom::radius() * 2.0f;
@@ -19,7 +18,6 @@ void Atoms::update(float dt)
 		atom->update(dt);
 	}
 
-	int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
 	for (unsigned int i = 0; i + 1 < this->size(); i++)
 	{
 		for (unsigned int j = i + 1; j < this->size(); j++)
@@ -42,7 +40,6 @@ void Atoms::update(float dt)
 			}
 		}
 	}
-	debug("time", glutGet(GLUT_ELAPSED_TIME) - elapsedTime);
 }
 
 
