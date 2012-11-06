@@ -64,6 +64,14 @@ void Atom::applyForce(Vector force)
 }
 
 
+void Atom::tsApplyForce(Vector force)
+{
+	while(!_mutex.try_lock()) { }
+	applyForce(force);
+	_mutex.unlock();
+}
+
+
 float Atom::radius()
 {
 	return _radius;

@@ -4,6 +4,7 @@
 
 #include "Vector.h"
 #include <boost/shared_ptr.hpp>
+#include <boost/thread.hpp>
 
 
 class Atom
@@ -14,6 +15,7 @@ class Atom
 		static float _radius;
 		static float _mass;
 		static float _elasticity;
+		boost::mutex _mutex;
 
 	public:
 		Atom(Vector position = Vector(), Vector speed = Vector());
@@ -23,6 +25,7 @@ class Atom
 		Vector position();
 		Vector speed();
 		void applyForce(Vector force);
+		void tsApplyForce(Vector force);
 		static float radius();
 		static float elasticity();
 };
