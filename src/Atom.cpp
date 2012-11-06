@@ -60,14 +60,8 @@ Vector Atom::speed()
 
 void Atom::applyForce(Vector force)
 {
-	_speed += force / _mass;
-}
-
-
-void Atom::tsApplyForce(Vector force)
-{
 	while(!_mutex.try_lock()) { }
-	applyForce(force);
+	_speed += force / _mass;
 	_mutex.unlock();
 }
 

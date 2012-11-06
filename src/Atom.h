@@ -25,7 +25,6 @@ class Atom
 		Vector position();
 		Vector speed();
 		void applyForce(Vector force);
-		void tsApplyForce(Vector force);
 		static float radius();
 		static float elasticity();
 };

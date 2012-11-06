@@ -10,18 +10,20 @@
 #include "Atom.h"
 
 
-typedef std::pair<unsigned int, unsigned int> UIPair;
-typedef std::list<UIPair> PairList;
-typedef std::vector<PairList> PairLists;
+typedef std::pair<unsigned int, unsigned int> AtomPair;
+typedef std::list<AtomPair> AtomPairList;
+typedef std::vector<AtomPairList> AtomPairLists;
 typedef std::list<boost::thread*> Threads;
 
 
 class Atoms : public std::vector<AtomPtr>
 {
 	private:
-		PairLists _lists;
+		AtomPairLists _lists;
+		Threads _threads;
 	public:
 		Atoms();
+		~Atoms();
 		void update(float dt);
 		void draw();
 		void refresh();
