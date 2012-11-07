@@ -8,24 +8,26 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 #include "Atom.h"
+#include "AtomCollisionWorker.h"
 
 
-typedef std::pair<unsigned int, unsigned int> AtomPair;
-typedef std::list<AtomPair> AtomPairList;
-typedef std::vector<AtomPairList> AtomPairLists;
 typedef std::list<boost::thread*> Threads;
 
 
-class Atoms : public std::vector<AtomPtr>
+class Atoms
 {
 	private:
+		AtomVectorPtr _atoms;
 		AtomPairLists _lists;
 		Threads _threads;
+		void clearThreads();
+
 	public:
 		Atoms();
 		~Atoms();
 		void update(float dt);
 		void draw();
+		AtomPtr add(Vector position, Vector speed);
 		void refresh();
 };
 

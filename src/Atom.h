@@ -3,6 +3,7 @@
 
 
 #include "Vector.h"
+#include <vector>
 #include <boost/shared_ptr.hpp>
 #include <boost/thread.hpp>
 
@@ -31,6 +32,8 @@ class Atom
 
 
 typedef boost::shared_ptr<Atom> AtomPtr;
+typedef std::vector<AtomPtr> AtomVector;
+typedef boost::shared_ptr<AtomVector> AtomVectorPtr;
 
 
 #endif // ATOM_H

@@ -52,13 +52,6 @@ void Scene::draw(float width, float height)
 
 void Scene::addAtom(Vector position)
 {
-	AtomPtr newAtom(new Atom(position));
-	foreach(AtomPtr atom, (*_atoms))
-	{
-		if (Vector::distance(atom->position(), newAtom->position()) < Atom::radius() * 2.0f)
-			return;
-	}
-	_atoms->push_back(newAtom);
 }
 
 
@@ -86,12 +79,11 @@ void Scene::createGrid(Vector from, Vector to, float step, Vector speed)
 		AtomPtr previousAtom;
 		for(current.y = start.y; current.y <= end.y; current.y += step)
 		{
-			AtomPtr atom(new Atom(current + offset, speed));
+			AtomPtr atom = _atoms->add(current + offset, speed);
 			if (previousAtom)
 			{
 				_links->add(previousAtom, atom);
 			}
-			_atoms->push_back(atom);
 			previousAtom = atom;
 			currentLine.push_back(atom);
 		}
