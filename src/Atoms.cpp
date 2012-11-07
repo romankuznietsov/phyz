@@ -42,7 +42,6 @@ class AtomCollisionThread
 						(*_atoms)[pair.second]->applyForce(-force);
 					}
 				}
-				usleep(10);
 			}
 		};
 };
