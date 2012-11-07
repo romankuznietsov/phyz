@@ -13,7 +13,7 @@ Atoms::Atoms() :
 
 Atoms::~Atoms()
 {
-	clearThreads();
+	destroyWorkers();
 }
 
 
@@ -45,27 +45,27 @@ AtomPtr Atoms::add(Vector position, Vector speed)
 
 void Atoms::refresh()
 {
-	clearThreads();
-	_lists = AtomPairLists(threadNumber);
+	destroyWorkers();
+	std::vector<AtomPairList> lists = AtomPairLists(threadNumber);
 	int currentThread = 0;
 	for (unsigned int i = 0; i + 1 < _atoms->size(); i++)
 	{
 		for (unsigned int j = i + 1; j < _atoms->size(); j++)
 		{
-			_lists[currentThread].push_back(AtomPair(i, j));
+			lists[currentThread].push_back(AtomPair(i, j));
 			currentThread = (currentThread + 1) % threadNumber;
 		}
 	}
-	foreach(AtomPairList pairList, _lists)
+	foreach(AtomPairList atomPairList, lists)
 	{
-		_threads.push_back(new boost::thread(AtomCollisionWorker(_atoms, pairList)));
+		_workers.push_back(new boost::thread(AtomCollisionWorker(_atoms, atomPairList)));
 	}
 }
 
 
-void Atoms::clearThreads()
+void Atoms::destroyWorkers()
 {
-	foreach(boost::thread* thread, _threads)
+	foreach(boost::thread* thread, _workers)
 	{
 		thread->interrupt();
 		delete thread;

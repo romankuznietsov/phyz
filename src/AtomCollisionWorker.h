@@ -7,7 +7,6 @@
 
 typedef std::pair<unsigned int, unsigned int> AtomPair;
 typedef std::list<AtomPair> AtomPairList;
-typedef std::vector<AtomPairList> AtomPairLists;
 
 
 class AtomCollisionWorker

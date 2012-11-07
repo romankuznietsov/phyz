@@ -11,16 +11,15 @@
 #include "AtomCollisionWorker.h"
 
 
-typedef std::list<boost::thread*> Threads;
+typedef std::list<boost::thread*> Workers;
 
 
 class Atoms
 {
 	private:
 		AtomVectorPtr _atoms;
-		AtomPairLists _lists;
-		Threads _threads;
-		void clearThreads();
+		Workers _workers;
+		void destroyWorkers();
 
 	public:
 		Atoms();
