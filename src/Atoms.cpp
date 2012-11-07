@@ -25,6 +25,7 @@ class AtomCollisionThread
 		{
 			while(true)
 			{
+				int startTime = glutGet(GLUT_ELAPSED_TIME);
 				foreach(AtomPair pair, _list)
 				{
 					Vector position1 = (*_atoms)[pair.first]->position();
@@ -42,10 +43,12 @@ class AtomCollisionThread
 						(*_atoms)[pair.second]->applyForce(-force);
 					}
 				}
+				int spentTime = glutGet(GLUT_ELAPSED_TIME) - startTime;
+				if (spentTime < 10)
+					boost::this_thread::sleep(boost::posix_time::milliseconds(10 - spentTime));
 			}
 		};
 };
-
 
 
 Atoms::Atoms()
@@ -57,6 +60,7 @@ Atoms::~Atoms()
 {
 	foreach(boost::thread* thread, _threads)
 	{
+		thread->interrupt();
 		delete thread;
 	}
 }
