@@ -46,7 +46,7 @@ AtomPtr Atoms::add(Vector position, Vector speed)
 void Atoms::refresh()
 {
 	destroyWorkers();
-	std::vector<AtomPairList> lists = AtomPairLists(threadNumber);
+	std::vector<AtomPairList> lists(threadNumber);
 	int currentThread = 0;
 	for (unsigned int i = 0; i + 1 < _atoms->size(); i++)
 	{
