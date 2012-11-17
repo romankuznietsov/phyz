@@ -1,7 +1,7 @@
 APP_NAME = phyz
 
 CXX = g++
-CXXFLAGS = -pedantic -Wall -Wextra
+CXXFLAGS = -pedantic -Wall -Wextra -std=c++11
 LDFLAGS = -lGL -lGLU -lglut -lboost_thread -lpthread
 TEST_CXXFLAGS = -Isrc -Iinclude
 TEST_LDFLAGS = -Llib -lgtest -lgtest_main -lpthread
