@@ -18,7 +18,7 @@ $(APP_NAME) : $(OBJS)
 	$(CXX) $(OBJS) $(LDFLAGS) -o $(APP_NAME)
 
 test : $(OBJS) $(TEST_OBJS)
-	$(CXX) $(patsubst obj/main.o, , $(OBJS)) $(TEST_OBJS) $(LDFLAGS) $(TEST_LDFLAGS) -o $(APP_NAME)_test
+	$(CXX) $(patsubst obj/main.o, , $(OBJS)) $(TEST_OBJS) $(LDFLAGS) $(TEST_LDFLAGS) -o $(APP_NAME)-test
 
 obj/%.o : src/%.cpp
 	$(CXX) -c $(CXXFLAGS) $< -o $@
@@ -31,4 +31,4 @@ obj/%_test.o : test/%_test.cpp
 clean :
 	-rm -f obj/*.o
 	-rm -f $(APP_NAME)
-	-rm -f $(APP_NAME)_test
+	-rm -f $(APP_NAME)-test
