@@ -4,6 +4,7 @@
 
 #include "Atom.h"
 #include <boost/shared_ptr.hpp>
+#include <vector>
 
 
 class Link
@@ -22,6 +23,8 @@ class Link
 
 
 typedef boost::shared_ptr<Link> LinkPtr;
+typedef std::vector<LinkPtr> LinkVector;
+typedef boost::shared_ptr<LinkVector> LinkVectorPtr;
 
 
 #endif // LINK_H

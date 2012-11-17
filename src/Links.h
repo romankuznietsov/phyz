@@ -7,9 +7,12 @@
 #include "Link.h"
 
 
-class Links : public std::vector<LinkPtr>
+class Links
 {
+	private:
+		LinkVectorPtr _links;
 	public:
+		Links();
 		void update(float dt);
 		void draw();
 		void add(AtomPtr atom1, AtomPtr atom2);

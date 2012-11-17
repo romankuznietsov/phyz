@@ -3,9 +3,14 @@
 #include "foreach.h"
 
 
+Links::Links() :
+	_links(new LinkVector)
+{}
+
+
 void Links::update(float dt)
 {
-	foreach(LinkPtr link, *this)
+	foreach(LinkPtr link, *_links)
 	{
 		link->update(dt);
 	}
@@ -14,7 +19,7 @@ void Links::update(float dt)
 
 void Links::draw()
 {
-	foreach(LinkPtr link, *this)
+	foreach(LinkPtr link, *_links)
 	{
 		link->draw();
 	}
@@ -23,11 +28,11 @@ void Links::draw()
 
 void Links::add(AtomPtr atom1, AtomPtr atom2)
 {
-	foreach(LinkPtr link, *this)
+	foreach(LinkPtr link, *_links)
 	{
 		if (link->isBetween(atom1, atom2))
 			return;
 	}
 
-	this->push_back(LinkPtr(new Link(atom1, atom2)));
+	_links->push_back(LinkPtr(new Link(atom1, atom2)));
 }
