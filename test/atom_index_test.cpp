@@ -16,9 +16,9 @@ namespace
 		index.add(atom2);
 		index.add(atom3);
 		ASSERT_EQ(1u, index.near(atom1).size());
-		ASSERT_EQ(2u, index.near(atom2).size());
-		ASSERT_EQ(1u, index.near(atom3).size());
+		ASSERT_EQ(1u, index.near(atom2).size());
+		ASSERT_EQ(0u, index.near(atom3).size());
 		ASSERT_EQ(atom2, index.near(atom1)[0]);
-		ASSERT_EQ(atom2, index.near(atom3)[0]);
+		ASSERT_EQ(atom3, index.near(atom2)[0]);
 	}
 } // namespace

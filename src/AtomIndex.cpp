@@ -53,7 +53,7 @@ AtomVector AtomIndex::near(AtomPtr atom)
 		{
 			foreach(AtomPtr atomInIndex, *_xIndex.at(i))
 			{
-				if (atomInIndex != atom)
+				if (atomInIndex != atom && atom->position().x < atomInIndex->position().x)
 				{
 					nearX.push_back(atomInIndex);
 				}
@@ -68,7 +68,7 @@ AtomVector AtomIndex::near(AtomPtr atom)
 		{
 			foreach(AtomPtr atomInIndex, *_yIndex.at(i))
 			{
-				if (atomInIndex != atom)
+				if (atomInIndex != atom && atom->position().y < atomInIndex->position().y)
 				{
 					nearY.push_back(atomInIndex);
 				}
