@@ -10,7 +10,7 @@ class Scene
 	private:
 		bool _paused;
 		float _lastDt;
-		Atoms _newAtoms;
+		Atoms _atoms;
 
 	public:
 		Scene();

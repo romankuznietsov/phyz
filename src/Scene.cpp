@@ -9,21 +9,20 @@ Scene::Scene() :
 	_paused(true),
 	_lastDt(0.0f)
 {
-	unsigned int atom1 = _newAtoms.add(Vector(-10.0f, 10.0f), Vector(0.0f, 400.0f));
-	unsigned int atom2 = _newAtoms.add(Vector(10.0f, -10.0f), Vector());
-	_newAtoms.link(atom1, atom2);
+	_atoms.addBody(Vector(-200.0f, -200.0f), Vector(200.0f, 200.0f), Vector(), 30.0f);
+	_atoms.addBody(Vector(700.0f, 50.0f), Vector(600.0f, -50.0f), Vector(-500.0f, 150.0f), 30.0f);
 }
 
 
 void Scene::update(float dt)
 {
-	_newAtoms.update();
+	_atoms.update();
 }
 
 
 void Scene::draw(float width, float height)
 {
-	_newAtoms.draw();
+	_atoms.draw();
 }
 
 

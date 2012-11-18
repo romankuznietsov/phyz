@@ -35,6 +35,7 @@ class Atoms
 
 		unsigned int add(Vector position, Vector speed);
 		void link(unsigned int atom1, unsigned int atom2);
+		void addBody(Vector from, Vector to,  Vector speed, float density = 20.0f);
 };
 
 

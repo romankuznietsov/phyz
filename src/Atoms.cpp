@@ -1,6 +1,7 @@
 #include "Atoms.h"
 #include <GL/freeglut.h>
 #include <math.h>
+#include <algorithm>
 #include "foreach.h"
 
 
@@ -154,5 +155,29 @@ void Atoms::updateCollisions()
 
 unsigned int Atoms::atomNumber()
 {
-	_position.size();
+	return _position.size();
+}
+
+
+void Atoms::addBody(Vector from, Vector to,  Vector speed, float density)
+{
+	std::vector<unsigned int> body;
+	Vector start(std::min(from.x, to.x), std::min(from.y, to.y));
+	Vector end(std::max(from.x, to.x), std::max(from.y, to.y));
+	for (float x = start.x; x <= end.x; x += density)
+		for (float y = start.y; y <= end.y; y += density)
+		{
+			body.push_back(add(Vector(x, y), speed));
+		}
+
+	for (unsigned int i = 0; i < body.size() - 1; i++)
+		for (unsigned int j = i + 1; j < body.size(); j++)
+		{
+			unsigned int atom1 = body[i];
+			unsigned int atom2 = body[j];
+			if (Vector::distance(_position[atom1], _position[atom2]) <= density * 1.5f)
+			{
+				link(atom1, atom2);
+			}
+		}
 }
