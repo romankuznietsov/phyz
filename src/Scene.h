@@ -2,8 +2,7 @@
 #define SCENE_H
 
 
-#include "Atoms.h"
-#include "Links.h"
+#include "NewAtoms.h"
 
 
 class Scene
@@ -11,9 +10,7 @@ class Scene
 	private:
 		bool _paused;
 		float _lastDt;
-		AtomsPtr _atoms;
-		LinksPtr _links;
-		void createGrid(Vector from, Vector to, float step, Vector speed);
+		NewAtoms _newAtoms;
 
 	public:
 		Scene();
