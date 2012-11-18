@@ -2,7 +2,6 @@
 #include <GL/freeglut.h>
 #include <math.h>
 #include <algorithm>
-#include "foreach.h"
 
 
 const float atomRadius = 5.0f;
@@ -160,7 +159,6 @@ unsigned int Atoms::atomNumber()
 {
 	return _position.size();
 }
-
 
 
 unsigned int Atoms::linkNumber()
