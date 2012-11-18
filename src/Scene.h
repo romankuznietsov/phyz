@@ -2,7 +2,7 @@
 #define SCENE_H
 
 
-#include "NewAtoms.h"
+#include "Atoms.h"
 
 
 class Scene
@@ -10,7 +10,7 @@ class Scene
 	private:
 		bool _paused;
 		float _lastDt;
-		NewAtoms _newAtoms;
+		Atoms _newAtoms;
 
 	public:
 		Scene();

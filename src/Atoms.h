@@ -1,37 +1,41 @@
-#ifndef ATOMLIST_H
-#define ATOMLIST_H
+#ifndef NEW_ATOMS_H
+#define NEW_ATOMS_H
 
 
+#include "Vector.h"
 #include <vector>
-#include <list>
 #include <utility>
-#include <boost/shared_ptr.hpp>
-#include <boost/thread.hpp>
-#include "Atom.h"
-#include "AtomCollisionWorker.h"
+#include <exception>
 
 
-typedef std::list<boost::thread*> Workers;
+typedef std::pair<unsigned int, unsigned int> Link;
 
 
 class Atoms
 {
 	private:
-		AtomVectorPtr _atoms;
-		Workers _workers;
-		void destroyWorkers();
+		std::vector<Vector> _position;
+		std::vector<Vector> _speed;
+		std::vector<Link> _links;
+		std::vector<float> _linkLength;
+
+		void updateCollisions();
+		void updateLinks();
+		void updateAtomPositions();
+		void applyForce(unsigned int atom, Vector force);
+		unsigned int atomNumber();
+
+		void drawAtoms();
+		void drawLinks();
 
 	public:
 		Atoms();
-		~Atoms();
-		void update(float dt);
 		void draw();
-		AtomPtr add(Vector position, Vector speed);
-		void refresh();
+		void update();
+
+		unsigned int add(Vector position, Vector speed);
+		void link(unsigned int atom1, unsigned int atom2);
 };
 
 
-typedef boost::shared_ptr<Atoms> AtomsPtr;
-
-
-#endif // ATOMLIST_H
+#endif // NEW_ATOMS_H
