@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include <vector>
 #include <utility>
+#include <exception>
 
 
 typedef std::pair<unsigned int, unsigned int> NewLink;
@@ -16,10 +17,13 @@ class NewAtoms
 		std::vector<Vector> _position;
 		std::vector<Vector> _speed;
 		std::vector<NewLink> _links;
+		std::vector<float> _linkLength;
 
 		void updateCollisions();
 		void updateLinks();
 		void updateAtomPositions();
+		void applyForce(unsigned int atom, Vector force);
+		unsigned int atomNumber();
 
 		void drawAtoms();
 		void drawLinks();

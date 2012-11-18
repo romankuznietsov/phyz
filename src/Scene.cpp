@@ -9,7 +9,7 @@ Scene::Scene() :
 	_paused(true),
 	_lastDt(0.0f)
 {
-	unsigned int atom1 = _newAtoms.add(Vector(-10.0f, 10.0f), Vector());
+	unsigned int atom1 = _newAtoms.add(Vector(-10.0f, 10.0f), Vector(0.0f, 400.0f));
 	unsigned int atom2 = _newAtoms.add(Vector(10.0f, -10.0f), Vector());
 	_newAtoms.link(atom1, atom2);
 }

@@ -7,10 +7,13 @@
 const float atomRadius = 5.0f;
 const float atomMass = 1.0f;
 const float atomElasticity = 1500.0f;
+const float collisionDistance = atomRadius * 2.0f;
 
 const float linkForce = 10.0f;
 const float linkDamping = 1.0f;
 const float linkStretch = 1.5f;
+
+const float dt = 0.001f;
 
 
 NewAtoms::NewAtoms()
@@ -27,6 +30,9 @@ void NewAtoms::draw()
 
 void NewAtoms::update()
 {
+	updateLinks();
+	updateCollisions();
+	updateAtomPositions();
 }
 
 
@@ -34,20 +40,21 @@ unsigned int NewAtoms::add(Vector position, Vector speed)
 {
 	_position.push_back(position);
 	_speed.push_back(speed);
-	return _position.size() - 1;
+	return atomNumber() - 1;
 }
 
 
 void NewAtoms::link(unsigned int atom1, unsigned int atom2)
 {
 	_links.push_back(NewLink(atom1, atom2));
+	_linkLength.push_back(Vector::distance(_position[atom1], _position[atom2]));
 }
 
 
 void NewAtoms::drawAtoms()
 {
 	glColor3f(1.0f, 1.0f, 1.0f);
-	for (unsigned int i = 0; i < _position.size(); i++)
+	for (unsigned int i = 0; i < atomNumber(); i++)
 	{
 		glPushMatrix();
 		_position[i].translate();
@@ -77,3 +84,75 @@ void NewAtoms::drawLinks()
 	glEnd();
 }
 
+
+void NewAtoms::updateLinks()
+{
+	for (unsigned int i = 0; i < _links.size(); i++)
+	{
+		unsigned int atom1 = _links[i].first;
+		unsigned int atom2 = _links[i].second;
+
+		Vector linkingVector = _position[atom2] - _position[atom1];
+		if (linkingVector.length() > _linkLength[i] * linkStretch)
+		{
+			// destroy link;
+		}
+
+		Vector targetLinkingVector = linkingVector.normalize() * _linkLength[i];
+		Vector linkDiff = linkingVector - targetLinkingVector;
+		float linkDiffLength = linkDiff.length();
+		Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * linkForce;
+		applyForce(atom1, force);
+		applyForce(atom2, -force);
+
+		Vector dampingForce = (_speed[atom1] - _speed[atom2]) * linkDamping * dt;
+		applyForce(atom1, -dampingForce);
+		applyForce(atom2, dampingForce);
+	}
+}
+
+
+void NewAtoms::updateAtomPositions()
+{
+	for (unsigned int i = 0; i < atomNumber(); i++)
+	{
+		_position[i] += _speed[i] * dt;
+	}
+}
+
+
+void NewAtoms::applyForce(unsigned int atom, Vector force)
+{
+	_speed[atom] += force / atomMass;
+}
+
+
+void NewAtoms::updateCollisions()
+{
+	for (unsigned int atom1 = 0; atom1 < atomNumber() - 1; atom1++)
+	{
+		for (unsigned int atom2 = atom1 + 1; atom2 < atomNumber(); atom2++)
+		{
+			Vector position1 = _position[atom1];
+			Vector position2 = _position[atom2];
+
+			if (abs(position1.x - position2.x) >= collisionDistance || abs(position1.y - position2.y) >= collisionDistance)
+				continue;
+
+			float overlap = collisionDistance - Vector::distance(position1, position2);
+
+			if (overlap > 0.0f)
+			{
+				Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
+				applyForce(atom1, force);
+				applyForce(atom2, -force);
+			}
+		}
+	}
+}
+
+
+unsigned int NewAtoms::atomNumber()
+{
+	_position.size();
+}
