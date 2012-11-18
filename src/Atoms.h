@@ -18,12 +18,14 @@ class Atoms
 		std::vector<Vector> _speed;
 		std::vector<Link> _links;
 		std::vector<float> _linkLength;
+		std::vector<bool> _linkDestroyed;
 
 		void updateCollisions();
 		void updateLinks();
 		void updateAtomPositions();
 		void applyForce(unsigned int atom, Vector force);
 		unsigned int atomNumber();
+		unsigned int linkNumber();
 
 		void drawAtoms();
 		void drawLinks();
