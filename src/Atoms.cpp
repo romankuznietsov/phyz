@@ -9,7 +9,7 @@ const float atomMass = 1.0f;
 const float atomElasticity = 1500.0f;
 const float collisionDistance = atomRadius * 2.0f;
 
-const float linkForce = 100.0f;
+const float linkForce = 8000.0f;
 const float linkDamping = 1.0f;
 const float linkStretch = 1.5f;
 
