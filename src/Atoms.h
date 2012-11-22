@@ -5,7 +5,7 @@
 #include "Vector.h"
 #include <vector>
 #include <utility>
-#include <exception>
+#include "AtomIndex.h"
 
 
 typedef std::pair<unsigned int, unsigned int> Link;
@@ -14,6 +14,7 @@ typedef std::pair<unsigned int, unsigned int> Link;
 class Atoms
 {
 	private:
+		AtomIndex _index;
 		std::vector<Vector> _position;
 		std::vector<Vector> _speed;
 		std::vector<Link> _links;

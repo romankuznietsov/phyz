@@ -4,19 +4,20 @@
 #include <algorithm>
 
 
-const float atomRadius = 8.0f;
+const float atomRadius = 10.0f;
 const float atomMass = 1.0f;
 const float atomElasticity = 1500.0f;
 const float collisionDistance = atomRadius * 2.0f;
 
-const float linkForce = 8000.0f;
+const float linkForce = 1000.0f;
 const float linkDamping = 1.0f;
 const float linkStretch = 1.5f;
 
 const float dt = 0.001f;
 
 
-Atoms::Atoms()
+Atoms::Atoms() :
+	_index(atomRadius)
 {
 }
 
@@ -40,7 +41,9 @@ unsigned int Atoms::add(Vector position, Vector speed)
 {
 	_position.push_back(position);
 	_speed.push_back(speed);
-	return atomNumber() - 1;
+	unsigned int id = atomNumber() - 1;
+	_index.add(id, position);
+	return id;
 }
 
 
@@ -78,7 +81,7 @@ void Atoms::drawLinks()
 {
 	glColor3f(0.5f, 0.5f, 0.5f);
 	glBegin(GL_LINES);
-	for (int i = 0; i < linkNumber(); i ++)
+	for (unsigned int i = 0; i < linkNumber(); i ++)
 	{
 		if (_linkDestroyed[i])
 			continue;
@@ -118,9 +121,12 @@ void Atoms::updateLinks()
 
 void Atoms::updateAtomPositions()
 {
+	Vector oldPosition;
 	for (unsigned int i = 0; i < atomNumber(); i++)
 	{
+		oldPosition = _position[i];
 		_position[i] += _speed[i] * dt;
+		_index.update(i, oldPosition, _position[i]);
 	}
 }
 
@@ -133,23 +139,24 @@ void Atoms::applyForce(unsigned int atom, Vector force)
 
 void Atoms::updateCollisions()
 {
-	for (unsigned int atom1 = 0; atom1 < atomNumber() - 1; atom1++)
+	for (unsigned int atom = 0; atom < atomNumber(); atom++)
 	{
-		for (unsigned int atom2 = atom1 + 1; atom2 < atomNumber(); atom2++)
+		AtomSet near = _index.near(atom, _position[atom]);
+		Vector position1 = _position[atom];
+		for (auto it = near.begin(); it != near.end(); it++)
 		{
-			Vector position1 = _position[atom1];
-			Vector position2 = _position[atom2];
+			Vector position2 = _position[*it];
 
-			if (abs(position1.x - position2.x) >= collisionDistance || abs(position1.y - position2.y) >= collisionDistance)
-				continue;
-
-			float overlap = collisionDistance - Vector::distance(position1, position2);
-
-			if (overlap > 0.0f)
+			if (position1.x < position2.x || (position1.x == position2.x && position1.y < position2.y))
 			{
-				Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
-				applyForce(atom1, force);
-				applyForce(atom2, -force);
+				float overlap = collisionDistance - Vector::distance(position1, position2);
+
+				if (overlap > 0.0f)
+				{
+					Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
+					applyForce(atom, force);
+					applyForce(*it, -force);
+				}
 			}
 		}
 	}

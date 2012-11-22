@@ -4,18 +4,18 @@
 
 #include <map>
 #include <unordered_set>
+#include <unordered_map>
 #include "Vector.h"
 
 
 typedef std::unordered_set<unsigned int> AtomSet;
-typedef std::map<float, AtomSet> CoordIndex;
 
 class AtomIndex
 {
 	private:
-		float _collisionDistance;
-		CoordIndex _xIndex;
-		CoordIndex _yIndex;
+		float _step;
+		std::unordered_map<int, std::unordered_map<int, AtomSet>> _index;
+		int toIndex(float value);
 
 	public:
 		AtomIndex(float atomRadius);
