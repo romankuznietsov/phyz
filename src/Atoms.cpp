@@ -4,7 +4,7 @@
 #include <algorithm>
 
 
-const float atomRadius = 5.0f;
+const float atomRadius = 8.0f;
 const float atomMass = 1.0f;
 const float atomElasticity = 1500.0f;
 const float collisionDistance = atomRadius * 2.0f;
@@ -54,14 +54,15 @@ void Atoms::link(unsigned int atom1, unsigned int atom2)
 
 void Atoms::drawAtoms()
 {
-	glColor3f(1.0f, 1.0f, 1.0f);
 	for (unsigned int i = 0; i < atomNumber(); i++)
 	{
 		glPushMatrix();
 		_position[i].translate();
 
 		glBegin(GL_TRIANGLE_FAN);
+		glColor3f(1.0f, 1.0f, 1.0f);
 		glVertex2f(0.0f, 0.0f);
+		glColor3f(0.0f, 0.0f, 0.0f);
 		for (float i = 0.0f; i < 2.0f * M_PI + 0.7f; i += 0.7f)
 		{
 			glVertex2f(sin(i) * atomRadius,
@@ -75,7 +76,7 @@ void Atoms::drawAtoms()
 
 void Atoms::drawLinks()
 {
-	glColor3f(1.0f, 1.0f, 1.0f);
+	glColor3f(0.5f, 0.5f, 0.5f);
 	glBegin(GL_LINES);
 	for (int i = 0; i < linkNumber(); i ++)
 	{
