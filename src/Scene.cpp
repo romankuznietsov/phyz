@@ -9,8 +9,8 @@ Scene::Scene() :
 	_paused(true),
 	_lastDt(0.0f)
 {
-	_atoms.addBody(Vector(-40.0f, -400.0f), Vector(40.0f, 400.0f), Vector());
-	_atoms.addBody(Vector(700.0f, 50.0f), Vector(600.0f, -50.0f), Vector(-1000.0f, 0.0f));
+	_atoms.addBody(Vector(-40.0f, -400.0f), Vector(40.0f, 400.0f), Vector(), 10.0f);
+	_atoms.addBody(Vector(700.0f, 50.0f), Vector(600.0f, -50.0f), Vector(-1000.0f, 0.0f), 10.0f);
 }
 
 

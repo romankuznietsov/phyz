@@ -4,9 +4,9 @@
 #include <algorithm>
 
 
-const float atomRadius = 10.0f;
+const float atomRadius = 5.0f;
 const float atomMass = 1.0f;
-const float atomElasticity = 1500.0f;
+const float atomElasticity = 3000.0f;
 const float collisionDistance = atomRadius * 2.0f;
 
 const float linkForce = 1000.0f;
