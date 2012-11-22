@@ -147,16 +147,19 @@ void Atoms::updateCollisions()
 		{
 			Vector position2 = _position[*it];
 
-			if (position1.x < position2.x || (position1.x == position2.x && position1.y < position2.y))
-			{
-				float overlap = collisionDistance - Vector::distance(position1, position2);
+			if (position1.x > position2.x || (position1.x == position2.x && position1.y > position2.y))
+				continue;
 
-				if (overlap > 0.0f)
-				{
-					Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
-					applyForce(atom, force);
-					applyForce(*it, -force);
-				}
+			if (abs(position1.x - position2.x) >= collisionDistance || abs(position1.y - position2.y) >= collisionDistance)
+				continue;
+
+			float overlap = collisionDistance - Vector::distance(position1, position2);
+
+			if (overlap > 0.0f)
+			{
+				Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
+				applyForce(atom, force);
+				applyForce(*it, -force);
 			}
 		}
 	}
