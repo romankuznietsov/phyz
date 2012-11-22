@@ -1,4 +1,5 @@
 #include "AtomIndex.h"
+#include "foreach.h"
 
 
 AtomIndex::AtomIndex(float atomRadius) :
@@ -25,5 +26,27 @@ void AtomIndex::update(unsigned int atom, Vector oldPosition, Vector newPosition
 
 AtomSet AtomIndex::near(unsigned int atom, Vector position)
 {
-	return AtomSet();
+	AtomSet nearX;
+	for (auto it = _xIndex.lower_bound(position.x);
+			it != _xIndex.upper_bound(position.x + _collisionDistance); it++)
+	{
+		nearX.insert(it->second.begin(), it->second.end());
+	}
+
+	AtomSet nearY;
+	for (auto it = _yIndex.lower_bound(position.y - _collisionDistance);
+			it != _yIndex.upper_bound(position.y + _collisionDistance); it++)
+	{
+		nearY.insert(it->second.begin(), it->second.end());
+	}
+
+	AtomSet result;
+	for (auto it = nearX.begin(); it != nearX.end(); it++)
+	{
+		if (nearY.find(*it) != nearY.end())
+			result.insert(*it);
+	}
+
+	result.erase(atom);
+	return result;
 }

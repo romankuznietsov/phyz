@@ -8,14 +8,14 @@
 
 
 typedef std::unordered_set<unsigned int> AtomSet;
-
+typedef std::map<float, AtomSet> CoordIndex;
 
 class AtomIndex
 {
 	private:
 		float _collisionDistance;
-		std::map<float, AtomSet> _xIndex;
-		std::map<float, AtomSet> _yIndex;
+		CoordIndex _xIndex;
+		CoordIndex _yIndex;
 
 	public:
 		AtomIndex(float atomRadius);
