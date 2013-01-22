@@ -4,44 +4,32 @@
 
 
 AtomIndex::AtomIndex(float atomRadius) :
-	_step(atomRadius * 2.0f)
+	_atomDiameter(atomRadius * 2.0f)
 {}
 
 
-void AtomIndex::add(unsigned int atom, Vector position)
+void AtomIndex::update(const std::vector<Vector>& positions)
 {
-	_index[toIndex(position.x)][toIndex(position.y)].insert(atom);
+	_index.clear();
+
+	for (unsigned int i = 0; i < positions.size(); i++)
+		_index[positions[i].x].insert(std::pair<float, unsigned int>(positions[i].y, i));
 }
 
 
-void AtomIndex::update(unsigned int atom, Vector oldPosition, Vector newPosition)
+AtomVector AtomIndex::near(unsigned int atom, Vector position)
 {
-	_index[toIndex(oldPosition.x)][toIndex(oldPosition.y)].erase(atom);
-	_index[toIndex(newPosition.x)][toIndex(newPosition.y)].insert(atom);
-}
+	AtomVector result;
 
+	for (Index::iterator xit = _index.lower_bound(position.x);
+			xit != _index.upper_bound(position.x + _atomDiameter); xit++)
+	{
+		for (SubIndex::iterator yit = xit->second.lower_bound(position.y - _atomDiameter);
+				yit != xit->second.upper_bound(position.y + _atomDiameter); yit++)
+		{
+			result.push_back(yit->second);
+		}
+	}
 
-AtomSet AtomIndex::near(unsigned int atom, Vector position)
-{
-	int x = toIndex(position.x);
-	int y = toIndex(position.y);
-	AtomSet result;
-
-	result.insert(_index[x][y].begin(), _index[x][y].end());
-	result.insert(_index[x][y + 1].begin(), _index[x][y + 1].end());
-	result.insert(_index[x][y - 1].begin(), _index[x][y - 1].end());
-
-	x++;
-	result.insert(_index[x][y].begin(), _index[x][y].end());
-	result.insert(_index[x][y + 1].begin(), _index[x][y + 1].end());
-	result.insert(_index[x][y - 1].begin(), _index[x][y - 1].end());
-
-	result.erase(atom);
 	return result;
-}
-
-
-int AtomIndex::toIndex(float value)
-{
-	return static_cast<int>(floor(value / _step));
 }

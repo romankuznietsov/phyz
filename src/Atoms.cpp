@@ -2,6 +2,7 @@
 #include <GL/freeglut.h>
 #include <math.h>
 #include <algorithm>
+#include "foreach.h"
 
 
 const float atomRadius = 5.0f;
@@ -42,7 +43,7 @@ unsigned int Atoms::add(Vector position, Vector speed)
 	_position.push_back(position);
 	_speed.push_back(speed);
 	unsigned int id = atomNumber() - 1;
-	_index.add(id, position);
+	_index.update(_position);
 	return id;
 }
 
@@ -118,16 +119,11 @@ void Atoms::updateLinks()
 	}
 }
 
-
 void Atoms::updateAtomPositions()
 {
-	Vector oldPosition;
 	for (unsigned int i = 0; i < atomNumber(); i++)
-	{
-		oldPosition = _position[i];
 		_position[i] += _speed[i] * dt;
-		_index.update(i, oldPosition, _position[i]);
-	}
+	_index.update(_position);
 }
 
 
@@ -141,11 +137,11 @@ void Atoms::updateCollisions()
 {
 	for (unsigned int atom = 0; atom < atomNumber(); atom++)
 	{
-		AtomSet near = _index.near(atom, _position[atom]);
+		AtomVector near = _index.near(atom, _position[atom]);
 		Vector position1 = _position[atom];
-		for (auto it = near.begin(); it != near.end(); it++)
+		foreach(unsigned int i, near)
 		{
-			Vector position2 = _position[*it];
+			Vector position2 = _position[i];
 
 			if (position1.x > position2.x || (position1.x == position2.x && position1.y > position2.y))
 				continue;
@@ -159,7 +155,7 @@ void Atoms::updateCollisions()
 			{
 				Vector force((position1 - position2).normalize() * overlap * overlap * atomElasticity * dt);
 				applyForce(atom, force);
-				applyForce(*it, -force);
+				applyForce(i, -force);
 			}
 		}
 	}

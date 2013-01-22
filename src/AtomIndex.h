@@ -2,26 +2,25 @@
 #define ATOM_INDEX_H
 
 
-#include <map>
-#include <unordered_set>
-#include <unordered_map>
 #include "Vector.h"
+#include <map>
+#include <vector>
 
 
-typedef std::unordered_set<unsigned int> AtomSet;
+typedef std::vector<unsigned int> AtomVector;
 
 class AtomIndex
 {
+	typedef std::multimap<float, unsigned int> SubIndex;
+	typedef std::map<float, SubIndex> Index;
 	private:
-		float _step;
-		std::unordered_map<int, std::unordered_map<int, AtomSet>> _index;
-		int toIndex(float value);
+		float _atomDiameter;
+		Index _index;
 
 	public:
 		AtomIndex(float atomRadius);
-		void add(unsigned int atom, Vector position);
-		void update(unsigned int atom, Vector oldPosition, Vector newPosition);
-		AtomSet near(unsigned int atom, Vector position);
+		void update(const std::vector<Vector>& positoins);
+		AtomVector near(unsigned int atom, Vector position);
 };
 
 
