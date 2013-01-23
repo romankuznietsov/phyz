@@ -2,20 +2,21 @@
 #define ATOM_INDEX_H
 
 
-#include "Vector.h"
 #include <map>
 #include <vector>
+#include "Vector.h"
 
 
 typedef std::vector<unsigned int> AtomVector;
 
 class AtomIndex
 {
-	typedef std::multimap<float, unsigned int> SubIndex;
-	typedef std::map<float, SubIndex> Index;
+	typedef std::multimap<int, unsigned int> SubIndex;
+	typedef std::map<int, SubIndex> Index;
 	private:
 		float _atomDiameter;
 		Index _index;
+		int toIndex(float value);
 
 	public:
 		AtomIndex(float atomRadius);

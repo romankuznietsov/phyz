@@ -14,7 +14,7 @@ namespace
 		positions.push_back(Vector(2.0f, 0.0f));
 		positions.push_back(Vector(0.0f, 2.0f));
 		positions.push_back(Vector(2.0f, 2.0f));
-		AtomIndex.update(positions);
+		index.update(positions);
 
 		AtomVector near0 = index.near(0u, Vector(0.0f, 0.0f));
         AtomVector near1 = index.near(1u, Vector(2.0f, 0.0f));
