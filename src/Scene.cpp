@@ -11,7 +11,8 @@ Scene::Scene() :
 	_lastDt(0.0f)
 {
 	_atoms.addBody(Vector(-200.0f, -400.0f), Vector(200.0f, 400.0f), Vector(), 10.0f);
-	_atoms.addBody(Vector(900.0f, 50.0f), Vector(600.0f, -50.0f), Vector(-1000.0f, 0.0f), 10.0f);
+	_atoms.addBody(Vector(900.0f, 150.0f), Vector(600.0f, 50.0f), Vector(-1000.0f, 0.0f), 10.0f);
+	_atoms.addBody(Vector(-900.0f, -50.0f), Vector(-600.0f, -150.0f), Vector(1000.0f, 0.0f), 10.0f);
 }
 
 

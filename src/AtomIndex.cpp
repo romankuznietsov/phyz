@@ -4,7 +4,7 @@
 #include <exception>
 
 
-const float indexRange = 2000.0f;
+const float indexRange = 4000.0f;
 const int cellSize = 5;
 const int nearCellNumber = 6;
 
