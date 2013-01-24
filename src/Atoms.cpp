@@ -11,10 +11,10 @@ const float atomElasticity = 3000.0f;
 const float collisionDistance = atomRadius * 2.0f;
 
 const float linkForce = 1000.0f;
-const float linkDamping = 1.0f;
+const float linkDamping = 10.0f;
 const float linkStretch = 1.5f;
 
-const float dt = 0.001f;
+const float dt = 0.005f;
 
 
 Atoms::Atoms() :
