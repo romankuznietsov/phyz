@@ -15,6 +15,7 @@ const float linkDamping = 10.0f;
 const float linkStretch = 1.5f;
 
 const float dt = 0.005f;
+const bool fancy = false;
 
 
 Atoms::Atoms() :
@@ -58,22 +59,34 @@ void Atoms::link(unsigned int atom1, unsigned int atom2)
 
 void Atoms::drawAtoms()
 {
-	for (unsigned int i = 0; i < atomNumber(); i++)
+	if (fancy)
 	{
-		glPushMatrix();
-		_position[i].translate();
-
-		glBegin(GL_TRIANGLE_FAN);
-		glColor3f(1.0f, 1.0f, 1.0f);
-		glVertex2f(0.0f, 0.0f);
-		glColor3f(0.0f, 0.0f, 0.0f);
-		for (float i = 0.0f; i < 2.0f * M_PI + 0.7f; i += 0.7f)
+		for (unsigned int i = 0; i < atomNumber(); i++)
 		{
-			glVertex2f(sin(i) * atomRadius,
-					cos(i) * atomRadius);
+			glPushMatrix();
+			_position[i].translate();
+
+			glBegin(GL_TRIANGLE_FAN);
+			glColor3f(1.0f, 1.0f, 1.0f);
+			glVertex2f(0.0f, 0.0f);
+			glColor3f(0.0f, 0.0f, 0.0f);
+			for (float i = 0.0f; i < 2.0f * M_PI + 0.7f; i += 0.7f)
+			{
+				glVertex2f(sin(i) * atomRadius,
+						cos(i) * atomRadius);
+			}
+			glEnd();
+			glPopMatrix();
+		}
+	} else {
+		glPointSize(atomRadius);
+		glColor3f(0.7f, 0.7f, 0.7f);
+		glBegin(GL_POINTS);
+		for (unsigned int i = 0; i < atomNumber(); i++)
+		{
+			_position[i].vertex();
 		}
 		glEnd();
-		glPopMatrix();
 	}
 }
 

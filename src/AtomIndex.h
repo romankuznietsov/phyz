@@ -11,9 +11,9 @@ typedef std::vector<unsigned int> AtomVector;
 
 class AtomIndex
 {
-	typedef std::multimap<int, unsigned int> SubIndex;
-	typedef std::map<int, SubIndex> Index;
 	private:
+		typedef std::multimap<int, unsigned int> SubIndex;
+		typedef std::map<int, SubIndex> Index;
 		float _atomDiameter;
 		Index _index;
 		int toIndex(float value);

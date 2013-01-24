@@ -23,9 +23,9 @@ AtomVector AtomIndex::near(unsigned int atom, Vector position)
 	int x = toIndex(position.x);
 	int y = toIndex(position.y);
 
-	for(Index::iterator xit = _index.lower_bound(x); xit != _index.upper_bound(x+1); xit++)
+	for(auto xit = _index.lower_bound(x); xit != _index.upper_bound(x+1); xit++)
 	{
-		for(SubIndex::iterator yit = xit->second.lower_bound(y - 1); yit != xit->second.upper_bound(y + 1); yit++)
+		for(auto yit = xit->second.lower_bound(y - 1); yit != xit->second.upper_bound(y + 1); yit++)
 		{
 			if (yit->second != atom)
 				result.push_back(yit->second);
