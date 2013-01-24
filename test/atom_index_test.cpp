@@ -7,7 +7,7 @@ namespace
 {
 	TEST(AtomIndex, Near)
 	{
-		AtomIndex index(1.1f);
+		AtomIndex index(1.0f);
 		std::vector<Vector> positions;
 
 		positions.push_back(Vector(0.0f, 0.0f));
