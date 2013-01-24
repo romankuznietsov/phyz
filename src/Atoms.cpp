@@ -15,7 +15,7 @@ const float linkDamping = 10.0f;
 const float linkStretch = 1.5f;
 
 const float dt = 0.005f;
-const bool fancy = false;
+const bool fancy = true;
 
 
 Atoms::Atoms() :
