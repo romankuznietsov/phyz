@@ -13,6 +13,7 @@ int Application::_height = 600;
 
 void Application::exit()
 {
+	_scene.writeUsedTime();
 	glutLeaveMainLoop();
 }
 

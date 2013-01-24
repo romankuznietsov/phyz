@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <algorithm>
 #include "foreach.h"
+#include <fstream>
 
 
 Scene::Scene() :
@@ -17,6 +18,7 @@ Scene::Scene() :
 void Scene::update(float dt)
 {
 	_lastDt = dt;
+	_usedTime.push_back(_lastDt);
 	_atoms.update();
 }
 
@@ -48,4 +50,13 @@ void Scene::addLink(Vector from, Vector to)
 void Scene::togglePause()
 {
 	_paused = !_paused;
+}
+
+void Scene::writeUsedTime()
+{
+	std::ofstream file;
+	file.open("used_time.csv");
+	foreach(float f, _usedTime)
+		file << f << std::endl;
+	file.close();
 }

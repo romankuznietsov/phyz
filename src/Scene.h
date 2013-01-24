@@ -3,6 +3,7 @@
 
 
 #include "Atoms.h"
+#include <list>
 
 
 class Scene
@@ -11,6 +12,7 @@ class Scene
 		bool _paused;
 		float _lastDt;
 		Atoms _atoms;
+		std::list<float> _usedTime;
 
 	public:
 		Scene();
@@ -20,6 +22,7 @@ class Scene
 		void addAtom(Vector position);
 		void addLink(Vector from, Vector to);
 		void togglePause();
+		void writeUsedTime();
 };
 
 
