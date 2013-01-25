@@ -10,7 +10,6 @@ const float atomMass = 1.0f;
 const float atomElasticity = 3000.0f;
 const float collisionDistance = atomRadius * 2.0f;
 
-const float linkForce = 1000.0f;
 const float linkDamping = 10.0f;
 const float linkStretch = 1.5f;
 
@@ -26,8 +25,8 @@ Atoms::Atoms() :
 
 void Atoms::draw()
 {
-	drawAtoms();
 	drawLinks();
+	drawAtoms();
 }
 
 
@@ -39,19 +38,21 @@ void Atoms::update()
 }
 
 
-unsigned int Atoms::add(Vector position, Vector speed)
+unsigned int Atoms::add(Vector position, Vector speed, Color color)
 {
 	_position.push_back(position);
 	_speed.push_back(speed);
+	_color.push_back(color);
 	unsigned int id = atomNumber() - 1;
 	_index.update(_position);
 	return id;
 }
 
 
-void Atoms::link(unsigned int atom1, unsigned int atom2)
+void Atoms::link(unsigned int atom1, unsigned int atom2, float force)
 {
 	_links.push_back(Link(atom1, atom2));
+	_linkForce.push_back(force);
 	_linkLength.push_back(Vector::distance(_position[atom1], _position[atom2]));
 	_linkDestroyed.push_back(false);
 }
@@ -67,23 +68,23 @@ void Atoms::drawAtoms()
 			_position[i].translate();
 
 			glBegin(GL_TRIANGLE_FAN);
-			glColor3f(1.0f, 1.0f, 1.0f);
+			_color[i].apply();
 			glVertex2f(0.0f, 0.0f);
 			glColor3f(0.0f, 0.0f, 0.0f);
-			for (float i = 0.0f; i < 2.0f * M_PI + 0.7f; i += 0.7f)
+			for (float a = 0.0f; a < 2.0f * M_PI + 0.7f; a += 0.7f)
 			{
-				glVertex2f(sin(i) * atomRadius,
-						cos(i) * atomRadius);
+				glVertex2f(sin(a) * atomRadius,
+						cos(a) * atomRadius);
 			}
 			glEnd();
 			glPopMatrix();
 		}
 	} else {
 		glPointSize(atomRadius);
-		glColor3f(0.7f, 0.7f, 0.7f);
 		glBegin(GL_POINTS);
 		for (unsigned int i = 0; i < atomNumber(); i++)
 		{
+			_color[i].apply();
 			_position[i].vertex();
 		}
 		glEnd();
@@ -122,7 +123,7 @@ void Atoms::updateLinks()
 		Vector targetLinkingVector = linkingVector.normalize() * _linkLength[i];
 		Vector linkDiff = linkingVector - targetLinkingVector;
 		float linkDiffLength = linkDiff.length();
-		Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * linkForce;
+		Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * _linkForce[i];
 		applyForce(atom1, force);
 		applyForce(atom2, -force);
 
@@ -187,7 +188,7 @@ unsigned int Atoms::linkNumber()
 }
 
 
-void Atoms::addBody(Vector from, Vector to,  Vector speed, float density)
+void Atoms::addBody(Vector from, Vector to, Vector speed, Color color, float density, float linkForce)
 {
 	std::vector<unsigned int> body;
 	Vector start(std::min(from.x, to.x), std::min(from.y, to.y));
@@ -197,7 +198,7 @@ void Atoms::addBody(Vector from, Vector to,  Vector speed, float density)
 	{
 		for (float y = start.y; y <= end.y; y += density)
 		{
-			body.push_back(add(Vector(x, y + offset * density/4.0f), speed));
+			body.push_back(add(Vector(x, y + offset * density/4.0f), speed, color));
 		}
 		offset = -offset;
 	}
@@ -209,7 +210,7 @@ void Atoms::addBody(Vector from, Vector to,  Vector speed, float density)
 			unsigned int atom2 = body[j];
 			if (Vector::distance(_position[atom1], _position[atom2]) <= density * 1.5f)
 			{
-				link(atom1, atom2);
+				link(atom1, atom2, linkForce);
 			}
 		}
 }

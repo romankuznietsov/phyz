@@ -3,6 +3,7 @@
 
 
 #include "Vector.h"
+#include "Color.h"
 #include <vector>
 #include <utility>
 #include "AtomIndex.h"
@@ -17,8 +18,10 @@ class Atoms
 		AtomIndex _index;
 		std::vector<Vector> _position;
 		std::vector<Vector> _speed;
+		std::vector<Color> _color;
 		std::vector<Link> _links;
 		std::vector<float> _linkLength;
+		std::vector<float> _linkForce;
 		std::vector<bool> _linkDestroyed;
 
 		void updateCollisions();
@@ -36,9 +39,10 @@ class Atoms
 		void draw();
 		void update();
 
-		unsigned int add(Vector position, Vector speed);
-		void link(unsigned int atom1, unsigned int atom2);
-		void addBody(Vector from, Vector to,  Vector speed, float density = 20.0f);
+		unsigned int add(Vector position, Vector speed, Color color);
+		void link(unsigned int atom1, unsigned int atom2, float force);
+		void addBody(Vector from, Vector to,  Vector speed, Color color,
+				float density = 20.0f, float linkForce = 1000.0f);
 };
 
 
