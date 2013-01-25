@@ -10,12 +10,12 @@ Scene::Scene() :
 	_paused(true),
 	_lastDt(0.0f)
 {
-	_atoms.addBody(Vector(-200.0f, -400.0f), Vector(200.0f, 400.0f), Vector(),
-			Color(0.7f, 0.2f, 0.2f), 10.0f, 200.0f);
-	_atoms.addBody(Vector(900.0f, 0.0f), Vector(600.0f, 100.0f), Vector(-1000.0f, 0.0f),
-			Color(0.2f, 0.7f, 0.2f), 10.0f, 1000.0f);
-	_atoms.addBody(Vector(-900.0f, -100.0f), Vector(-600.0f, 0.0f), Vector(1000.0f, 0.0f),
-			Color(0.2f, 0.2f, 0.7f), 10.0f, 1000.0f);
+	//_atoms.addBody(Vector(-50.0f, -400.0f), Vector(50.0f, 400.0f), Vector(),
+	//		Color(0.7f, 0.2f, 0.2f), 10.0f, 200.0f, 3.5f);
+	_atoms.addBody(Vector(900.0f, -10.0f), Vector(600.0f, 100.0f), Vector(-1000.0f, 0.0f),
+			Color(0.2f, 0.7f, 0.2f), 10.0f, 1000.0f, 2.5f);
+	_atoms.addBody(Vector(-900.0f, -100.0f), Vector(-600.0f, 10.0f), Vector(1000.0f, 0.0f),
+			Color(0.2f, 0.2f, 0.7f), 10.0f, 1000.0f, 1.1f);
 }
 
 

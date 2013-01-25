@@ -23,6 +23,7 @@ class Atoms
 		std::vector<float> _linkLength;
 		std::vector<float> _linkForce;
 		std::vector<bool> _linkDestroyed;
+		std::vector<float> _linkStretch;
 
 		void updateCollisions();
 		void updateLinks();
@@ -40,9 +41,9 @@ class Atoms
 		void update();
 
 		unsigned int add(Vector position, Vector speed, Color color);
-		void link(unsigned int atom1, unsigned int atom2, float force);
+		void link(unsigned int atom1, unsigned int atom2, float force, float stretch);
 		void addBody(Vector from, Vector to,  Vector speed, Color color,
-				float density = 20.0f, float linkForce = 1000.0f);
+				float density = 20.0f, float linkForce = 1000.0f, float linkStretch = 1.5f);
 };
 
 
