@@ -2,6 +2,7 @@
 #include "foreach.h"
 #include "math.h"
 #include <exception>
+#include <algorithm>
 
 
 const float indexRange = 4000.0f;
@@ -34,7 +35,14 @@ void AtomIndex::update(const std::vector<Vector>& positions)
 
 	for (unsigned int i = 0; i < positions.size(); i++)
 	{
-		_index[toIndex(positions[i].x)][toIndex(positions[i].y)].push_back(i);
+		try
+		{
+			_index[toIndex(positions[i].x)][toIndex(positions[i].y)].push_back(i);
+		}
+		catch (const std::exception& ex)
+		{
+			continue;
+		}
 	}
 }
 
@@ -43,13 +51,24 @@ AtomVector AtomIndex::near(unsigned int atom, Vector position)
 {
 	AtomVector result;
 	result.reserve(cellSize * nearCellNumber);
-	int x = toIndex(position.x);
-	int y = toIndex(position.y);
+	int x;
+	int y;
+	try
+	{
+		x = toIndex(position.x);
+		y = toIndex(position.y);
+	}
+	catch (const std::exception& ex)
+	{
+		return result;
+	}
 
-	for (unsigned int xi = x; xi <= x + 1; xi++)
-		for (unsigned int yi = y - 1; yi <= y + 1; yi++)
+	for (unsigned int xi = x; xi <= std::min(static_cast<unsigned int>(x + 1), _cellNumber - 1); xi++)
+		for (unsigned int yi = std::max(static_cast<unsigned int>(y - 1), 0u);
+				yi <= std::min(static_cast<unsigned int>(y + 1), _cellNumber - 1); yi++)
 			foreach(unsigned int atom, _index[xi][yi])
 				result.push_back(atom);
+
 
 	return result;
 }
@@ -58,7 +77,7 @@ AtomVector AtomIndex::near(unsigned int atom, Vector position)
 unsigned int AtomIndex::toIndex(float value)
 {
 	int result = static_cast<int>(floor(value / _atomDiameter)) + _indexOffset;
-	if (result < 0 || result >= _cellNumber)
+	if (result < 0 || static_cast<unsigned int>(result) >= _cellNumber)
 		throw std::exception();
 	return result;
 }
