@@ -2,7 +2,7 @@
 #define SCENE_H
 
 
-#include "Atoms.h"
+#include "Objects.h"
 #include <list>
 
 
@@ -11,7 +11,7 @@ class Scene
 	private:
 		bool _paused;
 		float _lastDt;
-		Atoms _atoms;
+		Objects _atoms;
 		std::list<float> _usedTime;
 
 	public:

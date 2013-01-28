@@ -10,7 +10,7 @@
 #include "Link.h"
 
 
-class Atoms
+class Objects
 {
 	private:
 		AtomIndex _index;
@@ -23,7 +23,7 @@ class Atoms
 		void updateAtomPositions();
 
 	public:
-		Atoms();
+		Objects();
 		void draw();
 		void update();
 

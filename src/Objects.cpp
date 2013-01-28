@@ -1,4 +1,4 @@
-#include "Atoms.h"
+#include "Objects.h"
 #include <GL/freeglut.h>
 #include <math.h>
 #include <algorithm>
@@ -8,12 +8,12 @@
 const float dt = 0.005f;
 
 
-Atoms::Atoms()
+Objects::Objects()
 {
 }
 
 
-void Atoms::draw()
+void Objects::draw()
 {
 	foreach(Link* link, _links)
 		link->draw();
@@ -23,7 +23,7 @@ void Atoms::draw()
 }
 
 
-void Atoms::update()
+void Objects::update()
 {
 	updateLinks();
 	updateCollisions();
@@ -31,13 +31,13 @@ void Atoms::update()
 }
 
 
-void Atoms::updateLinks()
+void Objects::updateLinks()
 {
 	foreach(Link* link, _links)
 		link->update(dt);
 }
 
-void Atoms::updateAtomPositions()
+void Objects::updateAtomPositions()
 {
 	foreach(Atom* atom, _atoms)
 		atom->update(dt);
@@ -45,7 +45,7 @@ void Atoms::updateAtomPositions()
 }
 
 
-void Atoms::updateCollisions()
+void Objects::updateCollisions()
 {
 	foreach (AtomPtr atom, _atoms)
 	{
@@ -75,7 +75,7 @@ void Atoms::updateCollisions()
 }
 
 
-void Atoms::addBody(Vector from, Vector to, Vector speed, Color color,
+void Objects::addBody(Vector from, Vector to, Vector speed, Color color,
 		float density, float linkForce, float linkStretch)
 {
 	std::vector<Atom*> body;
