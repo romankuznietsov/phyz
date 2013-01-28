@@ -10,10 +10,9 @@ const int cellSize = 5;
 const int nearCellNumber = 6;
 
 
-AtomIndex::AtomIndex(float atomRadius) :
-	_atomDiameter(atomRadius * 2.0f)
+AtomIndex::AtomIndex()
 {
-	_cellNumber = static_cast<unsigned int>(indexRange / _atomDiameter);
+	_cellNumber = static_cast<unsigned int>(indexRange / Atom::collisionDistance());
 	_indexOffset = _cellNumber / 2;
 	_index.reserve(_cellNumber);
 	for (unsigned int xi = 0; xi < _cellNumber; xi++)
@@ -27,17 +26,17 @@ AtomIndex::AtomIndex(float atomRadius) :
 }
 
 
-void AtomIndex::update(const std::vector<Vector>& positions)
+void AtomIndex::update(const AtomPtrVector& atoms)
 {
 	for (unsigned int xi = 0; xi < _cellNumber; xi++)
 		for (unsigned int yi = 0; yi < _cellNumber; yi++)
 			_index[xi][yi].clear();
 
-	for (unsigned int i = 0; i < positions.size(); i++)
+	foreach(AtomPtr atom, atoms)
 	{
 		try
 		{
-			_index[toIndex(positions[i].x)][toIndex(positions[i].y)].push_back(i);
+			_index[toIndex(atom->position().x)][toIndex(atom->position().y)].push_back(atom);
 		}
 		catch (const std::exception& ex)
 		{
@@ -47,16 +46,16 @@ void AtomIndex::update(const std::vector<Vector>& positions)
 }
 
 
-AtomVector AtomIndex::near(unsigned int atom, Vector position)
+AtomPtrVector AtomIndex::near(const AtomPtr& atom)
 {
-	AtomVector result;
+	AtomPtrVector result;
 	result.reserve(cellSize * nearCellNumber);
 	int x;
 	int y;
 	try
 	{
-		x = toIndex(position.x);
-		y = toIndex(position.y);
+		x = toIndex(atom->position().x);
+		y = toIndex(atom->position().y);
 	}
 	catch (const std::exception& ex)
 	{
@@ -66,7 +65,7 @@ AtomVector AtomIndex::near(unsigned int atom, Vector position)
 	for (unsigned int xi = x; xi <= std::min(static_cast<unsigned int>(x + 1), _cellNumber - 1); xi++)
 		for (unsigned int yi = std::max(static_cast<unsigned int>(y - 1), 0u);
 				yi <= std::min(static_cast<unsigned int>(y + 1), _cellNumber - 1); yi++)
-			foreach(unsigned int atom, _index[xi][yi])
+			foreach(AtomPtr atom, _index[xi][yi])
 				result.push_back(atom);
 
 
@@ -76,7 +75,7 @@ AtomVector AtomIndex::near(unsigned int atom, Vector position)
 
 unsigned int AtomIndex::toIndex(float value)
 {
-	int result = static_cast<int>(floor(value / _atomDiameter)) + _indexOffset;
+	int result = static_cast<int>(floor(value / Atom::collisionDistance())) + _indexOffset;
 	if (result < 0 || static_cast<unsigned int>(result) >= _cellNumber)
 		throw std::exception();
 	return result;
