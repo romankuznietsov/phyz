@@ -5,6 +5,7 @@
 #include "Vector.h"
 #include "Color.h"
 #include <vector>
+#include <boost/thread.hpp>
 
 
 class Atom
@@ -13,6 +14,7 @@ class Atom
 		Vector _position;
 		Vector _speed;
 		Color _color;
+		boost::mutex _mutex;
 
 	public:
 		Atom(Vector position, Vector speed, Color color);

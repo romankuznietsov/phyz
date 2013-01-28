@@ -6,6 +6,7 @@ const float _radius = 5.0f;
 const float _mass = 1.0f;
 const float _elasticity = 3000.0f;
 const float _collisionDistance = _radius * 2.0f;
+auto _sleepTime = boost::posix_time::milliseconds(1);
 
 
 Atom::Atom(Vector position, Vector speed, Color color) :
@@ -40,7 +41,11 @@ void Atom::draw()
 
 void Atom::applyForce(Vector force)
 {
+	while(not _mutex.try_lock())
+		boost::this_thread::sleep(_sleepTime);
+
 	_speed += force / _mass;
+	_mutex.unlock();
 }
 
 
