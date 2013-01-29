@@ -11,7 +11,7 @@ Scene::Scene() :
     _lastDt(0.0f)
 {
     _objects.addBody(Vector(-400.0f, -400.0f), Vector(400.0f, 400.0f), Vector(),
-    		Color(0.7f, 0.2f, 0.2f), 10.0f, 200.0f, 3.5f);
+    		Color(0.7f, 0.2f, 0.2f), 10.0f, 200.0f, 1.5f);
     _objects.addBody(Vector(900.0f, -150.0f), Vector(600.0f, 150.0f), Vector(-1000.0f, 0.0f),
 	    Color(0.2f, 0.7f, 0.2f), 10.0f, 1000.0f, 2.5f);
 }

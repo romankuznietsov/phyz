@@ -27,9 +27,9 @@ void Atom::draw()
     _color.apply();
     _position.vertex();
     glEnd();
+
     //glPushMatrix();
     //_position.translate();
-
     //glBegin(GL_TRIANGLE_FAN);
     //_color.apply();
     //glVertex2f(0.0f, 0.0f);
