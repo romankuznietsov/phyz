@@ -8,8 +8,6 @@
 #include <utility>
 #include "Atom.h"
 #include "Link.h"
-#include "AtomWorker.h"
-#include "LinkWorker.h"
 #include "AtomIndex.h"
 
 
