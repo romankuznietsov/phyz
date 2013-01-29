@@ -26,4 +26,7 @@ class AtomIndex
 };
 
 
+typedef AtomIndex* AtomIndexPtr;
+
+
 #endif // ATOM_INDEX_H

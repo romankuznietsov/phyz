@@ -8,27 +8,27 @@
 #include <utility>
 #include "AtomIndex.h"
 #include "Link.h"
+#include "AtomWorker.h"
 
 
 class Objects
 {
-	private:
-		AtomIndex _index;
+    private:
+	AtomIndexPtr _index;
+	AtomPtrVector _atoms;
+	LinkPtrVector _links;
 
-		AtomPtrVector _atoms;
-		std::vector<Link*> _links;
+	void updateCollisions();
+	void updateLinks();
+	void updateAtomPositions();
 
-		void updateCollisions();
-		void updateLinks();
-		void updateAtomPositions();
+    public:
+	Objects();
+	void draw();
+	void update();
 
-	public:
-		Objects();
-		void draw();
-		void update();
-
-		void addBody(Vector from, Vector to,  Vector speed, Color color,
-				float density = 20.0f, float linkForce = 1000.0f, float linkStretch = 1.5f);
+	void addBody(Vector from, Vector to,  Vector speed, Color color,
+		float density = 20.0f, float linkForce = 1000.0f, float linkStretch = 1.5f);
 };
 
 

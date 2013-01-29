@@ -9,41 +9,41 @@ Color color(0.5f, 0.5f, 0.5f);
 
 
 Link::Link(Atom* atom1, Atom* atom2, float force, float stretch) :
-	_atom1(atom1), _atom2(atom2), _length(Vector::distance(_atom1->position(), _atom2->position())),
-	_force(force), _stretch(stretch), _destroyed(false)
+    _atom1(atom1), _atom2(atom2), _length(Vector::distance(_atom1->position(), _atom2->position())),
+    _force(force), _stretch(stretch), _destroyed(false)
 {}
 
 
 void Link::update(float dt)
 {
-	if (_destroyed) return;
+    if (_destroyed) return;
 
-	Vector linkingVector = _atom2->position() - _atom1->position();
-	if (linkingVector.length() > _length * _stretch)
-	{
-		_destroyed = true;
-		return;
-	}
+    Vector linkingVector = _atom2->position() - _atom1->position();
+    if (linkingVector.length() > _length * _stretch)
+    {
+	_destroyed = true;
+	return;
+    }
 
-	Vector targetLinkingVector = linkingVector.normalize() * _length;
-	Vector linkDiff = linkingVector - targetLinkingVector;
-	float linkDiffLength = linkDiff.length();
-	Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * _force;
-	_atom1->applyForce(force);
-	_atom2->applyForce(-force);
+    Vector targetLinkingVector = linkingVector.normalize() * _length;
+    Vector linkDiff = linkingVector - targetLinkingVector;
+    float linkDiffLength = linkDiff.length();
+    Vector force = linkDiff.normalize() * linkDiffLength * linkDiffLength * dt * _force;
+    _atom1->applyForce(force);
+    _atom2->applyForce(-force);
 
-	Vector dampingForce = (_atom1->speed() - _atom2->speed()) * damping * dt;
-	_atom1->applyForce(-dampingForce);
-	_atom2->applyForce(dampingForce);
+    Vector dampingForce = (_atom1->speed() - _atom2->speed()) * damping * dt;
+    _atom1->applyForce(-dampingForce);
+    _atom2->applyForce(dampingForce);
 }
 
 
 void Link::draw()
 {
-	if (_destroyed) return;
-	color.apply();
-	glBegin(GL_LINES);
-	_atom1->position().vertex();
-	_atom2->position().vertex();
-	glEnd();
+    if (_destroyed) return;
+    color.apply();
+    glBegin(GL_LINES);
+    _atom1->position().vertex();
+    _atom2->position().vertex();
+    glEnd();
 }

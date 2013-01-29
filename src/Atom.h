@@ -10,24 +10,24 @@
 
 class Atom
 {
-	private:
-		Vector _position;
-		Vector _speed;
-		Color _color;
-		boost::mutex _mutex;
+    private:
+	Vector _position;
+	Vector _speed;
+	Color _color;
+	boost::mutex _applyForceLock;
 
-	public:
-		Atom(Vector position, Vector speed, Color color);
-		void update(float dt);
-		void draw();
-		void applyForce(Vector force);
-		Vector position();
-		Vector speed();
+    public:
+	Atom(Vector position, Vector speed, Color color);
+	void update(float dt);
+	void draw();
+	void applyForce(Vector force);
+	Vector position();
+	Vector speed();
 
-		static float radius();
-		static float mass();
-		static float elasticity();
-		static float collisionDistance();
+	static float radius();
+	static float mass();
+	static float elasticity();
+	static float collisionDistance();
 };
 
 
