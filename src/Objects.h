@@ -6,9 +6,11 @@
 #include "Color.h"
 #include <vector>
 #include <utility>
-#include "AtomIndex.h"
+#include "Atom.h"
 #include "Link.h"
 #include "AtomWorker.h"
+#include "LinkWorker.h"
+#include "AtomIndex.h"
 
 
 class Objects

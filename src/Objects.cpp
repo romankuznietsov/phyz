@@ -34,8 +34,23 @@ void Objects::update()
 
 void Objects::updateLinks()
 {
-    foreach(Link* link, _links)
-	link->update(dt);
+    std::vector<boost::thread*> threads;
+    unsigned int linksPerThread = _links.size() / _maxThreadNumber;
+    if (linksPerThread == 0u)
+	linksPerThread = 1u;
+    auto from = _links.begin();
+    auto end = _links.end();
+    while (from < end)
+    {
+	auto to = std::min(end, from + linksPerThread);
+	threads.push_back(new boost::thread(LinkWorker(from, to), dt));
+	from += linksPerThread;
+    }
+    foreach(boost::thread* thread, threads)
+    {
+	thread->join();
+	delete thread;
+    }
 }
 
 void Objects::updateAtomPositions()
