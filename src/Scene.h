@@ -8,21 +8,21 @@
 
 class Scene
 {
-	private:
-		bool _paused;
-		float _lastDt;
-		Objects _atoms;
-		std::list<float> _usedTime;
+    private:
+	bool _paused;
+	float _lastDt;
+	Objects _objects;
+	std::list<float> _usedTime;
 
-	public:
-		Scene();
-		void update(float dt);
-		void draw(float width, float height);
+    public:
+	Scene();
+	void update(float dt);
+	void draw(float width, float height);
 
-		void addAtom(Vector position);
-		void addLink(Vector from, Vector to);
-		void togglePause();
-		void writeUsedTime();
+	void addAtom(Vector position);
+	void addLink(Vector from, Vector to);
+	void togglePause();
+	void writeUsedTime();
 };
 
 

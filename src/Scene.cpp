@@ -10,9 +10,9 @@ Scene::Scene() :
     _paused(true),
     _lastDt(0.0f)
 {
-    _atoms.addBody(Vector(-400.0f, -400.0f), Vector(400.0f, 400.0f), Vector(),
+    _objects.addBody(Vector(-400.0f, -400.0f), Vector(400.0f, 400.0f), Vector(),
     		Color(0.7f, 0.2f, 0.2f), 10.0f, 200.0f, 3.5f);
-    _atoms.addBody(Vector(900.0f, -150.0f), Vector(600.0f, 150.0f), Vector(-1000.0f, 0.0f),
+    _objects.addBody(Vector(900.0f, -150.0f), Vector(600.0f, 150.0f), Vector(-1000.0f, 0.0f),
 	    Color(0.2f, 0.7f, 0.2f), 10.0f, 1000.0f, 2.5f);
 }
 
@@ -21,13 +21,13 @@ void Scene::update(float dt)
 {
     _lastDt = dt;
     _usedTime.push_back(_lastDt);
-    _atoms.update();
+    _objects.update();
 }
 
 
 void Scene::draw(float width, float height)
 {
-    _atoms.draw();
+    _objects.draw();
     glColor3f(1.0f, 1.0f, 1.0f);
     char c[32];
     sprintf(c, "%f", _lastDt);
