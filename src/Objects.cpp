@@ -74,7 +74,7 @@ void Objects::update()
 {
     updateLinks();
     updateCollisions();
-    updateAtomPositions();
+    updateAtoms();
 }
 
 
@@ -98,7 +98,7 @@ void Objects::updateLinks()
 }
 
 
-void Objects::updateAtomPositions()
+void Objects::updateAtoms()
 {
     std::vector<boost::thread*> threads;
     unsigned int atomsPerThread = _atoms.size() / maxThreadNumber + 1u;

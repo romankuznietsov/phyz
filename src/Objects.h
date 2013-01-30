@@ -20,7 +20,7 @@ class Objects
 
 	void updateCollisions();
 	void updateLinks();
-	void updateAtomPositions();
+	void updateAtoms();
 
     public:
 	Objects();
