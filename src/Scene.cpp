@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "foreach.h"
 #include <fstream>
+#include <yaml-cpp/yaml.h>
 
 
 Scene::Scene() :
@@ -68,4 +69,10 @@ void Scene::writeUsedTime()
     foreach(float f, _usedTime)
 	file << f << std::endl;
     file.close();
+}
+
+
+void Scene::load(int argc, char** argv)
+{
+
 }

@@ -23,6 +23,7 @@ class Scene
 	void addLink(Vector from, Vector to);
 	void togglePause();
 	void writeUsedTime();
+	void load(int argc, char** argv);
 };
 
 
