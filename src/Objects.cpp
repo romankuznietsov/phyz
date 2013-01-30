@@ -6,7 +6,7 @@
 
 
 const float dt = 0.005f;
-const int _maxThreadNumber = 8;
+const int maxThreadNumber = 8;
 
 
 void updateAtoms(AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
@@ -15,11 +15,13 @@ void updateAtoms(AtomPtrVector::iterator from, AtomPtrVector::iterator to, float
 	(*it)->update(dt);
 }
 
+
 void updateLinks(LinkPtrVector::iterator from, LinkPtrVector::iterator to, float dt)
 {
     for (auto it = from; it != to; it++)
 	(*it)->update(dt);
 }
+
 
 void updateCollisions(AtomIndexPtr index, AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
 {
@@ -79,7 +81,7 @@ void Objects::update()
 void Objects::updateLinks()
 {
     std::vector<boost::thread*> threads;
-    unsigned int linksPerThread = _links.size() / _maxThreadNumber + 1u;
+    unsigned int linksPerThread = _links.size() / maxThreadNumber + 1u;
     auto from = _links.begin();
     auto end = _links.end();
     while (from < end)
@@ -95,10 +97,11 @@ void Objects::updateLinks()
     }
 }
 
+
 void Objects::updateAtomPositions()
 {
     std::vector<boost::thread*> threads;
-    unsigned int atomsPerThread = _atoms.size() / _maxThreadNumber + 1u;
+    unsigned int atomsPerThread = _atoms.size() / maxThreadNumber + 1u;
     auto from = _atoms.begin();
     auto end = _atoms.end();
     while (from < end)
@@ -119,7 +122,7 @@ void Objects::updateAtomPositions()
 void Objects::updateCollisions()
 {
     std::vector<boost::thread*> threads;
-    unsigned int atomsPerThread = _atoms.size() / _maxThreadNumber + 1u;
+    unsigned int atomsPerThread = _atoms.size() / maxThreadNumber + 1u;
     auto from = _atoms.begin();
     auto end = _atoms.end();
     while (from < end)
