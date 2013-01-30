@@ -11,14 +11,14 @@ Scene::Scene() :
     _paused(true),
     _lastDt(0.0f)
 {
-    _objects.addBody(Vector(-50.0f, 10.0f), Vector(50.0f, 400.0f), Vector(),
+    _objects.addBody(Vector(0.0f, 210.0f), Vector(50.0f, 400.0f), Vector(),
     		Color(0.7f, 0.2f, 0.2f), 10.0f, 100.0f, 2.5f);
-    _objects.addBody(Vector(900.0f, 210.0f), Vector(800.0f, 190.0f), Vector(-1500.0f, 0.0f),
+    _objects.addBody(Vector(500.0f, 200.0f), Vector(50.0f, 20.0f), Vector(-1500.0f, 0.0f),
 	    Color(0.5f, 0.5f, 0.5f), 10.0f, 1000.0f, 2.0f);
 
-    _objects.addBody(Vector(-50.0f, -10.0f), Vector(50.0f, -400.0f), Vector(),
+    _objects.addBody(Vector(0.0f, -210.0f), Vector(50.0f, 400.0f), Vector(),
     		Color(0.2f, 0.2f, 0.7f), 10.0f, 3000.0f, 1.1f);
-    _objects.addBody(Vector(900.0f, -210.0f), Vector(800.0f, -190.0f), Vector(-1500.0f, 0.0f),
+    _objects.addBody(Vector(500.0f, -200.0f), Vector(50.0f, 20.0f), Vector(-1500.0f, 0.0f),
 	    Color(0.5f, 0.5f, 0.5f), 10.0f, 1000.0f, 2.0f);
 }
 
@@ -74,5 +74,4 @@ void Scene::writeUsedTime()
 
 void Scene::load(int argc, char** argv)
 {
-
 }

@@ -27,7 +27,7 @@ class Objects
 	void draw();
 	void update();
 
-	void addBody(Vector from, Vector to,  Vector speed, Color color,
+	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density = 20.0f, float linkForce = 1000.0f, float linkStretch = 1.5f);
 };
 

@@ -136,12 +136,14 @@ void Objects::updateCollisions()
 }
 
 
-void Objects::addBody(Vector from, Vector to, Vector speed, Color color,
+void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
 	float density, float linkForce, float linkStretch)
 {
     std::vector<Atom*> body;
-    Vector start(std::min(from.x, to.x), std::min(from.y, to.y));
-    Vector end(std::max(from.x, to.x), std::max(from.y, to.y));
+    size.x = abs(size.x) / 2.0f;
+    size.y = abs(size.y) / 2.0f;
+    Vector start = position - size;
+    Vector end = position + size;
     float offset = 1.0f;
     for (float x = start.x; x <= end.x; x += density)
     {
