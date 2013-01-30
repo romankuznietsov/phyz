@@ -10,6 +10,8 @@ struct Color
 	float r;
 	float g;
 	float b;
+	Color()
+	{};
 	Color(float red, float green, float blue) :
 		r(red), g(green), b(blue)
 	{};
