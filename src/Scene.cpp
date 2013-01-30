@@ -26,7 +26,8 @@ void Scene::update(float dt)
 {
     _lastDt = dt;
     _usedTime.push_back(_lastDt);
-    _objects.update();
+    if (!_paused)
+	_objects.update();
 }
 
 
