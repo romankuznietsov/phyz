@@ -107,8 +107,10 @@ void Scene::load(int argc, char** argv)
 	    (*it)["link_force"] >> linkForce;
 	    float linkStretch;
 	    (*it)["link_stretch"] >> linkStretch;
+	    float linkDamping;
+	    (*it)["link_damping"] >> linkDamping;
 
-	    _objects.addBody(position, size, speed, color, density, linkForce, linkStretch);
+	    _objects.addBody(position, size, speed, color, density, linkForce, linkStretch, linkDamping);
 	}
     }
     catch (YAML::Exception& e)

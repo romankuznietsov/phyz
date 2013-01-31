@@ -140,7 +140,7 @@ void Objects::updateCollisions()
 
 
 void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
-	float density, float linkForce, float linkStretch)
+	float density, float linkForce, float linkStretch, float linkDamping)
 {
     std::vector<Atom*> body;
     size.x = abs(size.x) / 2.0f;
@@ -166,7 +166,7 @@ void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
 	    Atom* atom2 = body[j];
 	    if (Vector::distance(atom1->position(), atom2->position()) <= density * 1.5f)
 	    {
-		_links.push_back(new Link(atom1, atom2, linkForce, linkStretch));
+		_links.push_back(new Link(atom1, atom2, linkForce, linkStretch, linkDamping));
 	    }
 	}
 }

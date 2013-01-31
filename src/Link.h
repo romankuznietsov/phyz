@@ -14,10 +14,11 @@ class Link
 	float _length;
 	float _force;
 	float _stretch;
+	float _damping;
 	bool _destroyed;
 
     public:
-	Link(Atom* atom1, Atom* atom2, float force, float stretch);
+	Link(Atom* atom1, Atom* atom2, float force, float stretch, float damping);
 	void update(float dt);
 	void draw();
 };
