@@ -1,6 +1,6 @@
 - position:
     x: 0
-    y: -300
+    y: 0
   size:
     x: 2000
     y: 300
@@ -13,20 +13,36 @@
     b: 0.2
   density: 10
   link_force: 1000
-  link_stretch: 2.5
+  link_stretch: 1.1
 - position:
-    x: 500
-    y: 0
+    x: 150
+    y: 300
   size:
     x: 100
     y: 100
   speed:
-    x: -300
-    y: -100
+    x: -500
+    y: -500
   color:
     r: 0.4
     g: 0.4
     b: 0.4
-  density: 10
-  link_force: 1000
-  link_stretch: 1.5
+  density: 9
+  link_force: 300
+  link_stretch: 1.1
+- position:
+    x: -150
+    y: 300
+  size:
+    x: 100
+    y: 100
+  speed:
+    x: 500
+    y: -500
+  color:
+    r: 0.4
+    g: 0.4
+    b: 0.4
+  density: 9
+  link_force: 300
+  link_stretch: 1.1
