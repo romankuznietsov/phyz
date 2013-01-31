@@ -9,52 +9,6 @@ const float dt = 0.005f;
 const int maxThreadNumber = 8;
 
 
-void updateAtoms(AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
-{
-    for (auto it = from; it != to; it++)
-	(*it)->update(dt);
-}
-
-
-void updateLinks(LinkPtrVector::iterator from, LinkPtrVector::iterator to, float dt)
-{
-    for (auto it = from; it != to; it++)
-	(*it)->update(dt);
-}
-
-
-void updateCollisions(AtomIndexPtr index, AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
-{
-    for (auto it = from; it != to; it++)
-    {
-	AtomPtr atom = *it;
-	AtomPtrVector near = index->near(atom);
-	Vector position1 = atom->position();
-	foreach(AtomPtr otherAtom, near)
-	{
-	    Vector position2 = otherAtom->position();
-
-	    if (position1.x > position2.x || (position1.x == position2.x && position1.y > position2.y))
-		continue;
-
-	    if (abs(position1.x - position2.x) >= Atom::collisionDistance()
-		    or abs(position1.y - position2.y) >= Atom::collisionDistance())
-		continue;
-
-	    float overlap = Atom::collisionDistance() - Vector::distance(position1, position2);
-
-	    if (overlap > 0.0f)
-	    {
-		Vector force((position1 - position2).normalize() * overlap * overlap *
-			Atom::elasticity() * dt);
-		atom->applyForce(force);
-		otherAtom->applyForce(-force);
-	    }
-	}
-    }
-}
-
-
 Objects::Objects() : _index(new AtomIndex)
 {
 }
@@ -87,7 +41,7 @@ void Objects::updateLinks()
     while (from < end)
     {
 	auto to = std::min(end, from + linksPerThread);
-	threads.push_back(new boost::thread(::updateLinks, from, to, dt));
+	threads.push_back(new boost::thread(Workers::updateLinks, from, to, dt));
 	from += linksPerThread;
     }
     foreach(boost::thread* thread, threads)
@@ -107,7 +61,7 @@ void Objects::updateAtoms()
     while (from < end)
     {
 	auto to = std::min(end, from + atomsPerThread);
-	threads.push_back(new boost::thread(::updateAtoms, from, to, dt));
+	threads.push_back(new boost::thread(Workers::updateAtoms, from, to, dt));
 	from += atomsPerThread;
     }
     foreach(boost::thread* thread, threads)
@@ -128,7 +82,7 @@ void Objects::updateCollisions()
     while (from < end)
     {
 	auto to = std::min(end, from + atomsPerThread);
-	threads.push_back(new boost::thread(::updateCollisions, _index, from, to, dt));
+	threads.push_back(new boost::thread(Workers::updateCollisions, _index, from, to, dt));
 	from += atomsPerThread;
     }
     foreach(boost::thread* thread, threads)

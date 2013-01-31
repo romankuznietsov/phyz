@@ -9,6 +9,7 @@
 #include "Atom.h"
 #include "Link.h"
 #include "AtomIndex.h"
+#include "Workers.h"
 
 
 class Objects
