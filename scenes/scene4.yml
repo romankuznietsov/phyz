@@ -1,0 +1,53 @@
+- position:
+    x: 250
+    y: 0
+  size:
+    x: 100
+    y: 40
+  speed:
+    x: -300
+    y: 0
+  color:
+    r: 0.2
+    g: 0.2
+    b: 0.2
+  density: 10
+  link_force: 9000
+  link_stretch: 1.2
+  link_damping: 10
+
+- position:
+    x: 0
+    y: 180
+  size:
+    x: 40
+    y: 100
+  speed:
+    x: 0
+    y: -300
+  color:
+    r: 0.7
+    g: 0.7
+    b: 0.7
+  density: 10
+  link_force: 9000
+  link_stretch: 1.2
+  link_damping: 10
+
+- position:
+    x: -350
+    y: -350
+  size:
+    x: 500
+    y: 500
+  speed:
+    x: 0
+    y: 0
+  color:
+    r: 0.7
+    g: 0.3
+    b: 0.3
+  density: 10
+  link_force: 9000
+  link_stretch: 1.05
+  link_damping: 100
