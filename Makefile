@@ -2,7 +2,7 @@ APP_NAME = phyz
 
 CXX = g++
 CXXFLAGS = -pedantic -Wall -Wextra -std=c++11
-LDFLAGS = -lGL -lGLU -lglut -lboost_thread -lboost_signals -lpthread -lyaml-cpp
+LDFLAGS = -lGL -lGLU -lglut -lboost_thread -lboost_signals -lboost_program_options -lpthread -lyaml-cpp
 
 SRCS = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)
 OBJS = $(patsubst src/%.cpp, obj/%.o, $(SRCS))
