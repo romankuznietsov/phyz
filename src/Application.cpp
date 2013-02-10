@@ -2,8 +2,10 @@
 #include <GL/freeglut.h>
 
 
-Application::Application() : _lastUpdateTime(0)
-{}
+Application::Application(int argc, char** argv) : _lastUpdateTime(0)
+{
+    _scene.load(argc, argv);
+}
 
 
 void Application::update()

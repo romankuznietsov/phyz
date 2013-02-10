@@ -18,7 +18,7 @@ class Application : public Gxy::Application
 	void reshape(int width, int height);
 
     public:
-	Application();
+	Application(int argc, char** argv);
 };
 
 

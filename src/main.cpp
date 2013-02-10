@@ -3,5 +3,6 @@
 
 int main(int argc, char** argv)
 {
-    Application().run();
+    Application app(argc, argv);
+    app.run();
 }
