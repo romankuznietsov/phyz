@@ -10,6 +10,7 @@
 #include "Link.h"
 #include "AtomIndex.h"
 #include "Workers.h"
+#include <fstream>
 
 
 class Objects
@@ -18,13 +19,16 @@ class Objects
 	AtomIndexPtr _index;
 	AtomPtrVector _atoms;
 	LinkPtrVector _links;
+	std::ofstream _outputFile;
 
 	void updateCollisions();
 	void updateLinks();
 	void updateAtoms();
+	void writeAtomPositions();
 
     public:
 	Objects();
+	~Objects();
 	void draw();
 	void update();
 
