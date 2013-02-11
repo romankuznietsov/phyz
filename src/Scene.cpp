@@ -7,75 +7,11 @@
 #include <yaml-cpp/yaml.h>
 
 
-Scene::Scene() :
+Scene::Scene(std::string inputFileName) :
     _paused(true),
     _lastDt(0.0f)
-{}
-
-
-void Scene::update(float dt)
 {
-    _lastDt = dt;
-    _usedTime.push_back(_lastDt);
-    if (!_paused)
-	_objects.update();
-}
-
-
-void Scene::draw(float width, float height)
-{
-    glPushMatrix();
-    glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
-    glScalef(1.0f, -1.0f, 1.0f);
-    _objects.draw();
-    glPopMatrix();
-
-    char c[32];
-    if (_paused)
-	sprintf(c, "PAUSED");
-    else
-	sprintf(c, "%f", _lastDt);
-
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glPushMatrix();
-    glTranslatef(width - 120.0f, height -  10.0f, 0.0f);
-    glScalef(0.2f, -0.2f, 1.0f);
-    glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
-    glPopMatrix();
-
-}
-
-
-void Scene::addAtom(Vector position)
-{
-}
-
-
-void Scene::addLink(Vector from, Vector to)
-{
-}
-
-
-void Scene::togglePause()
-{
-    _paused = !_paused;
-}
-
-void Scene::writeUsedTime()
-{
-    std::ofstream file;
-    file.open("used_time.csv");
-    foreach(float f, _usedTime)
-	file << f << std::endl;
-    file.close();
-}
-
-
-void Scene::load(int argc, char** argv)
-{
-    if (argc != 2)
-	return;
-    std::ifstream file(argv[1]);
+    std::ifstream file(inputFileName.c_str());
 
     try
     {
@@ -123,4 +59,53 @@ void Scene::load(int argc, char** argv)
 	std::cout << "Bad scene file format" << std::endl;
 	std::cout << e.what() << std::endl;
     }
+}
+
+
+void Scene::update(float dt)
+{
+    _lastDt = dt;
+    _usedTime.push_back(_lastDt);
+    if (!_paused)
+	_objects.update();
+}
+
+
+void Scene::draw(float width, float height)
+{
+    glPushMatrix();
+    glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
+    glScalef(1.0f, -1.0f, 1.0f);
+    _objects.draw();
+    glPopMatrix();
+
+    char c[32];
+    if (_paused)
+	sprintf(c, "PAUSED");
+    else
+	sprintf(c, "%f", _lastDt);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glPushMatrix();
+    glTranslatef(width - 120.0f, height -  10.0f, 0.0f);
+    glScalef(0.2f, -0.2f, 1.0f);
+    glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
+    glPopMatrix();
+
+}
+
+
+void Scene::togglePause()
+{
+    _paused = !_paused;
+}
+
+
+void Scene::writeUsedTime()
+{
+    std::ofstream file;
+    file.open("used_time.csv");
+    foreach(float f, _usedTime)
+	file << f << std::endl;
+    file.close();
 }

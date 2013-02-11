@@ -20,11 +20,17 @@ int main(int argc, char** argv)
     if (!vm.count("input-file"))
 	return 1;
 
+    std::string inputFile = vm["input-file"].as<std::string>();
+
     std::string fileType = vm["input-type"].as<std::string>();
     if (fileType != "yml" && fileType != "phy")
 	return 1;
 
-    Application app(argc, argv);
-    app.run();
+    if (fileType == "yml")
+    {
+	ScenePtr scene = new Scene(inputFile);
+	Application(scene).run();
+    }
+
     return 0;
 }

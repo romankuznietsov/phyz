@@ -4,6 +4,7 @@
 
 #include "Objects.h"
 #include <list>
+#include <string>
 
 
 class Scene
@@ -15,16 +16,16 @@ class Scene
 	std::list<float> _usedTime;
 
     public:
-	Scene();
+	Scene(std::string inputFileName);
 	void update(float dt);
 	void draw(float width, float height);
 
-	void addAtom(Vector position);
-	void addLink(Vector from, Vector to);
 	void togglePause();
 	void writeUsedTime();
-	void load(int argc, char** argv);
 };
+
+
+typedef Scene* ScenePtr;
 
 
 #endif // SCENE_H

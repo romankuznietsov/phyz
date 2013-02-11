@@ -8,7 +8,7 @@
 class Application : public Gxy::Application
 {
     private:
-	Scene _scene;
+	ScenePtr _scene;
 	int _width;
 	int _height;
 	int _lastUpdateTime;
@@ -18,7 +18,7 @@ class Application : public Gxy::Application
 	void reshape(int width, int height);
 
     public:
-	Application(int argc, char** argv);
+	Application(ScenePtr scene);
 };
 
 

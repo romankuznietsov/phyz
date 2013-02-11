@@ -2,10 +2,10 @@
 #include <GL/freeglut.h>
 
 
-Application::Application(int argc, char** argv) : _lastUpdateTime(0)
-{
-    _scene.load(argc, argv);
-}
+Application::Application(ScenePtr scene) :
+    _lastUpdateTime(0),
+    _scene(scene)
+{}
 
 
 void Application::update()
@@ -13,13 +13,13 @@ void Application::update()
     int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
     float dt = (elapsedTime - _lastUpdateTime) / 1000.0f;
     _lastUpdateTime = elapsedTime;
-    _scene.update(dt);
+    _scene->update(dt);
 }
 
 
 void Application::display()
 {
-    _scene.draw(_width, _height);
+    _scene->draw(_width, _height);
 }
 
 
@@ -38,7 +38,7 @@ void Application::keyboard(unsigned char key, int x, int y)
 	    quit();
 	    break;
 	case 'p':
-	    _scene.togglePause();
+	    _scene->togglePause();
 	    break;
 	default:
 	    break;
