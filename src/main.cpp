@@ -49,5 +49,20 @@ int main(int argc, char** argv)
 
     }
 
+    // if mode = yaml-gl
+    // YamlGLApplication().run
+    //   model.create(yaml)
+    //   model.upate(dt)
+    //   draw(model)
+    // if mode == yaml-phy
+    // YamlPhyApplication().run
+    //	model.create(yaml)
+    //	model.update(dt)
+    //	write(model)
+    // if mode == phy-gl
+    // PhyGLApplication().run
+    //	renderer.create(phy)
+    //	renderer.draw_frame()
+
     return 0;
 }
