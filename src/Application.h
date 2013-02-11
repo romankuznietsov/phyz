@@ -19,6 +19,7 @@ class Application : public Gxy::Application
 
     public:
 	Application(ScenePtr scene);
+	~Application();
 };
 
 

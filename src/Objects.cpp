@@ -7,18 +7,10 @@
 
 const float dt = 0.005f;
 const int maxThreadNumber = 8;
-const char* outputFileName = "output.phy";
 
 
 Objects::Objects() : _index(new AtomIndex)
 {
-    _outputFile.open(outputFileName, std::ios::out | std::ios::binary);
-}
-
-
-Objects::~Objects()
-{
-    _outputFile.close();
 }
 
 
@@ -37,7 +29,6 @@ void Objects::update()
     updateLinks();
     updateCollisions();
     updateAtoms();
-    writeAtomPositions();
 }
 
 
@@ -135,13 +126,13 @@ void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
 }
 
 
-void Objects::writeAtomPositions()
+void Objects::writeAtomPositions(std::ofstream& outputFile)
 {
     unsigned int numberOfAtoms = _atoms.size();
-    _outputFile.write((char*) &numberOfAtoms, sizeof(numberOfAtoms));
+    outputFile.write((char*) &numberOfAtoms, sizeof(numberOfAtoms));
     foreach(AtomPtr atom, _atoms)
     {
 	Vector position = atom->position();
-	_outputFile.write((char*) &position, sizeof(position));
+	outputFile.write((char*) &position, sizeof(position));
     }
 }

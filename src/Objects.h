@@ -19,21 +19,19 @@ class Objects
 	AtomIndexPtr _index;
 	AtomPtrVector _atoms;
 	LinkPtrVector _links;
-	std::ofstream _outputFile;
 
 	void updateCollisions();
 	void updateLinks();
 	void updateAtoms();
-	void writeAtomPositions();
 
     public:
 	Objects();
-	~Objects();
 	void draw();
 	void update();
 
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density, float linkForce, float linkStretch, float linkDamping);
+	void writeAtomPositions(std::ofstream& outputFile);
 };
 
 

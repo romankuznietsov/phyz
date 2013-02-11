@@ -11,6 +11,83 @@ Scene::Scene(std::string inputFileName) :
     _paused(true),
     _lastDt(0.0f)
 {
+    load(inputFileName);
+}
+
+
+Scene::Scene(std::string inputFileName, std::string outputFileName) :
+    _paused(true),
+    _lastDt(0.0f)
+{
+    load(inputFileName);
+    _outputFile.open(outputFileName.c_str(), std::ios::out | std::ios::binary);
+}
+
+
+Scene::~Scene()
+{
+    if (_outputFile.is_open())
+	_outputFile.close();
+}
+
+
+void Scene::update(float dt)
+{
+    _lastDt = dt;
+    _usedTime.push_back(_lastDt);
+    if (!_paused)
+	_objects.update();
+}
+
+
+void Scene::draw(float width, float height)
+{
+    glPushMatrix();
+    glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
+    glScalef(1.0f, -1.0f, 1.0f);
+    _objects.draw();
+    glPopMatrix();
+
+    char c[32];
+    if (_paused)
+	sprintf(c, "PAUSED");
+    else
+	sprintf(c, "%f", _lastDt);
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glPushMatrix();
+    glTranslatef(width - 120.0f, height -  10.0f, 0.0f);
+    glScalef(0.2f, -0.2f, 1.0f);
+    glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
+    glPopMatrix();
+
+}
+
+
+void Scene::writeProgress()
+{
+    _objects.writeAtomPositions(_outputFile);
+}
+
+
+void Scene::togglePause()
+{
+    _paused = !_paused;
+}
+
+
+void Scene::writeUsedTime()
+{
+    std::ofstream file;
+    file.open("used_time.csv");
+    foreach(float f, _usedTime)
+	file << f << std::endl;
+    file.close();
+}
+
+
+void Scene::load(std::string inputFileName)
+{
     std::ifstream file(inputFileName.c_str());
 
     try
@@ -59,53 +136,4 @@ Scene::Scene(std::string inputFileName) :
 	std::cout << "Bad scene file format" << std::endl;
 	std::cout << e.what() << std::endl;
     }
-}
-
-
-void Scene::update(float dt)
-{
-    _lastDt = dt;
-    _usedTime.push_back(_lastDt);
-    if (!_paused)
-	_objects.update();
-}
-
-
-void Scene::draw(float width, float height)
-{
-    glPushMatrix();
-    glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
-    glScalef(1.0f, -1.0f, 1.0f);
-    _objects.draw();
-    glPopMatrix();
-
-    char c[32];
-    if (_paused)
-	sprintf(c, "PAUSED");
-    else
-	sprintf(c, "%f", _lastDt);
-
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glPushMatrix();
-    glTranslatef(width - 120.0f, height -  10.0f, 0.0f);
-    glScalef(0.2f, -0.2f, 1.0f);
-    glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
-    glPopMatrix();
-
-}
-
-
-void Scene::togglePause()
-{
-    _paused = !_paused;
-}
-
-
-void Scene::writeUsedTime()
-{
-    std::ofstream file;
-    file.open("used_time.csv");
-    foreach(float f, _usedTime)
-	file << f << std::endl;
-    file.close();
 }

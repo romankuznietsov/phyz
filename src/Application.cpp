@@ -8,6 +8,12 @@ Application::Application(ScenePtr scene) :
 {}
 
 
+Application::~Application()
+{
+    delete _scene;
+}
+
+
 void Application::update()
 {
     int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
