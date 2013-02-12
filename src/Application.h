@@ -2,13 +2,13 @@
 #define APPLICATION_H
 
 #include "gxy/Gxy.h"
-#include "Scene.h"
+#include "Model.h"
 
 
 class Application : public Gxy::Application
 {
     private:
-	ScenePtr _scene;
+	ModelPtr _model;
 	int _width;
 	int _height;
 	int _lastUpdateTime;
@@ -18,7 +18,7 @@ class Application : public Gxy::Application
 	void reshape(int width, int height);
 
     public:
-	Application(ScenePtr scene);
+	Application(ModelPtr model);
 	~Application();
 };
 

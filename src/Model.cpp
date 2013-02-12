@@ -1,4 +1,4 @@
-#include "Scene.h"
+#include "Model.h"
 #include "foreach.h"
 #include <stdio.h>
 #include <fstream>
@@ -7,40 +7,19 @@
 #include <yaml-cpp/yaml.h>
 
 
-Scene::Scene(std::string inputFileName) :
-    _paused(true),
-    _lastDt(0.0f)
-{
-    load(inputFileName);
-}
+Model::Model() : _paused(true), _lastDt(0.0f)
+{}
 
 
-Scene::Scene(std::string inputFileName, std::string outputFileName) :
-    _paused(true),
-    _lastDt(0.0f)
-{
-    load(inputFileName);
-    _outputFile.open(outputFileName.c_str(), std::ios::out | std::ios::binary);
-}
-
-
-Scene::~Scene()
-{
-    if (_outputFile.is_open())
-	_outputFile.close();
-}
-
-
-void Scene::update(float dt)
+void Model::update(float dt)
 {
     _lastDt = dt;
-    _usedTime.push_back(_lastDt);
     if (!_paused)
 	_objects.update();
 }
 
 
-void Scene::draw(float width, float height)
+void Model::draw(float width, float height)
 {
     glPushMatrix();
     glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
@@ -64,31 +43,21 @@ void Scene::draw(float width, float height)
 }
 
 
-void Scene::writeProgress()
+void Model::writeProgress(std::ofstream outputFile)
 {
-    _objects.writeAtomPositions(_outputFile);
+    _objects.writeAtomPositions(outputFile);
 }
 
 
-void Scene::togglePause()
+void Model::togglePause()
 {
     _paused = !_paused;
 }
 
 
-void Scene::writeUsedTime()
+void Model::loadFile(std::string yamlFileName)
 {
-    std::ofstream file;
-    file.open("used_time.csv");
-    foreach(float f, _usedTime)
-	file << f << std::endl;
-    file.close();
-}
-
-
-void Scene::load(std::string inputFileName)
-{
-    std::ifstream file(inputFileName.c_str());
+    std::ifstream file(yamlFileName.c_str());
 
     try
     {
@@ -128,12 +97,13 @@ void Scene::load(std::string inputFileName)
 	    float linkDamping;
 	    (*it)["link_damping"] >> linkDamping;
 
-	    _objects.addBody(position, size, speed, color, density, linkForce, linkStretch, linkDamping);
+	    _objects.addBody(position, size, speed, color, density,
+		    linkForce, linkStretch, linkDamping);
 	}
     }
     catch (YAML::Exception& e)
     {
-	std::cout << "Bad scene file format" << std::endl;
+	std::cout << "Bad model file format" << std::endl;
 	std::cout << e.what() << std::endl;
     }
 }

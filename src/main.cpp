@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "YamlGLMode.h"
 #include <boost/program_options.hpp>
 #include <string>
 #include <iostream>
@@ -32,37 +32,9 @@ int main(int argc, char** argv)
     if (consoleArguments.count("output-file") && !(consoleArguments.count("duration") && consoleArguments.count("step")))
 	return 1;
 
-    if (fileType == "yml")
-    {
-	if (consoleArguments.count("output-file"))
-	{
-	    std::string outputFile = consoleArguments["output-file"].as<std::string>();
-	    ScenePtr scene = new Scene(inputFile, outputFile);
-	    scene->update(0.001f);
-	    scene->writeProgress();
-	    delete scene;
-	}
-	else
-	{
-	    Application(new Scene(inputFile)).run();
-	}
-
-    }
-
-    // if mode = yaml-gl
-    // YamlGLApplication().run
-    //   model.create(yaml)
-    //   model.upate(dt)
-    //   draw(model)
-    // if mode == yaml-phy
-    // YamlPhyApplication().run
-    //	model.create(yaml)
-    //	model.update(dt)
-    //	write(model)
-    // if mode == phy-gl
-    // PhyGLApplication().run
-    //	renderer.create(phy)
-    //	renderer.draw_frame()
+    YamlGLMode mode;
+    mode.loadFile(inputFile);
+    mode.run();
 
     return 0;
 }
