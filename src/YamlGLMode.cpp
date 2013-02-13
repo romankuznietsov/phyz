@@ -5,7 +5,7 @@
 const float dt = 0.005f;
 
 
-YamlGLMode::YamlGLMode()
+YamlGLMode::YamlGLMode() : _model(true)
 {
 
 }

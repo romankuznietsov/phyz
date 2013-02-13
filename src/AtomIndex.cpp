@@ -14,10 +14,10 @@ AtomIndex::AtomIndex()
 {
 	_cellNumber = static_cast<unsigned int>(indexRange / Atom::collisionDistance());
 	_indexOffset = _cellNumber / 2;
-	_index.reserve(_cellNumber);
+	_index.resize(_cellNumber);
 	for (unsigned int xi = 0; xi < _cellNumber; xi++)
 	{
-		_index[xi].reserve(_cellNumber);
+		_index[xi].resize(_cellNumber);
 		for (unsigned int yi = 0; yi < _cellNumber; yi++)
 		{
 			_index[xi][yi].reserve(cellSize);

@@ -7,7 +7,7 @@
 #include <yaml-cpp/yaml.h>
 
 
-Model::Model() : _paused(true), _lastDt(0.0f)
+Model::Model(bool paused) : _paused(paused), _lastDt(0.0f)
 {}
 
 
@@ -43,7 +43,7 @@ void Model::draw(float width, float height)
 }
 
 
-void Model::writeProgress(std::ofstream outputFile)
+void Model::writeProgress(std::ofstream& outputFile)
 {
     _objects.writeAtomPositions(outputFile);
 }
