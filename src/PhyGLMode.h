@@ -3,11 +3,17 @@
 
 
 #include "gxy/Gxy.h"
+#include <string>
 
 
 class PhyGLMode : public Gxy::Application
 {
+    public:
+	PhyGLMode();
+	void loadFile(std::string phyFileName);
 
+    private:
+	bool _paused;
 };
 
 
