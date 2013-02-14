@@ -1,8 +1,7 @@
 #include "Link.h"
 #include "Vector.h"
 #include "Color.h"
-#include <GL/freeglut.h>
-
+#include "Drawing.h"
 
 Color color(0.5f, 0.5f, 0.5f);
 
@@ -40,9 +39,5 @@ void Link::update(float dt)
 void Link::draw()
 {
     if (_destroyed) return;
-    color.apply();
-    glBegin(GL_LINES);
-    _atom1->position().vertex();
-    _atom2->position().vertex();
-    glEnd();
+    Drawing::line(_atom1->position(), _atom2->position(), color);
 }

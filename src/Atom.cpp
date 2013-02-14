@@ -1,5 +1,5 @@
 #include "Atom.h"
-#include <GL/freeglut.h>
+#include "Drawing.h"
 
 
 const float _radius = 5.0f;
@@ -22,25 +22,7 @@ void Atom::update(float dt)
 
 void Atom::draw()
 {
-    //glPointSize(_radius);
-    //glBegin(GL_POINTS);
-    //_color.apply();
-    //_position.vertex();
-    //glEnd();
-
-    glPushMatrix();
-    _position.translate();
-    glBegin(GL_TRIANGLE_FAN);
-    _color.apply();
-    glVertex2f(0.0f, 0.0f);
-    glColor3f(0.0f, 0.0f, 0.0f);
-    for (float a = 0.0f; a < 2.0f * M_PI + 0.7f; a += 0.7f)
-    {
-        glVertex2f(sin(a) * _radius,
-        	cos(a) * _radius);
-    }
-    glEnd();
-    glPopMatrix();
+    Drawing::sphere(_position, _radius, _color);
 }
 
 

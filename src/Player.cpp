@@ -1,6 +1,7 @@
 #include "Player.h"
-#include <GL/freeglut.h>
+#include "Drawing.h"
 #include "foreach.h"
+#include "Atom.h"
 
 
 Player::Player()
@@ -53,12 +54,10 @@ void Player::display(int windowWidth, int windowHeight)
     glTranslatef(windowWidth / 2.0f, windowHeight / 2.0f, 0.0f);
     glScalef(1.0f, -1.0f, 1.0f);
 
-    glBegin(GL_POINTS);
     foreach(Vector& atom, _atoms)
     {
-	atom.vertex();
+	Drawing::sphere(atom, Atom::radius());
     }
-    glEnd();
 
     glPopMatrix();
 }
