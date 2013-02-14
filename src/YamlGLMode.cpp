@@ -5,7 +5,7 @@
 const float dt = 0.005f;
 
 
-YamlGLMode::YamlGLMode() : _model(true)
+YamlGLMode::YamlGLMode() : _paused(true)
 {
 
 }
@@ -19,7 +19,8 @@ void YamlGLMode::loadFile(std::string yamlFileName)
 
 void YamlGLMode::update()
 {
-    _model.update(dt);
+    if (!_paused)
+	_model.update(dt);
 }
 
 
@@ -37,7 +38,7 @@ void YamlGLMode::keyboard(unsigned char key, int x, int y)
 	    quit();
 	    break;
 	case 'p':
-	    _model.togglePause();
+	    _paused = !_paused;
 	    break;
 	default:
 	    break;

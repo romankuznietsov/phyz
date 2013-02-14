@@ -11,15 +11,13 @@
 class Model
 {
     public:
-	Model(bool paused = false);
+	Model();
 	void loadFile(std::string yamlFileName);
 	void update(float dt);
 	void draw(float width, float height);
 	void writeProgress(std::ofstream& outputFile);
-	void togglePause();
 
     private:
-	bool _paused;
 	float _lastDt;
 	Objects _objects;
 };

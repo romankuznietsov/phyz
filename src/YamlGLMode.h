@@ -14,6 +14,7 @@ class YamlGLMode : public Gxy::Application
 	void loadFile(std::string yamlFileName);
 
     private:
+	bool _paused;
 	int _windowHeight;
 	int _windowWidth;
 	Model _model;

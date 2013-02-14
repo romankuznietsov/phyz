@@ -7,15 +7,14 @@
 #include <yaml-cpp/yaml.h>
 
 
-Model::Model(bool paused) : _paused(paused), _lastDt(0.0f)
+Model::Model() : _lastDt(0.0f)
 {}
 
 
 void Model::update(float dt)
 {
     _lastDt = dt;
-    if (!_paused)
-	_objects.update();
+    _objects.update();
 }
 
 
@@ -28,10 +27,7 @@ void Model::draw(float width, float height)
     glPopMatrix();
 
     char c[32];
-    if (_paused)
-	sprintf(c, "PAUSED");
-    else
-	sprintf(c, "%f", _lastDt);
+    sprintf(c, "%f", _lastDt);
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glPushMatrix();
@@ -46,12 +42,6 @@ void Model::draw(float width, float height)
 void Model::writeProgress(std::ofstream& outputFile)
 {
     _objects.writeAtomPositions(outputFile);
-}
-
-
-void Model::togglePause()
-{
-    _paused = !_paused;
 }
 
 
