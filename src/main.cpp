@@ -1,5 +1,6 @@
 #include "YamlGLMode.h"
 #include "YamlPhyMode.h"
+#include "PhyGLMode.h"
 #include <boost/program_options.hpp>
 #include <string>
 #include <iostream>
@@ -46,7 +47,14 @@ int main(int argc, char** argv)
 
 	YamlPhyMode mode;
 	mode.loadFile(inputFile);
-	mode.calculate(outputFile, 1000.0f, 0.005f);
+	mode.calculate(outputFile, 10.0f, 0.005f);
+    }
+
+    if (mode == "phy-gl")
+    {
+	PhyGLMode mode;
+	mode.loadFile(inputFile);
+	mode.run();
     }
 
 

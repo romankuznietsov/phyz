@@ -23,7 +23,4 @@ class Model
 };
 
 
-typedef Model* ModelPtr;
-
-
 #endif // SCENE_H
