@@ -16,6 +16,10 @@ class Atom
 	Color _color;
 	boost::mutex _applyForceLock;
 
+	static float _mass;
+	static float _radius;
+	static float _elasticity;
+
     public:
 	Atom(Vector position, Vector speed, Color color);
 	void update(float dt);
@@ -25,6 +29,7 @@ class Atom
 	Vector speed();
 	Color color();
 
+	static void setup(float radius, float mass, float elasticity);
 	static float radius();
 	static float mass();
 	static float elasticity();

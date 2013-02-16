@@ -21,6 +21,7 @@ class Player
     private:
 	std::ifstream _phyFile;
 	unsigned int _numberOfAtoms;
+	float _atomRadius;
 	std::vector<Vector> _atoms;
 	std::vector<Color> _colors;
 	bool readHeader();

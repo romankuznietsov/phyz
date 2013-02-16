@@ -2,16 +2,23 @@
 #include "Drawing.h"
 
 
-const float _radius = 1.0f;
-const float _mass = 0.1f;
-const float _elasticity = 5000.0f;
-const float _collisionDistance = _radius * 2.0f;
+float Atom::_radius = 1.0f;
+float Atom::_mass = 0.1f;
+float Atom::_elasticity = 5000.0f;
 auto _sleepTime = boost::posix_time::milliseconds(2);
 
 
 Atom::Atom(Vector position, Vector speed, Color color) :
     _position(position), _speed(speed), _color(color)
 {}
+
+
+void Atom::setup(float radius, float mass, float elasticity)
+{
+    _radius = radius;
+    _mass = mass;
+    _elasticity = elasticity;
+}
 
 
 void Atom::update(float dt)
@@ -74,5 +81,5 @@ float Atom::elasticity()
 
 float Atom::collisionDistance()
 {
-    return _collisionDistance;
+    return _radius * 2.0f;
 }

@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Atom.h"
-#include <GL/freeglut.h>
+#include "Drawing.h"
 
 
 Player::Player()
@@ -28,6 +28,10 @@ bool Player::readHeader()
    if (!_phyFile.read(reinterpret_cast<char*>(&_numberOfAtoms),
 	   sizeof(_numberOfAtoms)))
        return false;
+   if (!_phyFile.read(reinterpret_cast<char*>(&_atomRadius),
+	   sizeof(_atomRadius)))
+       return false;
+
    _atoms.reserve(_numberOfAtoms);
    _colors.reserve(_numberOfAtoms);
 
@@ -66,14 +70,10 @@ void Player::display(int windowWidth, int windowHeight)
     glTranslatef(windowWidth / 2.0f, windowHeight / 2.0f, 0.0f);
     glScalef(1.0f, -1.0f, 1.0f);
 
-    glPointSize(Atom::radius() * 3.0f);
-    glBegin(GL_POINTS);
     for (unsigned int i = 0u; i < _numberOfAtoms; ++i)
     {
-	_colors[i].apply();
-	_atoms[i].vertex();
+	Drawing::sphere(_atoms[i], _atomRadius, _colors[i]);
     }
-    glEnd();
 
     glPopMatrix();
 }

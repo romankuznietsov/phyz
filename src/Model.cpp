@@ -7,13 +7,13 @@
 #include <yaml-cpp/yaml.h>
 
 
-Model::Model() : _previousElapsedTime(0)
+Model::Model() : _previousElapsedTime(0), _dt(1.0f)
 {}
 
 
-void Model::update(float dt)
+void Model::update()
 {
-    _objects.update(dt);
+    _objects.update(_dt);
 }
 
 
@@ -44,14 +44,13 @@ void Model::draw(float width, float height)
 
 void Model::writeHeader(std::ofstream& outputFile)
 {
-    _objects.writeNumberOfAtoms(outputFile);
-    _objects.writeAtomColors(outputFile);
+    _objects.writeHeader(outputFile);
 }
 
 
 void Model::writeProgress(std::ofstream& outputFile)
 {
-    _objects.writeAtomPositions(outputFile);
+    _objects.writeProgress(outputFile);
 }
 
 
@@ -65,7 +64,23 @@ void Model::loadFile(std::string yamlFileName)
 	YAML::Node doc;
 	parser.GetNextDocument(doc);
 
-	for (YAML::Iterator it = doc.begin(); it != doc.end(); ++it)
+	doc["dt"] >> _dt;
+
+	const YAML::Node& atomNode = doc["atom"];
+	const YAML::Node& bodiesNode = doc["bodies"];
+
+	float atomRadius;
+	float atomMass;
+	float atomElasticity;
+
+	atomNode["radius"] >> atomRadius;
+	atomNode["mass"] >> atomMass;
+	atomNode["elasticity"] >> atomElasticity;
+
+	Atom::setup(atomRadius, atomMass, atomElasticity);
+
+	for (YAML::Iterator it = bodiesNode.begin();
+		it != bodiesNode.end(); ++it)
 	{
 	    const YAML::Node& positionNode = (*it)["position"];
 	    Vector position;
@@ -106,4 +121,10 @@ void Model::loadFile(std::string yamlFileName)
 	std::cout << "Bad model file format" << std::endl;
 	std::cout << e.what() << std::endl;
     }
+}
+
+
+float Model::dt()
+{
+    return _dt;
 }

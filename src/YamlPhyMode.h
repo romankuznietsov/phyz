@@ -12,7 +12,7 @@ class YamlPhyMode
     public:
 	YamlPhyMode();
 	void loadFile(std::string yamlFileName);
-	void calculate(std::string phyFileName, float duration, float dt,
+	void calculate(std::string phyFileName, float duration,
 		float recordDt);
 
     private:

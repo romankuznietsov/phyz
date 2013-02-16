@@ -31,9 +31,8 @@ class Objects
 
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density, float linkForce, float linkStretch, float linkDamping);
-	void writeNumberOfAtoms(std::ofstream& outputFile);
-	void writeAtomColors(std::ofstream& outputFile);
-	void writeAtomPositions(std::ofstream& outputFile);
+	void writeHeader(std::ofstream& outputFile);
+	void writeProgress(std::ofstream& outputFile);
 };
 
 

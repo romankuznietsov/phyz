@@ -14,7 +14,6 @@ int main(int argc, char** argv)
 	("output-file,o", boost::program_options::value<std::string>()->default_value("output.phy"), "output file")
 	("input-file,i", boost::program_options::value<std::string>(), "input file")
 	("duration,d", boost::program_options::value<float>()->default_value(10.0f), "duation to calculate")
-	("step,s", boost::program_options::value<float>()->default_value(0.005f), "calculation time step")
 	("record-step,r", boost::program_options::value<float>()->default_value(0.01f), "record time step")
 	;
     boost::program_options::positional_options_description pos;
@@ -33,14 +32,12 @@ int main(int argc, char** argv)
     std::string inputFile = consoleArguments["input-file"].as<std::string>();
     std::string outputFile = consoleArguments["output-file"].as<std::string>();
     float duration = consoleArguments["duration"].as<float>();
-    float step = consoleArguments["step"].as<float>();
     float recordStep = consoleArguments["record-step"].as<float>();
 
     if (mode == "yaml-gl")
     {
 	YamlGLMode mode;
 	mode.loadFile(inputFile);
-	mode.setDt(step);
 	mode.run();
     }
 
@@ -49,13 +46,12 @@ int main(int argc, char** argv)
 
 	std::cout << "recording to " << outputFile << std::endl;
 	std::cout << "duration: " << duration << std::endl;
-	std::cout << "step: " << step << std::endl;
 	std::cout << "record step: " << recordStep << std::endl;
 	std::cout << "working..." << std::endl;
 
 	YamlPhyMode mode;
 	mode.loadFile(inputFile);
-	mode.calculate(outputFile, duration, step, recordStep);
+	mode.calculate(outputFile, duration, recordStep);
     }
 
     if (mode == "phy-gl")

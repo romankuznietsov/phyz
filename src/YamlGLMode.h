@@ -12,10 +12,8 @@ class YamlGLMode : public Gxy::Application
     public:
 	YamlGLMode();
 	void loadFile(std::string yamlFileName);
-	void setDt(float dt);
 
     private:
-	float _dt;
 	bool _paused;
 	int _windowHeight;
 	int _windowWidth;
