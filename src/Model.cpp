@@ -13,7 +13,7 @@ Model::Model() : _previousElapsedTime(0)
 
 void Model::update(float dt)
 {
-    _objects.update();
+    _objects.update(dt);
 }
 
 

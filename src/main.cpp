@@ -23,28 +23,29 @@ int main(int argc, char** argv)
     boost::program_options::store(boost::program_options::command_line_parser(argc, argv).options(desc).positional(pos).run(), consoleArguments);
     boost::program_options::notify(consoleArguments);
 
-    std::string mode = consoleArguments["mode"].as<std::string>();
-
     if (!consoleArguments.count("input-file"))
     {
 	std::cout << "No input file." << std::endl;
 	return 1;
     }
+
+    std::string mode = consoleArguments["mode"].as<std::string>();
     std::string inputFile = consoleArguments["input-file"].as<std::string>();
+    std::string outputFile = consoleArguments["output-file"].as<std::string>();
+    float duration = consoleArguments["duration"].as<float>();
+    float step = consoleArguments["step"].as<float>();
+    float recordStep = consoleArguments["record-step"].as<float>();
 
     if (mode == "yaml-gl")
     {
-        YamlGLMode mode;
-        mode.loadFile(inputFile);
-        mode.run();
+	YamlGLMode mode;
+	mode.loadFile(inputFile);
+	mode.setDt(step);
+	mode.run();
     }
 
     if (mode == "yaml-phy")
     {
-	std::string outputFile = consoleArguments["output-file"].as<std::string>();
-	float duration = consoleArguments["duration"].as<float>();
-	float step = consoleArguments["step"].as<float>();
-	float recordStep = consoleArguments["record-step"].as<float>();
 
 	std::cout << "recording to " << outputFile << std::endl;
 	std::cout << "duration: " << duration << std::endl;

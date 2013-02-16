@@ -5,7 +5,6 @@
 #include "foreach.h"
 
 
-const float dt = 0.005f;
 const int maxThreadNumber = 8;
 
 
@@ -24,15 +23,15 @@ void Objects::draw()
 }
 
 
-void Objects::update()
+void Objects::update(float dt)
 {
-    updateLinks();
-    updateCollisions();
-    updateAtoms();
+    updateLinks(dt);
+    updateCollisions(dt);
+    updateAtoms(dt);
 }
 
 
-void Objects::updateLinks()
+void Objects::updateLinks(float dt)
 {
     std::vector<boost::thread*> threads;
     unsigned int linksPerThread = _links.size() / maxThreadNumber + 1u;
@@ -52,7 +51,7 @@ void Objects::updateLinks()
 }
 
 
-void Objects::updateAtoms()
+void Objects::updateAtoms(float dt)
 {
     std::vector<boost::thread*> threads;
     unsigned int atomsPerThread = _atoms.size() / maxThreadNumber + 1u;
@@ -73,7 +72,7 @@ void Objects::updateAtoms()
 }
 
 
-void Objects::updateCollisions()
+void Objects::updateCollisions(float dt)
 {
     std::vector<boost::thread*> threads;
     unsigned int atomsPerThread = _atoms.size() / maxThreadNumber + 1u;

@@ -20,14 +20,14 @@ class Objects
 	AtomPtrVector _atoms;
 	LinkPtrVector _links;
 
-	void updateCollisions();
-	void updateLinks();
-	void updateAtoms();
+	void updateCollisions(float dt);
+	void updateLinks(float dt);
+	void updateAtoms(float dt);
 
     public:
 	Objects();
 	void draw();
-	void update();
+	void update(float dt);
 
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density, float linkForce, float linkStretch, float linkDamping);

@@ -2,12 +2,15 @@
 #include <GL/freeglut.h>
 
 
-const float dt = 0.005f;
-
-
-YamlGLMode::YamlGLMode() : _paused(true)
+YamlGLMode::YamlGLMode() : _paused(true), _dt(0.005f)
 {
 
+}
+
+
+void YamlGLMode::setDt(float dt)
+{
+    _dt = dt;
 }
 
 
@@ -20,7 +23,7 @@ void YamlGLMode::loadFile(std::string yamlFileName)
 void YamlGLMode::update()
 {
     if (!_paused)
-	_model.update(dt);
+	_model.update(_dt);
 }
 
 
