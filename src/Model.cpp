@@ -7,13 +7,12 @@
 #include <yaml-cpp/yaml.h>
 
 
-Model::Model() : _lastDt(0.0f)
+Model::Model() : _previousElapsedTime(0)
 {}
 
 
 void Model::update(float dt)
 {
-    _lastDt = dt;
     _objects.update();
 }
 
@@ -26,12 +25,16 @@ void Model::draw(float width, float height)
     _objects.draw();
     glPopMatrix();
 
+    int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
+    int dt = elapsedTime - _previousElapsedTime;
+    _previousElapsedTime = elapsedTime;
+
     char c[32];
-    sprintf(c, "%f", _lastDt);
+    sprintf(c, "%i", dt);
 
     glColor3f(1.0f, 1.0f, 1.0f);
     glPushMatrix();
-    glTranslatef(width - 120.0f, height -  10.0f, 0.0f);
+    glTranslatef(width - 60.0f, height -  10.0f, 0.0f);
     glScalef(0.2f, -0.2f, 1.0f);
     glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
     glPopMatrix();

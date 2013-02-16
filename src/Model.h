@@ -18,7 +18,7 @@ class Model
 	void writeProgress(std::ofstream& outputFile);
 
     private:
-	float _lastDt;
+	int _previousElapsedTime;
 	Objects _objects;
 };
 

@@ -11,6 +11,8 @@ PhyGLMode::PhyGLMode() : _paused(true)
 void PhyGLMode::loadFile(std::string phyFileName)
 {
     _player.loadFile(phyFileName);
+    if (!_player.nextFrame())
+	quit();
 }
 
 
