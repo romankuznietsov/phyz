@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "Drawing.h"
-#include "foreach.h"
 #include "Atom.h"
 
 
@@ -12,35 +11,48 @@ Player::Player()
 
 Player::~Player()
 {
-    if (phyFile.is_open())
-	phyFile.close();
+    if (_phyFile.is_open())
+	_phyFile.close();
 }
 
 
-void Player::loadFile(std::string phyFileName)
+bool Player::loadFile(std::string phyFileName)
 {
-    phyFile.open(phyFileName.c_str(), std::ios::in | std::ios::binary);
+    _phyFile.open(phyFileName.c_str(), std::ios::in | std::ios::binary);
+    return readHeader();
+}
+
+
+bool Player::readHeader()
+{
+   if (!_phyFile.read(reinterpret_cast<char*>(&_numberOfAtoms),
+	   sizeof(_numberOfAtoms)))
+       return false;
+   _atoms.reserve(_numberOfAtoms);
+   _colors.reserve(_numberOfAtoms);
+
+   for (unsigned int i = 0u; i < _numberOfAtoms; ++i)
+   {
+       Color color;
+       if(!_phyFile.read(reinterpret_cast<char*>(&color), sizeof(color)))
+	   return false;
+       _colors.push_back(color);
+   }
+   return true;
 }
 
 
 bool Player::nextFrame()
 {
     _atoms.clear();
-    unsigned int numberOfAtoms;
-    if (!phyFile.read(reinterpret_cast<char*>(&numberOfAtoms),
-	sizeof(numberOfAtoms)))
-    {
-	return false;
-    }
-    _atoms.reserve(numberOfAtoms);
 
-    for (unsigned int i = 0u; i < numberOfAtoms; ++i)
+    for (unsigned int i = 0u; i < _numberOfAtoms; ++i)
     {
-	float x;
-	float y;
-	phyFile.read(reinterpret_cast<char*>(&x), sizeof(x));
-	phyFile.read(reinterpret_cast<char*>(&y), sizeof(y));
-	_atoms.push_back(Vector(x, y));
+	Vector position;
+	if (!_phyFile.read(
+		    reinterpret_cast<char*>(&position), sizeof(position)))
+	    return false;
+	_atoms.push_back(position);
     }
     return true;
 }
@@ -54,9 +66,9 @@ void Player::display(int windowWidth, int windowHeight)
     glTranslatef(windowWidth / 2.0f, windowHeight / 2.0f, 0.0f);
     glScalef(1.0f, -1.0f, 1.0f);
 
-    foreach(Vector& atom, _atoms)
+    for (unsigned int i = 0u; i < _numberOfAtoms; ++i)
     {
-	Drawing::sphere(atom, Atom::radius());
+	Drawing::sphere(_atoms[i], Atom::radius(), _colors[i]);
     }
 
     glPopMatrix();

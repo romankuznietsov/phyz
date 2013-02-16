@@ -15,6 +15,7 @@ class Model
 	void loadFile(std::string yamlFileName);
 	void update(float dt);
 	void draw(float width, float height);
+	void writeHeader(std::ofstream& outputFile);
 	void writeProgress(std::ofstream& outputFile);
 
     private:

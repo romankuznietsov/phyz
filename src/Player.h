@@ -6,6 +6,7 @@
 #include <fstream>
 #include <vector>
 #include "Vector.h"
+#include "Color.h"
 
 
 class Player
@@ -13,13 +14,16 @@ class Player
     public:
 	Player();
 	~Player();
-	void loadFile(std::string phyFileName);
+	bool loadFile(std::string phyFileName);
 	bool nextFrame();
 	void display(int windowWidth, int windowHeight);
 
     private:
-	std::ifstream phyFile;
+	std::ifstream _phyFile;
+	unsigned int _numberOfAtoms;
 	std::vector<Vector> _atoms;
+	std::vector<Color> _colors;
+	bool readHeader();
 };
 
 

@@ -1,7 +1,7 @@
 APP_NAME = phyz
 
 CXX = g++
-CXXFLAGS = -pedantic -Wall -Wextra -std=c++11
+CXXFLAGS = -pedantic -Wall -Wextra -std=c++11 -O3
 LDFLAGS = -lGL -lGLU -lglut -lboost_thread -lboost_signals -lboost_program_options -lpthread -lyaml-cpp
 
 SRCS = $(wildcard src/*.cpp) $(wildcard src/**/*.cpp)

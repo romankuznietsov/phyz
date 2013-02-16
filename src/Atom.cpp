@@ -48,6 +48,12 @@ Vector Atom::speed()
 }
 
 
+Color Atom::color()
+{
+    return _color;
+}
+
+
 float Atom::radius()
 {
     return _radius;

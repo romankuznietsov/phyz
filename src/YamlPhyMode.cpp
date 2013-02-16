@@ -21,6 +21,7 @@ void YamlPhyMode::calculate(std::string phyFileName, float duration,
         std::ios::out | std::ios::binary);
 
     float previousRecordTime = 0.0f;
+    _model.writeHeader(outputFile);
     _model.writeProgress(outputFile);
     for (float time = 0.0f; time <= duration; time += dt)
     {

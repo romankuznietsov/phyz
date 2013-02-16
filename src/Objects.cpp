@@ -125,10 +125,25 @@ void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
 }
 
 
-void Objects::writeAtomPositions(std::ofstream& outputFile)
+void Objects::writeNumberOfAtoms(std::ofstream& outputFile)
 {
     unsigned int numberOfAtoms = _atoms.size();
     outputFile.write((char*) &numberOfAtoms, sizeof(numberOfAtoms));
+}
+
+
+void Objects::writeAtomColors(std::ofstream& outputFile)
+{
+    foreach(AtomPtr atom, _atoms)
+    {
+	Color color = atom->color();
+	outputFile.write((char*) &color, sizeof(color));
+    }
+}
+
+
+void Objects::writeAtomPositions(std::ofstream& outputFile)
+{
     foreach(AtomPtr atom, _atoms)
     {
 	Vector position = atom->position();

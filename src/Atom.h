@@ -23,6 +23,7 @@ class Atom
 	void applyForce(Vector force);
 	Vector position();
 	Vector speed();
+	Color color();
 
 	static float radius();
 	static float mass();

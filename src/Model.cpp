@@ -42,6 +42,13 @@ void Model::draw(float width, float height)
 }
 
 
+void Model::writeHeader(std::ofstream& outputFile)
+{
+    _objects.writeNumberOfAtoms(outputFile);
+    _objects.writeAtomColors(outputFile);
+}
+
+
 void Model::writeProgress(std::ofstream& outputFile)
 {
     _objects.writeAtomPositions(outputFile);
