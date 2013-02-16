@@ -15,10 +15,10 @@ AtomIndex::AtomIndex()
 	_cellNumber = static_cast<unsigned int>(indexRange / Atom::collisionDistance());
 	_indexOffset = _cellNumber / 2;
 	_index.resize(_cellNumber);
-	for (unsigned int xi = 0; xi < _cellNumber; xi++)
+	for (unsigned int xi = 0; xi < _cellNumber; ++xi)
 	{
 		_index[xi].resize(_cellNumber);
-		for (unsigned int yi = 0; yi < _cellNumber; yi++)
+		for (unsigned int yi = 0; yi < _cellNumber; ++yi)
 		{
 			_index[xi][yi].reserve(cellSize);
 		}
@@ -28,8 +28,8 @@ AtomIndex::AtomIndex()
 
 void AtomIndex::update(const AtomPtrVector& atoms)
 {
-	for (unsigned int xi = 0; xi < _cellNumber; xi++)
-		for (unsigned int yi = 0; yi < _cellNumber; yi++)
+	for (unsigned int xi = 0; xi < _cellNumber; ++xi)
+		for (unsigned int yi = 0; yi < _cellNumber; ++yi)
 			_index[xi][yi].clear();
 
 	foreach(AtomPtr atom, atoms)
@@ -62,9 +62,9 @@ AtomPtrVector AtomIndex::near(const AtomPtr& atom)
 		return result;
 	}
 
-	for (unsigned int xi = x; xi <= std::min(static_cast<unsigned int>(x + 1), _cellNumber - 1); xi++)
+	for (unsigned int xi = x; xi <= std::min(static_cast<unsigned int>(x + 1), _cellNumber - 1); ++xi)
 		for (unsigned int yi = std::max(static_cast<unsigned int>(y - 1), 0u);
-				yi <= std::min(static_cast<unsigned int>(y + 1), _cellNumber - 1); yi++)
+				yi <= std::min(static_cast<unsigned int>(y + 1), _cellNumber - 1); ++yi)
 			foreach(AtomPtr atom, _index[xi][yi])
 				result.push_back(atom);
 

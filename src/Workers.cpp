@@ -4,21 +4,21 @@
 
 void Workers::updateAtoms(AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
 {
-    for (auto it = from; it != to; it++)
+    for (auto it = from; it != to; ++it)
 	(*it)->update(dt);
 }
 
 
 void Workers::updateLinks(LinkPtrVector::iterator from, LinkPtrVector::iterator to, float dt)
 {
-    for (auto it = from; it != to; it++)
+    for (auto it = from; it != to; ++it)
 	(*it)->update(dt);
 }
 
 
 void Workers::updateCollisions(AtomIndexPtr index, AtomPtrVector::iterator from, AtomPtrVector::iterator to, float dt)
 {
-    for (auto it = from; it != to; it++)
+    for (auto it = from; it != to; ++it)
     {
 	AtomPtr atom = *it;
 	AtomPtrVector near = index->near(atom);

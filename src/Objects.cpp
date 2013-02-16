@@ -112,8 +112,8 @@ void Objects::addBody(Vector position, Vector size, Vector speed, Color color,
 	offset = -offset;
     }
 
-    for (unsigned int i = 0; i < body.size() - 1; i++)
-	for (unsigned int j = i + 1; j < body.size(); j++)
+    for (unsigned int i = 0; i < body.size() - 1; ++i)
+	for (unsigned int j = i + 1; j < body.size(); ++j)
 	{
 	    Atom* atom1 = body[i];
 	    Atom* atom2 = body[j];
