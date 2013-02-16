@@ -2,9 +2,9 @@
 #include "Drawing.h"
 
 
-const float _radius = 5.0f;
-const float _mass = 1.0f;
-const float _elasticity = 3000.0f;
+const float _radius = 1.0f;
+const float _mass = 0.1f;
+const float _elasticity = 5000.0f;
 const float _collisionDistance = _radius * 2.0f;
 auto _sleepTime = boost::posix_time::milliseconds(2);
 

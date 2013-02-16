@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "Drawing.h"
 #include "Atom.h"
+#include <GL/freeglut.h>
 
 
 Player::Player()
@@ -66,10 +66,14 @@ void Player::display(int windowWidth, int windowHeight)
     glTranslatef(windowWidth / 2.0f, windowHeight / 2.0f, 0.0f);
     glScalef(1.0f, -1.0f, 1.0f);
 
+    glPointSize(Atom::radius() * 3.0f);
+    glBegin(GL_POINTS);
     for (unsigned int i = 0u; i < _numberOfAtoms; ++i)
     {
-	Drawing::sphere(_atoms[i], Atom::radius(), _colors[i]);
+	_colors[i].apply();
+	_atoms[i].vertex();
     }
+    glEnd();
 
     glPopMatrix();
 }

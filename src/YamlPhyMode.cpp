@@ -1,5 +1,6 @@
 #include "YamlPhyMode.h"
 #include <fstream>
+#include <iostream>
 
 
 YamlPhyMode::YamlPhyMode()
@@ -29,6 +30,7 @@ void YamlPhyMode::calculate(std::string phyFileName, float duration,
 	{
 	    _model.writeProgress(outputFile);
 	    previousRecordTime = time;
+	    std::cout << time << " / " << duration << std::endl;
 	}
 
         _model.update(dt);
