@@ -3,3 +3,4 @@ phyz-test
 *.o
 *.swp
 *.swo
+output.phy

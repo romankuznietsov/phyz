@@ -25,6 +25,6 @@ void Drawing::line(Vector from, Vector to, Color color)
     color.apply();
     glBegin(GL_LINES);
     from.vertex();
-    from.vertex();
+    to.vertex();
     glEnd();
 }
