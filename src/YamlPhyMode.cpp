@@ -9,32 +9,29 @@ YamlPhyMode::YamlPhyMode()
 }
 
 
-void YamlPhyMode::loadFile(std::string yamlFileName)
+void YamlPhyMode::loadFile(std::string inputFileName)
 {
-    _model.loadFile(yamlFileName);
+    _model.loadFile(inputFileName);
 }
 
 
-void YamlPhyMode::calculate(std::string phyFileName,
+void YamlPhyMode::calculate(std::string outputFileName,
 	float duration, float recordDt)
 {
-    std::ofstream outputFile(phyFileName.c_str(),
-        std::ios::out | std::ios::binary);
+    _model.setOutputFile(outputFileName);
 
     float previousRecordTime = 0.0f;
-    _model.writeHeader(outputFile);
-    _model.writeProgress(outputFile);
-    for (float time = 0.0f; time <= duration; time += _model.dt())
+    _model.writeHeader();
+    _model.writeProgress();
+    while (_model.time() <= duration)
     {
-	if (time - previousRecordTime >= recordDt)
+	if (_model.time() - previousRecordTime >= recordDt)
 	{
-	    _model.writeProgress(outputFile);
-	    previousRecordTime = time;
-	    std::cout << time << " / " << duration << std::endl;
+	    _model.writeProgress();
+	    previousRecordTime = _model.time();
+	    std::cout << _model.time() << " / " << duration << std::endl;
 	}
 
         _model.update();
     }
-
-    outputFile.close();
 }

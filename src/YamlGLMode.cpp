@@ -8,9 +8,9 @@ YamlGLMode::YamlGLMode() : _paused(true)
 }
 
 
-void YamlGLMode::loadFile(std::string yamlFileName)
+void YamlGLMode::loadFile(std::string inputFileName)
 {
-    _model.loadFile(yamlFileName);
+    _model.loadFile(inputFileName);
 }
 
 
