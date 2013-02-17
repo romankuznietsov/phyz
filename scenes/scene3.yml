@@ -1,35 +1,41 @@
-- position:
-    x: 0
-    y: 0
-  size:
-    x: 10
-    y: 200
-  speed:
-    x: 0
-    y: 0
-  color:
-    r: 0.3
-    g: 0.6
-    b: 0.1
-  density: 2
-  link_force: 10000
-  link_stretch: 1.5
-  link_damping: 10
+dt: 0.0005
+atom:
+  radius: 1
+  mass: 0.1
+  elasticity: 5000
+bodies:
+  - position:
+      x: 0
+      y: 0
+    size:
+      x: 10
+      y: 200
+    speed:
+      x: 0
+      y: 0
+    color:
+      r: 0.3
+      g: 0.6
+      b: 0.1
+    density: 2
+    link_force: 10000
+    link_stretch: 1.5
+    link_damping: 10
 
-- position:
-    x: 60
-    y: 0
-  size:
-    x: 100
-    y: 10
-  speed:
-    x: -500
-    y: 00
-  color:
-    r: 0.4
-    g: 0.4
-    b: 0.4
-  density: 2
-  link_force: 20000
-  link_stretch: 1.5
-  link_damping: 10
+  - position:
+      x: 60
+      y: 0
+    size:
+      x: 100
+      y: 10
+    speed:
+      x: -500
+      y: 00
+    color:
+      r: 0.4
+      g: 0.4
+      b: 0.4
+    density: 2
+    link_force: 20000
+    link_stretch: 1.5
+    link_damping: 10

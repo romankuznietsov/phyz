@@ -3,7 +3,6 @@ atom:
   radius: 7.0
   mass: 1.0
   elasticity: 1500
-
 bodies:
   - position:
       x: 0
