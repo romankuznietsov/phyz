@@ -20,7 +20,6 @@ class Model
 	Model();
 	~Model();
 
-	void loadFile(std::string inputFileName);
 	void setOutputFile(std::string outputFileName);
 
 	void update();
@@ -28,6 +27,10 @@ class Model
 	void writeHeader();
 	void writeProgress();
 	float time();
+	void setDt(float dt);
+	void addBody(Vector position, Vector size,  Vector speed, Color color,
+		float density, float linkForce, float linkStretch,
+		float linkDamping);
 
     private:
 	int _previousElapsedTime;
@@ -39,9 +42,6 @@ class Model
 	AtomPtrVector _atoms;
 	LinkPtrVector _links;
 
-	void addBody(Vector position, Vector size,  Vector speed, Color color,
-		float density, float linkForce, float linkStretch,
-		float linkDamping);
 
 	void updateCollisions();
 	void updateLinks();

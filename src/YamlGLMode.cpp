@@ -1,5 +1,6 @@
 #include "YamlGLMode.h"
 #include <GL/freeglut.h>
+#include "YamlLoader.h"
 
 
 YamlGLMode::YamlGLMode() : _paused(true)
@@ -10,7 +11,7 @@ YamlGLMode::YamlGLMode() : _paused(true)
 
 void YamlGLMode::loadFile(std::string inputFileName)
 {
-    _model.loadFile(inputFileName);
+    YamlLoader().load(inputFileName, _model);
 }
 
 

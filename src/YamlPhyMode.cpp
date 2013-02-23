@@ -1,6 +1,7 @@
 #include "YamlPhyMode.h"
 #include <fstream>
 #include <iostream>
+#include "YamlLoader.h"
 
 
 YamlPhyMode::YamlPhyMode()
@@ -11,7 +12,7 @@ YamlPhyMode::YamlPhyMode()
 
 void YamlPhyMode::loadFile(std::string inputFileName)
 {
-    _model.loadFile(inputFileName);
+    YamlLoader().load(inputFileName, _model);
 }
 
 
