@@ -19,16 +19,16 @@ void YamlPhyMode::loadFile(std::string inputFileName)
 void YamlPhyMode::calculate(std::string outputFileName,
 	float duration, float recordDt)
 {
-    _model.setOutputFile(outputFileName);
+    _writer.setOutput(outputFileName);
 
     float previousRecordTime = 0.0f;
-    _model.writeHeader();
-    _model.writeProgress();
+    _writer.writeHeader(_model.getAtomColors());
+    _writer.writeProgress(_model.getAtomPositions());
     while (_model.time() <= duration)
     {
 	if (_model.time() - previousRecordTime >= recordDt)
 	{
-	    _model.writeProgress();
+	    _writer.writeProgress(_model.getAtomPositions());
 	    previousRecordTime = _model.time();
 	    std::cout << _model.time() << " / " << duration << std::endl;
 	}

@@ -9,23 +9,14 @@
 #include "AtomIndex.h"
 #include "Workers.h"
 #include "DataObjects.h"
-
 #include <vector>
-#include <string>
-#include <fstream>
 
 
 class Model
 {
     public:
 	Model();
-	~Model();
-
-	void setOutputFile(std::string outputFileName);
-
 	void update();
-	void writeHeader();
-	void writeProgress();
 	float time();
 	void setDt(float dt);
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
@@ -38,7 +29,6 @@ class Model
     private:
 	float _dt;
 	float _time;
-	std::ofstream _outputFile;
 
 	AtomIndexPtr _index;
 	AtomPtrVector _atoms;

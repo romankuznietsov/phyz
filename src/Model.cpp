@@ -9,58 +9,12 @@ Model::Model() : _time(0.0f), _dt(1.0f), _index(new AtomIndex)
 {}
 
 
-Model::~Model()
-{
-    if (_outputFile.is_open())
-	_outputFile.close();
-}
-
-
 void Model::update()
 {
     _time += _dt;
     updateLinks();
     updateCollisions();
     updateAtoms();
-}
-
-
-void Model::writeHeader()
-{
-    if (!_outputFile.is_open())
-	return;
-
-    unsigned int numberOfAtoms = _atoms.size();
-    float atomRadius = Atom::radius();
-    _outputFile.write((char*) &numberOfAtoms, sizeof(numberOfAtoms));
-    _outputFile.write((char*) &atomRadius, sizeof(atomRadius));
-    foreach(AtomPtr atom, _atoms)
-    {
-	Color color = atom->color();
-	_outputFile.write((char*) &color, sizeof(color));
-    }
-}
-
-
-void Model::writeProgress()
-{
-    if (!_outputFile.is_open())
-	return;
-
-    foreach(AtomPtr atom, _atoms)
-    {
-	Vector position = atom->position();
-	_outputFile.write((char*) &position, sizeof(position));
-    }
-}
-
-
-void Model::setOutputFile(std::string outputFileName)
-{
-    if (_outputFile.is_open())
-	_outputFile.close();
-
-    _outputFile.open(outputFileName.c_str(), std::ios::out | std::ios::binary);
 }
 
 

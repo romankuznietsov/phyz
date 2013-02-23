@@ -4,6 +4,7 @@
 
 #include "burden/Burden.h"
 #include "Model.h"
+#include "PhyWriter.h"
 #include <string>
 
 
@@ -17,6 +18,7 @@ class YamlPhyMode
 
     private:
 	Model _model;
+	PhyWriter _writer;
 };
 
 
