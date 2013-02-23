@@ -15,9 +15,12 @@ class GLWindow : public Burden
 	void setAtomColors(DataObjects::Colors atomColors);
 	void display();
 	GLWindow();
+	static void glThreadFunc(GLWindow* glWindow);
+	void waitForDisplay();
 
     private:
 	boost::mutex _mutex;
+	boost::mutex _displayMutex;
 	DataObjects::Vectors _atomPositions;
 	DataObjects::VectorPairs _linkPositions;
 	DataObjects::Colors _atomColors;

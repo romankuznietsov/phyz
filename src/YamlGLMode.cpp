@@ -2,12 +2,6 @@
 #include "YamlLoader.h"
 
 
-void glThreadFunc(GLWindow* glWindow)
-{
-    glWindow->run();
-}
-
-
 YamlGLMode::YamlGLMode() : _glWindow(new GLWindow)
 {
 
@@ -28,7 +22,7 @@ void YamlGLMode::loadFile(std::string inputFileName)
 
 void YamlGLMode::run()
 {
-    boost::thread glThread(glThreadFunc, _glWindow);
+    boost::thread glThread(GLWindow::glThreadFunc, _glWindow);
     _glWindow->setAtomColors(_model.getAtomColors());
     while(_model.time() < 3.0f)
     {

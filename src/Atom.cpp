@@ -4,7 +4,6 @@
 float Atom::_radius = 1.0f;
 float Atom::_mass = 0.1f;
 float Atom::_elasticity = 5000.0f;
-auto _sleepTime = boost::posix_time::milliseconds(2);
 
 
 Atom::Atom(Vector position, Vector speed, Color color) :
@@ -28,6 +27,7 @@ void Atom::update(float dt)
 
 void Atom::applyForce(Vector force)
 {
+    static auto _sleepTime = boost::posix_time::milliseconds(2);
     while(not _applyForceLock.try_lock())
 	boost::this_thread::sleep(_sleepTime);
 

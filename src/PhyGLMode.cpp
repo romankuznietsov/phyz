@@ -1,51 +1,34 @@
 #include "PhyGLMode.h"
-#include <GL/freeglut.h>
 
 
-PhyGLMode::PhyGLMode() : _paused(true)
+PhyGLMode::PhyGLMode() : _glWindow(new GLWindow)
 {
 
+}
+
+
+PhyGLMode::~PhyGLMode()
+{
+    delete _glWindow;
 }
 
 
 void PhyGLMode::loadFile(std::string phyFileName)
 {
-    if (!_player.loadFile(phyFileName) || !_player.nextFrame())
-	quit();
+    _loader.load(phyFileName);
+    _loader.nextFrame();
 }
 
 
-void PhyGLMode::update()
+void PhyGLMode::run()
 {
-    if (!_paused && !_player.nextFrame())
-	quit();
-}
-
-
-void PhyGLMode::display()
-{
-    _player.display(_windowWidth, _windowHeight);
-}
-
-
-void PhyGLMode::keyboard(unsigned char key, int x, int y)
-{
-    switch(key)
+    boost::thread glThread(GLWindow::glThreadFunc, _glWindow);
+    _glWindow->setAtomColors(_loader.getAtomColors());
+    do
     {
-	case 27:
-	    quit();
-	    break;
-	case 'p':
-	    _paused = !_paused;
-	    break;
-	default:
-	    break;
+	_glWindow->setAtomPositions(_loader.getAtomPositions());
+	_glWindow->waitForDisplay();
     }
-}
-
-
-void PhyGLMode::reshape(int width, int height)
-{
-    _windowWidth = width;
-    _windowHeight = height;
+    while(_loader.nextFrame());
+    glThread.interrupt();
 }

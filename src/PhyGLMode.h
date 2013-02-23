@@ -3,25 +3,23 @@
 
 
 #include "burden/Burden.h"
-#include "Player.h"
+#include "GLWindow.h"
+#include "PhyLoader.h"
+#include <boost/thread.hpp>
 #include <string>
 
 
-class PhyGLMode : public Burden
+class PhyGLMode
 {
     public:
 	PhyGLMode();
+	~PhyGLMode();
 	void loadFile(std::string phyFileName);
+	void run();
 
     private:
-	bool _paused;
-	int _windowHeight;
-	int _windowWidth;
-	Player _player;
-	void update();
-	void display();
-	void keyboard(unsigned char key, int x, int y);
-	void reshape(int width, int height);
+	PhyLoader _loader;
+	GLWindow* _glWindow;
 };
 
 

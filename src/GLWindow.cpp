@@ -61,6 +61,7 @@ void GLWindow::display()
     glScalef(0.2f, -0.2f, 1.0f);
     glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
     glPopMatrix();
+    _displayMutex.unlock();
 }
 
 
@@ -94,4 +95,19 @@ void GLWindow::setAtomColors(DataObjects::Colors atomColors)
     while(!_mutex.try_lock());
     _atomColors = atomColors;
     _mutex.unlock();
+}
+
+
+void GLWindow::glThreadFunc(GLWindow* glWindow)
+{
+    glWindow->run();
+}
+
+
+void GLWindow::waitForDisplay()
+{
+    static auto _sleepTime = boost::posix_time::milliseconds(2);
+    while(not _displayMutex.try_lock())
+	boost::this_thread::sleep(_sleepTime);
+    _displayMutex.lock();
 }
