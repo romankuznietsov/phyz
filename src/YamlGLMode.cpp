@@ -1,6 +1,7 @@
 #include "YamlGLMode.h"
 #include <GL/freeglut.h>
 #include "YamlLoader.h"
+#include "stdio.h"
 
 
 YamlGLMode::YamlGLMode() : _paused(true)

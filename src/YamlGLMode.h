@@ -7,7 +7,7 @@
 #include <string>
 
 
-class YamlGLMode : public Burden::Application
+class YamlGLMode : public Burden
 {
     public:
 	YamlGLMode();

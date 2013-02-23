@@ -7,7 +7,7 @@
 #include <string>
 
 
-class PhyGLMode : public Burden::Application
+class PhyGLMode : public Burden
 {
     public:
 	PhyGLMode();
