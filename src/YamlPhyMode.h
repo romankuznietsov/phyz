@@ -2,7 +2,7 @@
 #define YAML_PHY_MODE_H
 
 
-#include "gxy/Gxy.h"
+#include "gxy/Burden.h"
 #include "Model.h"
 #include <string>
 

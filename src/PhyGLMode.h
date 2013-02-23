@@ -2,12 +2,12 @@
 #define PHY_GL_MODE_H
 
 
-#include "gxy/Gxy.h"
+#include "gxy/Burden.h"
 #include "Player.h"
 #include <string>
 
 
-class PhyGLMode : public Gxy::Application
+class PhyGLMode : public Burden::Application
 {
     public:
 	PhyGLMode();

@@ -2,12 +2,12 @@
 #define YAML_GL_MODE_H
 
 
-#include "gxy/Gxy.h"
+#include "gxy/Burden.h"
 #include "Model.h"
 #include <string>
 
 
-class YamlGLMode : public Gxy::Application
+class YamlGLMode : public Burden::Application
 {
     public:
 	YamlGLMode();
