@@ -8,6 +8,7 @@
 #include "Link.h"
 #include "AtomIndex.h"
 #include "Workers.h"
+#include "DataObjects.h"
 
 #include <vector>
 #include <string>
@@ -23,7 +24,6 @@ class Model
 	void setOutputFile(std::string outputFileName);
 
 	void update();
-	void draw(float width, float height);
 	void writeHeader();
 	void writeProgress();
 	float time();
@@ -31,9 +31,11 @@ class Model
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density, float linkForce, float linkStretch,
 		float linkDamping);
+	DataObjects::Vectors getAtomPositions();
+	DataObjects::VectorPairs getLinkPositions();
+	DataObjects::Colors getAtomColors();
 
     private:
-	int _previousElapsedTime;
 	float _dt;
 	float _time;
 	std::ofstream _outputFile;
@@ -41,7 +43,6 @@ class Model
 	AtomIndexPtr _index;
 	AtomPtrVector _atoms;
 	LinkPtrVector _links;
-
 
 	void updateCollisions();
 	void updateLinks();

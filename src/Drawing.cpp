@@ -2,10 +2,13 @@
 #include <GL/freeglut.h>
 
 
+const float pointSizeLimit = 2.0f;
+
+
 void Drawing::sphere(Vector position, float radius, Color color)
 {
     color.apply();
-    if (radius > 2.0f)
+    if (radius > pointSizeLimit)
     {
 	glPushMatrix();
 	position.translate();

@@ -1,9 +1,6 @@
 #include "Link.h"
 #include "Vector.h"
 #include "Color.h"
-#include "Drawing.h"
-
-Color color(0.5f, 0.5f, 0.5f);
 
 
 Link::Link(Atom* atom1, Atom* atom2, float force, float stretch, float damping) :
@@ -36,8 +33,13 @@ void Link::update(float dt)
 }
 
 
-void Link::draw()
+DataObjects::VectorPair Link::position()
 {
-    if (_destroyed) return;
-    Drawing::line(_atom1->position(), _atom2->position(), color);
+    return DataObjects::VectorPair(_atom1->position(), _atom2->position());
+}
+
+
+bool Link::destroyed()
+{
+    return _destroyed;
 }

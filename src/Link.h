@@ -4,6 +4,7 @@
 
 #include "Atom.h"
 #include <vector>
+#include "DataObjects.h"
 
 
 class Link
@@ -20,7 +21,8 @@ class Link
     public:
 	Link(Atom* atom1, Atom* atom2, float force, float stretch, float damping);
 	void update(float dt);
-	void draw();
+	bool destroyed();
+	DataObjects::VectorPair position();
 };
 
 

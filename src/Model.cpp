@@ -1,14 +1,11 @@
 #include "Model.h"
 #include "foreach.h"
-#include <stdio.h>
-#include <GL/freeglut.h>
 
 
 const int maxThreadNumber = 8;
 
 
-Model::Model() :
-    _previousElapsedTime(0), _time(0.0f), _dt(1.0f), _index(new AtomIndex)
+Model::Model() : _time(0.0f), _dt(1.0f), _index(new AtomIndex)
 {}
 
 
@@ -25,37 +22,6 @@ void Model::update()
     updateLinks();
     updateCollisions();
     updateAtoms();
-}
-
-
-void Model::draw(float width, float height)
-{
-    glPushMatrix();
-    glTranslatef(width / 2.0f, height / 2.0f, 0.0f);
-    glScalef(1.0f, -1.0f, 1.0f);
-
-    foreach(Link* link, _links)
-	link->draw();
-
-    foreach(Atom* atom, _atoms)
-	atom->draw();
-
-    glPopMatrix();
-
-    int elapsedTime = glutGet(GLUT_ELAPSED_TIME);
-    int dt = elapsedTime - _previousElapsedTime;
-    _previousElapsedTime = elapsedTime;
-
-    char c[32];
-    sprintf(c, "%i", dt);
-
-    glColor3f(1.0f, 1.0f, 1.0f);
-    glPushMatrix();
-    glTranslatef(width - 60.0f, height -  10.0f, 0.0f);
-    glScalef(0.2f, -0.2f, 1.0f);
-    glutStrokeString(GLUT_STROKE_ROMAN, (unsigned char *)c);
-    glPopMatrix();
-
 }
 
 
@@ -207,4 +173,38 @@ float Model::time()
 void Model::setDt(float dt)
 {
     _dt = dt;
+}
+
+
+DataObjects::Vectors Model::getAtomPositions()
+{
+    DataObjects::Vectors result;
+    foreach (AtomPtr atom, _atoms)
+    {
+	result.push_back(atom->position());
+    }
+    return result;
+}
+
+
+DataObjects::VectorPairs Model::getLinkPositions()
+{
+    DataObjects::VectorPairs result;
+    foreach (LinkPtr link, _links)
+    {
+	if (not link->destroyed())
+	result.push_back(link->position());
+    }
+    return result;
+}
+
+
+DataObjects::Colors Model::getAtomColors()
+{
+    DataObjects::Colors result;
+    foreach (AtomPtr atom, _atoms)
+    {
+	result.push_back(atom->color());
+    }
+    return result;
 }

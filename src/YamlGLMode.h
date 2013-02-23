@@ -2,27 +2,23 @@
 #define YAML_GL_MODE_H
 
 
-#include "burden/Burden.h"
-#include "Model.h"
+#include "GLWindow.h"
+#include <boost/thread.hpp>
 #include <string>
+#include "Model.h"
 
 
-class YamlGLMode : public Burden
+class YamlGLMode
 {
     public:
 	YamlGLMode();
+	~YamlGLMode();
 	void loadFile(std::string inputFileName);
+	void run();
 
     private:
-	bool _paused;
-	int _windowHeight;
-	int _windowWidth;
 	Model _model;
-
-	void update();
-	void display();
-	void keyboard(unsigned char key, int x, int y);
-	void reshape(int width, int height);
+	GLWindow* _glWindow;
 };
 
 

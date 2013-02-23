@@ -1,5 +1,4 @@
 #include "Atom.h"
-#include "Drawing.h"
 
 
 float Atom::_radius = 1.0f;
@@ -24,12 +23,6 @@ void Atom::setup(float radius, float mass, float elasticity)
 void Atom::update(float dt)
 {
     _position += _speed * dt;
-}
-
-
-void Atom::draw()
-{
-    Drawing::sphere(_position, _radius, _color);
 }
 
 

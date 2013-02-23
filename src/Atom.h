@@ -23,7 +23,6 @@ class Atom
     public:
 	Atom(Vector position, Vector speed, Color color);
 	void update(float dt);
-	void draw();
 	void applyForce(Vector force);
 	Vector position();
 	Vector speed();

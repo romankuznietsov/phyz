@@ -1,12 +1,22 @@
 #include "YamlGLMode.h"
-#include <GL/freeglut.h>
 #include "YamlLoader.h"
-#include "stdio.h"
 
 
-YamlGLMode::YamlGLMode() : _paused(true)
+void glThreadFunc(GLWindow* glWindow)
+{
+    glWindow->run();
+}
+
+
+YamlGLMode::YamlGLMode() : _glWindow(new GLWindow)
 {
 
+}
+
+
+YamlGLMode::~YamlGLMode()
+{
+    delete _glWindow;
 }
 
 
@@ -16,37 +26,15 @@ void YamlGLMode::loadFile(std::string inputFileName)
 }
 
 
-void YamlGLMode::update()
+void YamlGLMode::run()
 {
-    if (!_paused)
-	_model.update();
-}
-
-
-void YamlGLMode::display()
-{
-    _model.draw(_windowWidth, _windowHeight);
-}
-
-
-void YamlGLMode::keyboard(unsigned char key, int x, int y)
-{
-    switch(key)
+    boost::thread glThread(glThreadFunc, _glWindow);
+    _glWindow->setAtomColors(_model.getAtomColors());
+    while(_model.time() < 3.0f)
     {
-	case 27:
-	    quit();
-	    break;
-	case 'p':
-	    _paused = !_paused;
-	    break;
-	default:
-	    break;
+	_model.update();
+	_glWindow->setAtomPositions(_model.getAtomPositions());
+	_glWindow->setLinkPositions(_model.getLinkPositions());
     }
-}
-
-
-void YamlGLMode::reshape(int width, int height)
-{
-    _windowWidth = width;
-    _windowHeight = height;
+    glThread.interrupt();
 }
