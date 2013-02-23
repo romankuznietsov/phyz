@@ -2,7 +2,7 @@
 #define YAML_GL_MODE_H
 
 
-#include "gxy/Burden.h"
+#include "burden/Burden.h"
 #include "Model.h"
 #include <string>
 

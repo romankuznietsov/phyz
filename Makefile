@@ -17,7 +17,7 @@ obj/%.o : src/%.cpp
 
 .PHONY: objdir
 objdir:
-	-mkdir -p obj/gxy
+	-mkdir -p obj/burden
 
 .PHONY: clean
 clean :

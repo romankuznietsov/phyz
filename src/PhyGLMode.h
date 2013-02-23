@@ -2,7 +2,7 @@
 #define PHY_GL_MODE_H
 
 
-#include "gxy/Burden.h"
+#include "burden/Burden.h"
 #include "Player.h"
 #include <string>
 
