@@ -19,16 +19,16 @@ void GLWindow::display()
     boost::this_thread::interruption_point();
 
     while(!_mutex.try_lock());
-    DataObjects::Vectors atomPositions = _atomPositions;
-    DataObjects::VectorPairs linkPositions = _linkPositions;
-    DataObjects::Colors atomColors = _atomColors;
+    CommonTypes::Vectors atomPositions = _atomPositions;
+    CommonTypes::VectorPairs linkPositions = _linkPositions;
+    CommonTypes::Colors atomColors = _atomColors;
     _mutex.unlock();
 
     glPushMatrix();
     glTranslatef(_width / 2.0f, _height / 2.0f, 0.0f);
     glScalef(1.0f, -1.0f, 1.0f);
 
-    foreach (DataObjects::VectorPair vp, linkPositions)
+    foreach (CommonTypes::VectorPair vp, linkPositions)
 	Drawing::line(vp.first, vp.second, linkColor);
 
     if (atomPositions.size() == atomColors.size())
@@ -65,7 +65,7 @@ void GLWindow::display()
 }
 
 
-void GLWindow::setAtomPositions(DataObjects::Vectors atomPositions)
+void GLWindow::setAtomPositions(CommonTypes::Vectors atomPositions)
 {
     boost::this_thread::interruption_point();
 
@@ -82,7 +82,7 @@ void GLWindow::reshape(int width, int height)
 }
 
 
-void GLWindow::setLinkPositions(DataObjects::VectorPairs linkPositions)
+void GLWindow::setLinkPositions(CommonTypes::VectorPairs linkPositions)
 {
     while(!_mutex.try_lock());
     _linkPositions = linkPositions;
@@ -90,7 +90,7 @@ void GLWindow::setLinkPositions(DataObjects::VectorPairs linkPositions)
 }
 
 
-void GLWindow::setAtomColors(DataObjects::Colors atomColors)
+void GLWindow::setAtomColors(CommonTypes::Colors atomColors)
 {
     while(!_mutex.try_lock());
     _atomColors = atomColors;

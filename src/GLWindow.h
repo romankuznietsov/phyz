@@ -4,26 +4,26 @@
 
 #include <boost/thread.hpp>
 #include "burden/Burden.h"
-#include "DataObjects.h"
+#include "CommonTypes.h"
 
 
 class GLWindow : public Burden
 {
     public:
-	void setAtomPositions(DataObjects::Vectors atomPositions);
-	void setLinkPositions(DataObjects::VectorPairs linkPositions);
-	void setAtomColors(DataObjects::Colors atomColors);
-	void display();
 	GLWindow();
+	void setAtomPositions(CommonTypes::Vectors atomPositions);
+	void setLinkPositions(CommonTypes::VectorPairs linkPositions);
+	void setAtomColors(CommonTypes::Colors atomColors);
+	void display();
 	static void glThreadFunc(GLWindow* glWindow);
 	void waitForDisplay();
 
     private:
 	boost::mutex _mutex;
 	boost::mutex _displayMutex;
-	DataObjects::Vectors _atomPositions;
-	DataObjects::VectorPairs _linkPositions;
-	DataObjects::Colors _atomColors;
+	CommonTypes::Vectors _atomPositions;
+	CommonTypes::VectorPairs _linkPositions;
+	CommonTypes::Colors _atomColors;
 	int _height;
 	int _width;
 	void reshape(int width, int height);

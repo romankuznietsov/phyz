@@ -5,7 +5,7 @@
 const int maxThreadNumber = 8;
 
 
-Model::Model() : _time(0.0f), _dt(1.0f), _index(new AtomIndex)
+Model::Model() : _dt(1.0f), _time(0.0f), _index(new AtomIndex)
 {}
 
 
@@ -130,9 +130,9 @@ void Model::setDt(float dt)
 }
 
 
-DataObjects::Vectors Model::getAtomPositions()
+CommonTypes::Vectors Model::getAtomPositions()
 {
-    DataObjects::Vectors result;
+    CommonTypes::Vectors result;
     foreach (AtomPtr atom, _atoms)
     {
 	result.push_back(atom->position());
@@ -141,9 +141,9 @@ DataObjects::Vectors Model::getAtomPositions()
 }
 
 
-DataObjects::VectorPairs Model::getLinkPositions()
+CommonTypes::VectorPairs Model::getLinkPositions()
 {
-    DataObjects::VectorPairs result;
+    CommonTypes::VectorPairs result;
     foreach (LinkPtr link, _links)
     {
 	if (not link->destroyed())
@@ -153,9 +153,9 @@ DataObjects::VectorPairs Model::getLinkPositions()
 }
 
 
-DataObjects::Colors Model::getAtomColors()
+CommonTypes::Colors Model::getAtomColors()
 {
-    DataObjects::Colors result;
+    CommonTypes::Colors result;
     foreach (AtomPtr atom, _atoms)
     {
 	result.push_back(atom->color());

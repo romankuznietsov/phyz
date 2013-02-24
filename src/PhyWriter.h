@@ -2,7 +2,7 @@
 #define PHY_WRITER_H
 
 
-#include "DataObjects.h"
+#include "CommonTypes.h"
 #include <fstream>
 #include <string>
 
@@ -13,8 +13,8 @@ class PhyWriter
 	PhyWriter();
 	~PhyWriter();
 	void setOutput(std::string fileName);
-	void writeHeader(DataObjects::Colors atomColors);
-	void writeProgress(DataObjects::Vectors atomPositions);
+	void writeHeader(CommonTypes::Colors atomColors);
+	void writeProgress(CommonTypes::Vectors atomPositions);
 
     private:
 	std::ofstream _outputFile;

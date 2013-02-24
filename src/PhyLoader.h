@@ -4,7 +4,7 @@
 
 #include <string>
 #include <fstream>
-#include "DataObjects.h"
+#include "CommonTypes.h"
 
 
 class PhyLoader
@@ -14,14 +14,14 @@ class PhyLoader
 	~PhyLoader();
 	bool load(std::string fileName);
 	bool nextFrame();
-	DataObjects::Vectors getAtomPositions();
-	DataObjects::Colors getAtomColors();
+	CommonTypes::Vectors getAtomPositions();
+	CommonTypes::Colors getAtomColors();
 
     private:
 	std::ifstream _inputFile;
 	unsigned int _numberOfAtoms;
-	DataObjects::Vectors _atoms;
-	DataObjects::Colors _colors;
+	CommonTypes::Vectors _atoms;
+	CommonTypes::Colors _colors;
 	bool readHeader();
 };
 

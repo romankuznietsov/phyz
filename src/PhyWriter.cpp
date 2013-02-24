@@ -25,7 +25,7 @@ void PhyWriter::setOutput(std::string fileName)
 }
 
 
-void PhyWriter::writeHeader(DataObjects::Colors atomColors)
+void PhyWriter::writeHeader(CommonTypes::Colors atomColors)
 {
 
     if (!_outputFile.is_open())
@@ -42,7 +42,7 @@ void PhyWriter::writeHeader(DataObjects::Colors atomColors)
 }
 
 
-void PhyWriter::writeProgress(DataObjects::Vectors atomPositions)
+void PhyWriter::writeProgress(CommonTypes::Vectors atomPositions)
 {
     if (!_outputFile.is_open())
 	return;

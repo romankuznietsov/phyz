@@ -8,7 +8,7 @@
 #include "Link.h"
 #include "AtomIndex.h"
 #include "Workers.h"
-#include "DataObjects.h"
+#include "CommonTypes.h"
 #include <vector>
 
 
@@ -22,9 +22,9 @@ class Model
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
 		float density, float mass, float linkForce, float linkStretch,
 		float linkDamping);
-	DataObjects::Vectors getAtomPositions();
-	DataObjects::VectorPairs getLinkPositions();
-	DataObjects::Colors getAtomColors();
+	CommonTypes::Vectors getAtomPositions();
+	CommonTypes::VectorPairs getLinkPositions();
+	CommonTypes::Colors getAtomColors();
 
     private:
 	float _dt;

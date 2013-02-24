@@ -33,9 +33,9 @@ void Link::update(float dt)
 }
 
 
-DataObjects::VectorPair Link::position()
+CommonTypes::VectorPair Link::position()
 {
-    return DataObjects::VectorPair(_atom1->position(), _atom2->position());
+    return CommonTypes::VectorPair(_atom1->position(), _atom2->position());
 }
 
 

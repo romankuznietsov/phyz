@@ -64,13 +64,13 @@ bool PhyLoader::nextFrame()
 }
 
 
-DataObjects::Vectors PhyLoader::getAtomPositions()
+CommonTypes::Vectors PhyLoader::getAtomPositions()
 {
     return _atoms;
 }
 
 
-DataObjects::Colors PhyLoader::getAtomColors()
+CommonTypes::Colors PhyLoader::getAtomColors()
 {
     return _colors;
 }

@@ -1,5 +1,5 @@
-#ifndef DATA_OBJECTS_H
-#define DATA_OBJECTS_H
+#ifndef COMMON_TYPES_H
+#define COMMON_TYPES_H
 
 
 #include <vector>
@@ -7,7 +7,7 @@
 #include "Color.h"
 
 
-namespace DataObjects
+namespace CommonTypes
 {
     typedef std::vector<Vector> Vectors;
     typedef std::vector<Color> Colors;
@@ -16,4 +16,4 @@ namespace DataObjects
 }
 
 
-#endif // DATA_OBJECTS_H
+#endif // COMMON_TYPES_H

@@ -4,7 +4,7 @@
 
 #include "Atom.h"
 #include <vector>
-#include "DataObjects.h"
+#include "CommonTypes.h"
 
 
 class Link
@@ -22,7 +22,7 @@ class Link
 	Link(Atom* atom1, Atom* atom2, float force, float stretch, float damping);
 	void update(float dt);
 	bool destroyed();
-	DataObjects::VectorPair position();
+	CommonTypes::VectorPair position();
 };
 
 
