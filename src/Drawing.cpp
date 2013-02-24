@@ -2,7 +2,7 @@
 #include <GL/freeglut.h>
 
 
-const float pointSizeLimit = 2.0f;
+const float pointSizeLimit = 4.0f;
 
 
 void Drawing::sphere(Vector position, float radius, Color color)

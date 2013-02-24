@@ -1,10 +1,10 @@
-dt: 0.005
+dt: 0.001
 atom:
-  radius: 5
-  elasticity: 1500
+  radius: 3
+  elasticity: 5000
 bodies:
   - position:
-      x: 250
+      x: 180
       y: 0
     size:
       x: 100
@@ -16,9 +16,9 @@ bodies:
       r: 0.2
       g: 0.2
       b: 0.2
-    mass: 1
-    density: 10
-    link_force: 9000
+    mass: 0.5
+    density: 6
+    link_force: 25000
     link_stretch: 1.2
     link_damping: 10
 
@@ -30,14 +30,14 @@ bodies:
       y: 100
     speed:
       x: 0
-      y: -300
+      y: -400
     color:
       r: 0.7
       g: 0.7
       b: 0.7
-    mass: 1
-    density: 10
-    link_force: 9000
+    mass: 0.5
+    density: 6
+    link_force: 25000
     link_stretch: 1.2
     link_damping: 10
 
@@ -55,7 +55,7 @@ bodies:
       g: 0.3
       b: 0.3
     mass: 10
-    density: 10
-    link_force: 9000
+    density: 6
+    link_force: 15000
     link_stretch: 1.05
     link_damping: 100
