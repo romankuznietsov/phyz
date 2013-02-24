@@ -19,7 +19,7 @@ void Model::update()
 
 
 void Model::addBody(Vector position, Vector size,  Vector speed, Color color,
-		float density, float linkForce, float linkStretch,
+		float density, float mass, float linkForce, float linkStretch,
 		float linkDamping)
 {
     std::vector<Atom*> body;
@@ -33,7 +33,7 @@ void Model::addBody(Vector position, Vector size,  Vector speed, Color color,
 	for (float y = start.y; y <= end.y; y += density)
 	{
 	    Atom* atom = new Atom(Vector(x, y + offset * density / 4.0f),
-		    speed, color);
+		    speed, color, mass);
 	    _atoms.push_back(atom);
 	    body.push_back(atom);
 	}

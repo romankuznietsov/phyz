@@ -20,7 +20,7 @@ class Model
 	float time();
 	void setDt(float dt);
 	void addBody(Vector position, Vector size,  Vector speed, Color color,
-		float density, float linkForce, float linkStretch,
+		float density, float mass, float linkForce, float linkStretch,
 		float linkDamping);
 	DataObjects::Vectors getAtomPositions();
 	DataObjects::VectorPairs getLinkPositions();

@@ -32,7 +32,7 @@ bool PhyLoader::readHeader()
    if (!_inputFile.read(reinterpret_cast<char*>(&atomRadius),
 	   sizeof(atomRadius)))
        return false;
-   Atom::setup(atomRadius, 0.0f, 0.0f);
+   Atom::setup(atomRadius, 0.0f);
 
    _atoms.reserve(_numberOfAtoms);
    _colors.reserve(_numberOfAtoms);

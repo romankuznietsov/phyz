@@ -2,19 +2,17 @@
 
 
 float Atom::_radius = 1.0f;
-float Atom::_mass = 0.1f;
 float Atom::_elasticity = 5000.0f;
 
 
-Atom::Atom(Vector position, Vector speed, Color color) :
-    _position(position), _speed(speed), _color(color)
+Atom::Atom(Vector position, Vector speed, Color color, float mass) :
+    _position(position), _speed(speed), _color(color), _mass(mass)
 {}
 
 
-void Atom::setup(float radius, float mass, float elasticity)
+void Atom::setup(float radius, float elasticity)
 {
     _radius = radius;
-    _mass = mass;
     _elasticity = elasticity;
 }
 

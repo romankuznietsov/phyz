@@ -1,7 +1,6 @@
 dt: 0.001
 atom:
   radius: 1.0
-  mass: 0.1
   elasticity: 5000
 bodies:
   - position:
@@ -18,6 +17,7 @@ bodies:
       g: 0.2
       b: 0.2
     density: 2
+    mass: 0.1
     link_force: 20000
     link_stretch: 1.2
     link_damping: 10
@@ -36,6 +36,7 @@ bodies:
       g: 0.7
       b: 0.7
     density: 2
+    mass: 0.1
     link_force: 20000
     link_stretch: 1.2
     link_damping: 10
@@ -54,6 +55,7 @@ bodies:
       g: 0.3
       b: 0.3
     density: 2
+    mass: 0.1
     link_force: 20000
     link_stretch: 1.05
     link_damping: 100

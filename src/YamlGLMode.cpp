@@ -24,7 +24,7 @@ void YamlGLMode::run()
 {
     boost::thread glThread(GLWindow::glThreadFunc, _glWindow);
     _glWindow->setAtomColors(_model.getAtomColors());
-    while(_model.time() < 3.0f)
+    while(true)
     {
 	_model.update();
 	_glWindow->setAtomPositions(_model.getAtomPositions());

@@ -29,14 +29,12 @@ bool YamlLoader::load(std::string fileName, Model& model)
 	const YAML::Node& atomNode = doc["atom"];
 
 	float atomRadius;
-	float atomMass;
 	float atomElasticity;
 
 	atomNode["radius"] >> atomRadius;
-	atomNode["mass"] >> atomMass;
 	atomNode["elasticity"] >> atomElasticity;
 
-	Atom::setup(atomRadius, atomMass, atomElasticity);
+	Atom::setup(atomRadius, atomElasticity);
 
 	const YAML::Node& bodiesNode = doc["bodies"];
 	for (YAML::Iterator it = bodiesNode.begin();
@@ -71,8 +69,10 @@ bool YamlLoader::load(std::string fileName, Model& model)
 	    (*it)["link_stretch"] >> linkStretch;
 	    float linkDamping;
 	    (*it)["link_damping"] >> linkDamping;
+	    float mass;
+	    (*it)["mass"] >> mass;
 
-	    model.addBody(position, size, speed, color, density,
+	    model.addBody(position, size, speed, color, density, mass,
 		    linkForce, linkStretch, linkDamping);
 	}
     }
